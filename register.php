@@ -1,6 +1,6 @@
 <?php
-// Include config file
-require_once "config.php";
+// Include connect file
+require_once "connection.php";
  
 // Define variables and initialize with empty values
 $email = $password = $confirm_password = $first_name = $last_name = $country= $state= $city=$phone_no="";
@@ -13,19 +13,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["email"]))){
         $email_err = "Please enter a email.";
     } else{
-        // Prepare a select statement
         $sql = "SELECT user_id FROM customer WHERE email = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_email);
             
-            // Set parameters
             $param_email = trim($_POST["email"]);
             
-            // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                /* store result */
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
@@ -36,8 +31,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-
-            // Close statement
             mysqli_stmt_close($stmt);
         }
     }
@@ -76,21 +69,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else{
         $last_name = trim($_POST["last_name"]);
     }
+
     
+    $country = $_POST["country"];
+    $state = $_POST["state"];
+    $city = $_POST["city"];
+    $phone_no = $_POST["phone_no"];
     
     // Check input errors before inserting in database
     if(empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($first_name_err) && empty($last_name_err))
     {
-        
-        // Prepare an insert statement
-        $sql = "INSERT INTO customer (email,first_name,last_name, password,country, state, city) VALUES (?, ?, ?, ?,?,?,?)";"INSERT INTO phone_no (phone_no,user_id) VALUES (?, ?)";
+        $sql = "INSERT INTO customer (email, first_name, last_name, password, country, state, city) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
 
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sssssss", $param_email, $param_first_name, $param_last_name, $param_password, $param_country, $param_state, $param_city);
             
-            // Set parameters
             $param_email = $email;
             $param_first_name = $first_name;
             $param_last_name = $last_name;
@@ -99,35 +93,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_state = $state;
             $param_city = $city;
             $param_phone_no = $phone_no;
-            $param_user_id ="SELECT user_id FROM customer WHERE email = $email";
-           /*
-            $sql1 = "INSERT INTO phone_no (phone_no,user_id) VALUES (?, ?)";
-            if($stmt1 = mysqli_prepare($link, $sql1)){
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt1, "sd", $param_phone_no, $param_user_id);
-                
-                // Set parameters
-                $param_phone_no = $phone_no;
-                $param_user_id ="SELECT user_id FROM customer WHERE email = $email";
-            }*/
-            // Attempt to execute the prepared statement
+
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("location: login.php");
+                if(!empty($phone_no)){
+                    // Get user_id of new user
+                    $sql = "SELECT user_id FROM customer WHERE email=?";
+                    
+                    if($stmt1 = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt1, "s", $param_email);
+                        
+                        $param_email = $email;
+                        
+                        if(mysqli_stmt_execute($stmt1)){
+                            mysqli_stmt_store_result($stmt1);
+                            
+                            // Check if username exists, if yes then verify password
+                            if(mysqli_stmt_num_rows($stmt1) == 1){     
+                                mysqli_stmt_bind_result($stmt1, $user_id);
+                                if(mysqli_stmt_fetch($stmt1)){
+                                    $param_user_id = $user_id;
+                                    
+                                    // Add phone numbers
+                                    $sql = "INSERT INTO phone_no (phone_no,user_id) VALUES (?, ?)";
+                                    if($stmt2 = mysqli_prepare($link, $sql)){
+                                        mysqli_stmt_bind_param($stmt2, "sd", $param_phone_no, $param_user_id);
+                            
+                                        if(mysqli_stmt_execute($stmt2)){
+                                            // Redirect to login page
+                                            header("location: login.php");
+                                        } else{
+                                            echo "Oops! Something went wrong. Please try again later.";
+                                        }
+                                        mysqli_stmt_close($stmt2);            
+                                    }
+                                }
+                            }
+                            mysqli_stmt_close($stmt1);
+                        } else{
+                            echo "Oops! Something went wrong. Please try again later.";
+                        }
+                    }
+                }
+
             } else{
                 echo "Something went wrong. Please try again later.";
             }
-
-            // Close statement
             mysqli_stmt_close($stmt);
         }
-
-
     }
-
-    
-    // Close connection
     mysqli_close($link);
+
 }
 ?>
  
