@@ -74,7 +74,7 @@ $sql = "CREATE TABLE IF NOT EXISTS book (
 	book_id INT NOT NULL AUTO_INCREMENT,
     user_id INT,
     title VARCHAR(255) NOT NULL,
-    cover_image BLOB,
+    cover_image varchar(255) COLLATE utf8_unicode_ci,
     info VARCHAR(500),
     author VARCHAR(255),
     lang VARCHAR(255),
