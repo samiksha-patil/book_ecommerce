@@ -7,7 +7,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
     $param_id = trim($_GET["id"]);
     $type="";
-    // Get images from the database
     $query = $link->query("SELECT * FROM book WHERE book_id = $param_id");
     if($query->num_rows > 0){
         $row = $query->fetch_assoc();
@@ -97,7 +96,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <?php } ?>
                     <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
                 </div>
-                <img src="uploads/<?php echo $row["cover_image"]; ?>">
+                <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
             </div>        
         </div>
     </div>
