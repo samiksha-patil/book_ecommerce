@@ -10,8 +10,6 @@ require_once "connection.php";
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type =$title="";
-$sale = 'sale';
-$rent ='rent';
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -33,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     else{
        
         $type = $_POST['type'];
-            if($type==$sale){
+            if($type=="sale"){
                 if(empty(trim($_POST['price']))){
                 $price_err = "please enter the price"; 
                 }
@@ -42,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             }
         }
             
-            if($type==$rent){
+            if($type=="rent"){
                 if(empty(trim($_POST['rate']))){
                 $rate_err = "please enter the monthly rate";
                 } 
@@ -80,17 +78,18 @@ $sql = "INSERT INTO book (user_id,title, cover_image, info, author, lang, no_of_
 
 if(mysqli_query($link, $sql))
 {
-    if($type==$sale)
+    if($type=="sale")
     {
-    $sql1 = "INSERT INTO book_for_sale (book_id,price, discount_price) VALUES ( LAST_INSERT_ID(),'$price','$discount_price')";
+    $sql1 = "INSERT INTO book_for_sale (book_id, price) VALUES (LAST_INSERT_ID(),'$price')";
     if(mysqli_query($link, $sql1))
     {
     echo "Records added successfully.";
-    }
+    // header("location: welcome.php");
+}
     } 
-    if($type==$rent)
+    if($type=="rent")
     {
-    $sql1 = "INSERT INTO book_for_rent (book_id,monthly_rate) VALUES ( LAST_INSERT_ID(),'$rate')";
+    $sql1 = "INSERT INTO book_for_rent (book_id,monthly_rate) VALUES (LAST_INSERT_ID(),'$rate')";
     if(mysqli_query($link, $sql1))
     {
     echo "Book added successfully.";
@@ -122,31 +121,29 @@ mysqli_close($link);
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
     <div class="form-group <?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
     <label>Title:</label>
-    <input type="text" name="title" class="form-control">
+    <input type="text" name="title" class="form-control" required>
     <span class="help-block"><?php echo $title_err; ?></span>
     </div>
     <label>Description:</label>
-    <input type="text" name="info" class="form-control">
+    <input type="text" name="info" class="form-control" required>
     <input type="file" name="file">
     <label>Author:</label>
-    <input type="text" name="author" class="form-control">
+    <input type="text" name="author" class="form-control"required>
     <label>Language:</label>
-    <input type="text" name="language" class="form-control" >
+    <input type="text" name="language" class="form-control" required>
     <label>No. of pages:</label>
-    <input type="text" name="pages" class="form-control" >
+    <input type="number" name="pages" class="form-control" required>
     <br><br>
     <div class="form-group <?php echo (!empty($type_err)) ? 'has-error' : ''; ?>">
-    <label>rent</label><input type="radio"  name="type" value ="rent" id="rent" onclick="javascript:BooktypeCheck();"> 
-    <label>sale</label><input type="radio" name="type" value="sale" id="sale"onclick="javascript:BooktypeCheck();">
+    <label>rent</label><input type="radio" name="type" value="rent" id="rent" onclick="javascript:BooktypeCheck();" required> 
+    <label>sale</label><input type="radio" name="type" value="sale" id="sale" onclick="javascript:BooktypeCheck();" required>
     <span class="help-block"><?php echo $type_err; ?></span><br>
     </div>
 <div class="form-group <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
 <span class="help-block"><?php echo $price_err; ?></span>
 <div id="for_sale">
     <label>Price:</label>
-    <input type="text" name="price" class="form-control" >
-    <label>Discount Price:</label>
-    <input type="text" name="discount_price" class="form-control" >
+    <input type="text" name="price" id="price" class="form-control" required>
     </div>   
 </div>
 <div class="form-group <?php echo (!empty($rate_err)) ? 'has-error' : ''; ?>">
@@ -154,7 +151,7 @@ mysqli_close($link);
 <div id="for_rent">
     
     <label>Monthly rate:</label>
-    <input type="text" name="rate" class="form-control" >
+    <input type="text" id="rate" name="rate" class="form-control" required>
     </div>
       
 </div>
@@ -171,11 +168,14 @@ document.getElementById('for_rent').style.display = 'none';
             if (document.getElementById('sale').checked) {
                 document.getElementById('for_sale').style.display = 'block';
                 document.getElementById('for_rent').style.display = 'none';
+                document.getElementById('rate').required = false;
+                document.getElementById('price').required = true;
             }
             else if (document.getElementById('rent').checked) {
-              
                 document.getElementById('for_sale').style.display = 'none'
                 document.getElementById('for_rent').style.display = 'block';
+                document.getElementById('price').required = false;
+                document.getElementById('rate').required = true;
             }
             
         }
