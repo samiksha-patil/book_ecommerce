@@ -31,7 +31,7 @@
                         <a href="book_form.php" class="btn btn-success pull-right">sell or rent a book</a>
                     </div>
                     <?php
-                    include 'Config.php';
+                    include 'connection.php';
                     session_start();
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         header("location: login.php");
