@@ -6,10 +6,23 @@ include 'connection.php';
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
 
     $param_id = trim($_GET["id"]);
+    $type="";
     // Get images from the database
     $query = $link->query("SELECT * FROM book WHERE book_id = $param_id");
     if($query->num_rows > 0){
         $row = $query->fetch_assoc();
+        $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $param_id");
+        if($query->num_rows > 0){
+            $type="rent";
+            $rent_row = $query->fetch_assoc();
+        }
+        else {
+            $query = $link->query("SELECT * FROM book_for_sale WHERE book_id = $param_id");
+            if($query->num_rows > 0){
+                $type="sale";
+                $sale_row = $query->fetch_assoc();
+            }
+        }
     }
     else {
         header("location: error.php");
@@ -59,9 +72,32 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <label>No. of pages</label>
                         <p class="form-control-static"><?php echo $row["no_of_pages"]; ?></p>
                     </div>
-                    <img src="uploads/<?php echo $row["cover_image"]; ?>">
+                    <?php if($type=="rent") { ?>
+                    <div class="form-group">
+                        <label>Rate per month</label>
+                        <p class="form-control-static"><?php echo $rent_row["monthly_rate"]; ?></p>
+                    </div>
+                    <div class="form-group">
+                        <?php if($rent_row["is_available"]) {?> Available 
+                        <?php } else { ?> Rented <?php } ?>
+                    </div>
+                    <?php } else { ?>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <p class="form-control-static"><?php echo $sale_row["price"]; ?></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Discount Price</label>
+                        <p class="form-control-static"><?php echo $sale_row["discount_price"]; ?></p>
+                    </div>
+                    <div class="form-group">
+                        <?php if($sale_row["cart_item_id"]) {?> Sold out 
+                        <?php } else ?> Available
+                    </div>
+                    <?php } ?>
                     <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
                 </div>
+                <img src="uploads/<?php echo $row["cover_image"]; ?>">
             </div>        
         </div>
     </div>
