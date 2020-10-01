@@ -60,6 +60,7 @@ $sql = "CREATE TABLE IF NOT EXISTS phone_no (
     user_id INT NOT NULL,
     PRIMARY KEY (phone_no),
     FOREIGN KEY (user_id) REFERENCES customer(user_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Phone number table created successfully";
@@ -97,6 +98,7 @@ $sql = "CREATE TABLE IF NOT EXISTS cart_item (
     user_id INT NOT NULL,
     PRIMARY KEY (cart_item_id),
     FOREIGN KEY (user_id) REFERENCES customer(user_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Cart item table created successfully";
@@ -114,6 +116,7 @@ $sql = "CREATE TABLE IF NOT EXISTS book_for_sale(
     book_id INT NOT NULL,
     FOREIGN KEY (cart_item_id) REFERENCES cart_item(cart_item_id),
     FOREIGN KEY (book_id) REFERENCES book(book_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Book for sale table created successfully";
@@ -126,10 +129,11 @@ echo"<br />";
 // Book for rent
 $sql = "CREATE TABLE IF NOT EXISTS book_for_rent (
     monthly_rate INT NOT NULL,
-    rating INT,
+    rating INT DEFAULT 0,
     is_available BOOLEAN DEFAULT TRUE,
     book_id INT NOT NULL,
     FOREIGN KEY (book_id) REFERENCES book(book_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Book for rent table created successfully";
@@ -148,6 +152,7 @@ $sql = "CREATE TABLE IF NOT EXISTS queue (
     date_granted DATETIME,
     FOREIGN KEY (user_id) REFERENCES customer(user_id),
     FOREIGN KEY (book_id) REFERENCES book(book_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Queue table created successfully";
@@ -165,9 +170,26 @@ $sql = "CREATE TABLE IF NOT EXISTS is_rented (
     date_rented DATETIME DEFAULT NOW(),
     FOREIGN KEY (cart_item_id) REFERENCES cart_item(cart_item_id),
     FOREIGN KEY (book_rented_id) REFERENCES book(book_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Is rented table created successfully";
+} else {
+    echo "Error creating is rented table: " . mysqli_error($link);
+}
+
+echo"<br />";
+
+// Is sold
+$sql = "CREATE TABLE IF NOT EXISTS is_rented (
+    book_sold_id INT NOT NULL,
+    cart_item_id INT NOT NULL,
+    FOREIGN KEY (cart_item_id) REFERENCES cart_item(cart_item_id),
+    FOREIGN KEY (book_sold_id) REFERENCES book(book_id)
+    ON DELETE CASCADE
+);";
+if (mysqli_query($link, $sql)) {
+    echo "Is sold table created successfully";
 } else {
     echo "Error creating is rented table: " . mysqli_error($link);
 }
@@ -183,6 +205,7 @@ $sql = "CREATE TABLE IF NOT EXISTS order_item (
     state VARCHAR(255) NOT NULL,
     PRIMARY KEY (order_id),
     FOREIGN KEY (user_id) REFERENCES customer(user_id)
+    ON DELETE CASCADE
 );";
 if (mysqli_query($link, $sql)) {
     echo "Order table created successfully";
