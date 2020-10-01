@@ -83,9 +83,9 @@ if(mysqli_query($link, $sql))
     $sql1 = "INSERT INTO book_for_sale (book_id, price) VALUES (LAST_INSERT_ID(),'$price')";
     if(mysqli_query($link, $sql1))
     {
-    echo "Records added successfully.";
-    // header("location: welcome.php");
-}
+    echo "Book added successfully.";
+    header("location: user_books.php");
+    }
     } 
     if($type=="rent")
     {
@@ -93,7 +93,7 @@ if(mysqli_query($link, $sql))
     if(mysqli_query($link, $sql1))
     {
     echo "Book added successfully.";
-    header("location: welcome.php");
+    header("location: user_books.php");
     } 
 }}
 else{
