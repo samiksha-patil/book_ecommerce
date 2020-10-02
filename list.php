@@ -102,11 +102,13 @@
                             <div class="row books">
                             <?php while($row = mysqli_fetch_array($result)){ ?>
                                         <div class="col-sm-3">
+                                        <a href="read.php?id=<?php echo $row["book_id"] ?>">
                                             <div class="card" style="width: 18rem;">
                                                 <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                                 <div class="card-body">
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>
+                                                    </a>
                                                     <a href="#" class="btn btn-primary">Add to cart</a>
                                                 </div>
                                             </div>
