@@ -7,6 +7,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
     $param_id = trim($_GET["id"]);
     $type="";
+    $available=true;
     $query = $link->query("SELECT * FROM book WHERE book_id = $param_id");
     if($query->num_rows > 0){
         $row = $query->fetch_assoc();
@@ -21,6 +22,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $type="sale";
                 $sale_row = $query->fetch_assoc();
             }
+        }
+        $query = $link->query("SELECT is_ordered FROM cart_item WHERE book_id = $param_id AND is_ordered = True");
+        if($query->num_rows > 0){
+            $available=false;
         }
     }
     else {
@@ -90,10 +95,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p class="form-control-static"><?php echo $sale_row["discount_price"]; ?></p>
                     </div>
                     <div class="form-group">
-                        <?php if($sale_row["cart_item_id"]) {?> Sold out 
-                        <?php } else ?> Available
+                        <?php if($available) {?> Available
+                        <?php } else { ?> Sold Out
                     </div>
-                    <?php } ?>
+                    <?php }} ?>
                     <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
                 </div>
                 <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
