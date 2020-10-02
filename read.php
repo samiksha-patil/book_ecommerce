@@ -108,9 +108,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     echo "<a href='update.php?id=". $row['book_id'] ."'class='btn btn-info'>Update</a>";                    
                     echo "<a href='book_delete.php?id=". $row['book_id'] ."'class='btn btn-danger'>Delete</a>";
                     
-                     } else{ ?>
-                        <p><a href="" class="btn btn-info">Add to cart</a></p>
-                        <?php } ?>
+                     } else{ 
+                        echo "<a href='add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                         } ?>
                 </div>
                 <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
             </div>        
