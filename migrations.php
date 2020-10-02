@@ -94,7 +94,7 @@ echo"<br />";
 $sql = "CREATE TABLE IF NOT EXISTS cart_item (
     cart_item_id INT AUTO_INCREMENT,
     is_ordered BOOLEAN DEFAULT FALSE,
-    order_id INT NOT NULL,
+    order_id INT,
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (cart_item_id),
