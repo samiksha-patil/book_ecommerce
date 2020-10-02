@@ -53,7 +53,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                 <p class="card-text">Rs. <?php echo $row["monthly_rate"] ?>/month</p>
-                                                <a href="#" class="btn btn-primary">Remove from cart</a>
+                                                <a href="remove_from_cart.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">Remove from cart</a>
                                             </div>
                                         </div>
                                         </a>
@@ -97,7 +97,8 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>
-                                                    <a href="#" class="btn btn-primary">Remove from cart</a>
+                                                    <a href="remove_from_cart.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">Remove from cart</a>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
