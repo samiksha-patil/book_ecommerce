@@ -1,6 +1,9 @@
 <?php
 // Include the database configuration file
 include 'connection.php';
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
 
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
@@ -95,6 +98,14 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     </div>
                     <?php } ?>
                     <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
+                    <?php if($row["user_id"]== $_SESSION["user_id"]){
+                   
+                    echo "<a href='update.php?id=". $row['book_id'] ."'class='btn btn-info'>Update</a>";                    
+                    echo "<a href='book_delete.php?id=". $row['book_id'] ."'class='btn btn-danger'>Delete</a>";
+                    
+                     } else{ ?>
+                        <p><a href="" class="btn btn-info">Add to cart</a></p>
+                        <?php } ?>
                 </div>
                 <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
             </div>        
