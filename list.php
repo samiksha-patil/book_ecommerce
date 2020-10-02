@@ -47,6 +47,7 @@
                         <div class="row books">
                         <?php while($row = mysqli_fetch_array($result)){ ?>
                                     <div class="col-sm-3">
+                                    <a href="read.php?id=<?php echo $row["book_id"] ?>">
                                         <div class="card" style="width: 18rem;">
                                             <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                             <div class="card-body">
@@ -59,12 +60,13 @@
                                                     if($query->num_rows == 0){ 
                                                     $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
                                                     if($query->num_rows > 0){ ?>
-                                                        <a href="#" class="btn btn-primary">Remove from cart</a>
+                                                        <a href="#" class="btn btn-primary">View in cart</a>
                                                     <?php } else { ?>
                                                         <a href="#" class="btn btn-primary">Add to cart</a>
                                                     <?php } }?>
                                             </div>
                                         </div>
+                                        </a>
                                     </div>
                                 <?php } ?>
                     </div>
