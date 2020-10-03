@@ -80,6 +80,7 @@ $sql = "CREATE TABLE IF NOT EXISTS book (
     author VARCHAR(255),
     lang VARCHAR(255),
     no_of_pages INT DEFAULT 0,
+    category VARCHAR(255) NOT NULL,
     PRIMARY KEY (book_id)
 );";
 if (mysqli_query($link, $sql)) {

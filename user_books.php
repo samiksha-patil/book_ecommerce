@@ -47,6 +47,7 @@
                                     echo "<tr>";
                                         echo "<th>Title</th>";
                                         echo "<th>Cover</th>";
+                                        echo "<th>Category</th>";
                                         echo "<th>Author</th>";
                                         echo "<th>Description</th>";
                                         echo "<th>Language</th>";
@@ -62,6 +63,7 @@
                                     echo "<tr>";
                                         echo "<td>" . $row['title'] . "</td>";
                                         echo "<td><img style=height:150px; src='$imageURL' /></td>";                                       
+                                        echo "<td>" . $row['category'] . "</td>";
                                         echo "<td>" . $row['author'] . "</td>";
                                         echo "<td>" . $row['info'] . "</td>";
                                         echo "<td>" . $row['lang'] . "</td>";
@@ -115,6 +117,7 @@
                                     echo "<tr>";
                                     echo "<th>Title</th>";
                                     echo "<th>Cover</th>";
+                                    echo "<th>Category</th>";
                                     echo "<th>Author</th>";
                                     echo "<th>Description</th>";
                                     echo "<th>Language</th>";
@@ -130,6 +133,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $row['title'] . "</td>";
                                     echo "<td><img style=height:150px; src='$imageURL' /></td>";                                       
+                                    echo "<td>" . $row['category'] . "</td>";
                                     echo "<td>" . $row['author'] . "</td>";
                                     echo "<td>" . $row['info'] . "</td>";
                                     echo "<td>" . $row['lang'] . "</td>";

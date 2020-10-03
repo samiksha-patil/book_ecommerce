@@ -21,6 +21,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     $query = $link->query("SELECT * FROM book WHERE book_id = $param_id AND user_id=$id");
     if($query->num_rows > 0){
         $row = $query->fetch_assoc();
+        $category = $row["category"];
         $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $param_id");
         if($query->num_rows > 0){
             $type="rent";
@@ -73,12 +74,13 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
     $allowTypes = array('jpg','png','jpeg','gif','pdf');
 
     $info =$_POST['info'];
+    $category = $_POST['category'];
     $author = $_POST['author'];
     $language =$_POST['language'];
     $pages = $_POST['pages'];
 
     move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath);
-    $sql = "UPDATE book SET title='$title', info='$info', author='$author', lang='$language', no_of_pages=$pages WHERE book_id=$param_id";
+    $sql = "UPDATE book SET title='$title', info='$info', author='$author', lang='$language', no_of_pages=$pages, category='$category' WHERE book_id=$param_id";
     if($query = $link->query($sql))
     {
         if(!empty($fileName)) {
@@ -149,6 +151,17 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
                         <label>Cover Image:</label>
                         <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
                         <input type="file" name="file" value="<?php echo $row["cover_image"]; ?>">
+                        <label for="category">Category:</label>
+                        <select  id="category" name="category">
+                        <option value="Textbook">Textbook</option>
+                        <option value="Memoir">Memoir</option>
+                        <option value="Essays">Essays</option>
+                        <option value="Action and Adventure">Action and Adventure</option>
+                        <option value="Classics">Classics</option>
+                        <option value="Comic Book or Graphic Novel">Comic Book or Graphic Novel</option>
+                        <option value="Fiction">Fiction</option>
+                        </select>
+                        <br>
                         <label>Author:</label>
                         <input type="text" name="author" class="form-control"required value="<?php echo $row["author"]; ?>">
                         <label>Language:</label>
@@ -182,5 +195,8 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
             </div>        
         </div>
     </div>
+    <script>
+    document.getElementById("category").value ='<?php echo $category ?>';
+    </script>
 </body>
 </html>

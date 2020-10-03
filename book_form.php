@@ -60,8 +60,9 @@ $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
 $allowTypes = array('jpg','png','jpeg','gif','pdf');
 
-$info =$_POST['info'];
 $id=$_SESSION["user_id"];
+$info =$_POST['info'];
+$category = $_POST['category'];
 $author = $_POST['author'];
 $language =$_POST['language'];
 $pages = $_POST['pages'];
@@ -74,7 +75,7 @@ $price =$_POST['price'];
 if((empty($title_err) && empty($type_err)) && (empty($rate_err) && empty($price_err)) )
 {
 move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath);
-$sql = "INSERT INTO book (user_id,title, cover_image, info, author, lang, no_of_pages) VALUES ('$id','$title','".$fileName."', '$info', '$author', '$language', '$pages')";
+$sql = "INSERT INTO book (user_id,title, cover_image, info, author, lang, no_of_pages, category) VALUES ('$id','$title','".$fileName."', '$info', '$author', '$language', '$pages', '$category')";
 
 if(mysqli_query($link, $sql))
 {
@@ -126,7 +127,18 @@ mysqli_close($link);
     </div>
     <label>Description:</label>
     <input type="text" name="info" class="form-control" required>
+    <label for="cover_image">Cover Image"</label>
     <input type="file" name="file">
+    <label for="category">Category"</label>
+    <select name="category">
+    <option value="Textbook">Textbook</option>
+    <option value="Memoir">Memoir</option>
+    <option value="Essays">Essays</option>
+    <option value="Action and Adventure">Action and Adventure</option>
+    <option value="Classics">Classics</option>
+    <option value="Comic Book or Graphic Novel">Comic Book or Graphic Novel</option>
+    <option value="Fiction">Fiction</option>
+    </select>
     <label>Author:</label>
     <input type="text" name="author" class="form-control"required>
     <label>Language:</label>

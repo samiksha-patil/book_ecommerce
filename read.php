@@ -68,6 +68,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p class="form-control-static"><?php echo $row["info"]; ?></p>
                     </div>
                     <div class="form-group">
+                        <label>Category</label>
+                        <p class="form-control-static"><?php echo $row["category"]; ?></p>
+                    </div>
+                    <div class="form-group">
                         <label>Author</label>
                         <p class="form-control-static"><?php echo $row["author"]; ?></p>
                     </div>
