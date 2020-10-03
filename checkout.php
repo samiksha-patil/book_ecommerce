@@ -18,16 +18,24 @@ $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$id','$ad
 
 if(mysqli_query($link, $sql))
 {
-    $sql2 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id";
+    $sql2 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                if($result = mysqli_query($link, $sql2)){
                     $row = mysqli_fetch_assoc($result);
                     $total = $row["SUM(price)"];
                }
+              
                
     $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
     if(mysqli_query($link, $sql1))
     {
-    echo "Payment Successful!..you will soon receive your book.";
+
+        
+        $sql3= "UPDATE cart_item INNER JOIN book_for_sale on cart_item.book_id=book_for_sale.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()   WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
+        if(mysqli_query($link, $sql3))
+        {
+        echo "Payment Successful!..you will soon receive your book.";
+        }
+    
     
     }
     } 
@@ -68,11 +76,11 @@ mysqli_close($link);
 
 <h2>Payment method</h2>
 
-
-<input type="submit" name="submit" value="Proceed to pay">
 <label>Net Banking</label><input type="radio" name="mode" value="Net Banking" id="net_banking" required> 
 <label>Cash on Delivery</label><input type="radio" name="mode" value="Cash on Delivery" id="Cash on Delivery" required>
-<label>Credit Card</label><input type="radio" name="mode" value="Credit Card" id="Credit Card" required>         
+<label>Credit Card</label><input type="radio" name="mode" value="Credit Card" id="Credit Card" required> 
+
+<input type="submit" name="submit" value="Proceed to pay">        
 </form>
 
 </body>
