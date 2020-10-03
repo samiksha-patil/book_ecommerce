@@ -102,10 +102,25 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } ?>
+                                    <?php }                             
+                            
+                                ?>
                         </div>
+
+                       
                         <?php
-                    
+
+                         $sql1 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id";
+                                    if($result = mysqli_query($link, $sql1)){
+                                         $row = mysqli_fetch_assoc($result)?>
+                                  
+                                    <h3 class="card-title"> Total:  <?php echo $row["SUM(price)"]; ?></h3>
+                                    <a href="#" class="btn btn-warning">PROCEED TO CHECKOUT</a>
+                                    <?php
+                               
+                            }
+                               
+                          
                             // Free result set
                             mysqli_free_result($result);
                         }
