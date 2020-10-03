@@ -35,7 +35,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
     $sql_condition .= " ORDER BY ";
     if($q_sort=="a-z") $sql_condition .= "title";
     else if($q_sort=="z-a") $sql_condition .= "title DESC";
-    else if($q_sort=="newset") $sql_condition .= "book.book_id DESC";
+    else if($q_sort=="newest") $sql_condition .= "book.book_id DESC";
     else if($q_sort=="oldest") $sql_condition .= "book.book_id";
 } 
 ?>
@@ -84,7 +84,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                         <option value="high-low">$$$-$</option>
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
-                        <option value="newest">Newset</option>
+                        <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
                     </select>
                     <br>
