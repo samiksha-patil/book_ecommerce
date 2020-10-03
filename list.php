@@ -1,3 +1,10 @@
+<?php
+$q="";
+$query="%";
+if(isset($_GET["q"]) && !empty(trim($_GET["q"]))){    
+    $q = trim($_GET["q"]);
+    $query="%".$q."%";
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,13 +32,13 @@
     </script>
 </head>
 <body>
-
+        <form onclick="search()">
+        <input type="text" id="search" value="<?php echo $q ?>"></input>
+        <button onclick="search()" type="submit">Search</button>
+        </form>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Books for rent</h2>
-                    </div>
                     <?php
                     include 'connection.php';
                     session_start();
@@ -40,10 +47,13 @@
                         exit;
                     }
                     $id=$_SESSION["user_id"];
-                    $sql = "SELECT * FROM book INNER JOIN book_for_rent on book.book_id=book_for_rent.book_id";
-                   
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){ ?>
+                    $sql = "SELECT * FROM book INNER JOIN book_for_rent on book.book_id=book_for_rent.book_id WHERE title LIKE '$query' OR info LIKE '$query' OR author LIKE '$query'";
+                    // echo $sql;
+                    if($result = mysqli_query($link, $sql)){ ?>
+                    <div class="page-header clearfix">
+                        <h2 class="pull-left">Books for rent <?php echo mysqli_num_rows($result); ?> </h2>
+                    </div>
+                        <?php if(mysqli_num_rows($result) > 0){ ?>
                         <div class="row books">
                         <?php while($row = mysqli_fetch_array($result)){ ?>
                                     <div class="col-sm-3">
@@ -89,16 +99,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Books for sell</h2>
-                       
-                    </div>
                     <?php
                    
                     $sql = "SELECT * FROM book RIGHT JOIN book_for_sale on book.book_id=book_for_sale.book_id";
                     
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){ ?>
+                    if($result = mysqli_query($link, $sql)){?>
+                        <div class="page-header clearfix">
+                            <h2 class="pull-left">Books for sale <?php echo mysqli_num_rows($result); ?> </h2>
+                        </div>
+                            <?php if(mysqli_num_rows($result) > 0){ ?>
                             <div class="row books">
                             <?php while($row = mysqli_fetch_array($result)){ ?>
                                         <div class="col-sm-3">
@@ -133,7 +142,11 @@
                 </div>
             </div>        
         </div>
-
-
+    <script>
+    function search() {
+        var url = "./list.php?q="+document.getElementById("search").value;
+        window.location.replace(url);
+    }
+    </script>
 </body>
 </html>
