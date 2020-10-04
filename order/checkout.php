@@ -2,11 +2,11 @@
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../accounts/login.php");
     exit;
 }
 
-require_once "connection.php";
+require_once "../connection.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 $id=$_SESSION["user_id"];;
 $address = $_POST['address'];

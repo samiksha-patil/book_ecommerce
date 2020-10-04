@@ -33,10 +33,10 @@
                         <h2 class="pull-left">Books for rent</h2>
                     </div>
                     <?php
-                    include 'connection.php';
+                    include '../connection.php';
                     session_start();
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-                        header("location: login.php");
+                        header("location: ../accounts/login.php");
                         exit;
                     }
                     $id=$_SESSION["user_id"];
@@ -47,9 +47,9 @@
                         <div class="row books">
                         <?php while($row = mysqli_fetch_array($result)){ ?>
                                     <div class="col-sm-3">
-                                    <a href="read.php?id=<?php echo $row["book_id"] ?>">
+                                    <a href="../books/detail.php?id=<?php echo $row["book_id"] ?>">
                                         <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
+                                            <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                 <p class="card-text">Rs. <?php echo $row["monthly_rate"] ?>/month</p>
@@ -93,7 +93,7 @@
                             <?php while($row = mysqli_fetch_array($result)){ ?>
                                         <div class="col-sm-3">
                                             <div class="card" style="width: 18rem;">
-                                                <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
+                                                <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                                 <div class="card-body">
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>

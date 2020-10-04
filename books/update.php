@@ -1,14 +1,14 @@
 <?php
 
 // Include the database configuration file
-include 'connection.php';
+include '../connection.php';
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type="";
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../accounts/login.php");
     exit;
 }
 
@@ -37,7 +37,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         
     }
     else {
-        header("location: welcome.php");
+        header("location: ../welcome.php");
         exit();
     }
 }
@@ -66,7 +66,7 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
     }
 
     // File upload path
-    $targetDir = "uploads/";
+    $targetDir = "../uploads/";
     $fileName = basename($_FILES["file"]["name"]);
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -102,7 +102,7 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
                 echo "Book added successfully.";
         }
         else {
-            header("location: error.php");
+            header("location: ../error.php");
         }
         header("location: user_books.php");
         $query -> free_result();
@@ -149,7 +149,7 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
                         <label>Description:</label>
                         <input type="text" name="info" class="form-control" required value="<?php echo $row["info"]; ?>">
                         <label>Cover Image:</label>
-                        <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
+                        <img src="../uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
                         <input type="file" name="file" value="<?php echo $row["cover_image"]; ?>">
                         <label for="category">Category:</label>
                         <select  id="category" name="category">

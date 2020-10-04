@@ -1,9 +1,9 @@
 <?php
 
-include 'connection.php';
+include '../connection.php';
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../accounts/login.php");
     exit;
 }
 $id=$_SESSION["user_id"];
@@ -75,7 +75,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                     <br>
                     <!-- Price Range
                     <br>
-                    <input type="number" id="lowest_price" value="<?php echo $q_lowest ?>"></input>-
+                    <input type="nu mber" id="lowest_price" value="<?php echo $q_lowest ?>"></input>-
                     <input type="number" id="highest_price" value="<?php echo $q_highest ?>"></input>
                     <br> -->
                     Sort by
@@ -135,23 +135,13 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                         <div class="row books">
                         <?php while($row = mysqli_fetch_array($result)){ ?>
                                     <div class="col-sm-3">
-                                    <a href="read.php?id=<?php echo $row["book_id"] ?>">
+                                    <a href="detail.php?id=<?php echo $row["book_id"] ?>">
                                         <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
+                                            <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                 <p class="card-text">Rs. <?php echo $row["monthly_rate"] ?>/month</p>
-                                                <?php
-                                                    $in_cart = false;
-                                                    $book_id = $row["book_id"];
-                                                    $query = $link->query("SELECT book_id FROM book WHERE book_id = $book_id AND user_id = $id");
-                                                    if($query->num_rows == 0){ 
-                                                    $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
-                                                    if($query->num_rows > 0){ ?>
-                                                        <a href="#" class="btn btn-primary">View in cart</a>
-                                                    <?php } else { ?>
-                                                        <a href="#" class="btn btn-primary">Add to cart</a>
-                                                    <?php } }?>
+                                                <a href="detail.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
                                             </div>
                                         </div>
                                         </a>
@@ -190,14 +180,14 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                             <div class="row books">
                             <?php while($row = mysqli_fetch_array($result)){ ?>
                                         <div class="col-sm-3">
-                                        <a href="read.php?id=<?php echo $row["book_id"] ?>">
+                                        <a href="detail.php?id=<?php echo $row["book_id"] ?>">
                                             <div class="card" style="width: 18rem;">
-                                                <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
+                                                <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
                                                 <div class="card-body">
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>
                                                     </a>
-                                                    <a href="read.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
+                                                    <a href="detail.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
                                                 </div>
                                             </div>
                                         </div>

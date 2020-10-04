@@ -1,6 +1,6 @@
 <?php
 // Include connect file
-require_once "connection.php";
+require_once "../connection.php";
  
 // Define variables and initialize with empty values
 $email = $password = $confirm_password = $first_name = $last_name = $country= $state= $city=$phone_no="";
