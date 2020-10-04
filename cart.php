@@ -85,7 +85,7 @@
                     </div>
                     <?php
                    
-                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id";
+                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                     
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){ ?>
@@ -110,12 +110,12 @@
                        
                         <?php
 
-                         $sql1 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id";
+                         $sql1 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                                     if($result = mysqli_query($link, $sql1)){
                                          $row = mysqli_fetch_assoc($result)?>
                                   
                                     <h3 class="card-title"> Total:  <?php echo $row["SUM(price)"]; ?></h3>
-                                    <a href="#" class="btn btn-warning">PROCEED TO CHECKOUT</a>
+                                    <a href="checkout.php" class="btn btn-warning">PROCEED TO CHECKOUT</a>
                                     <?php
                                
                             }

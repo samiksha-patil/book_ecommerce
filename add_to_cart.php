@@ -14,7 +14,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
     }
     $id=$_SESSION["user_id"];
     
-    $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
+    $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id AND is_ordered=0");
     if($query->num_rows == 0){
         
     $sql = "INSERT INTO cart_item (book_id, user_id) VALUES ('$book_id','$id')";
