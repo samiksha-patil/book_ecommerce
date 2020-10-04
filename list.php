@@ -197,7 +197,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>
                                                     </a>
-                                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                                    <a href="read.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
                                                 </div>
                                             </div>
                                         </div>

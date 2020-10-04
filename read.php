@@ -2,6 +2,7 @@
 // Include the database configuration file
 include 'connection.php';
 session_start();
+$id=$_SESSION["user_id"];
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 
@@ -113,7 +114,18 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     echo "<a href='book_delete.php?id=". $row['book_id'] ."'class='btn btn-danger'>Delete</a>";
                     
                      } else{ 
+                        // echo "<a href='add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                        
+                        $in_cart = false;
+                        $book_id = $row["book_id"];
+                        $query = $link->query("SELECT book_id FROM book WHERE book_id = $book_id AND user_id = $id");
+                        if($query->num_rows == 0){ 
+                        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
+                        if($query->num_rows > 0){ 
+                            echo '<a href="cart.php" class="btn btn-primary">View in cart</a>';
+                     } else { 
                         echo "<a href='add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                         } }
                          } ?>
                 </div>
                 <img src="uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
