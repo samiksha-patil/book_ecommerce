@@ -4,12 +4,12 @@
 
 if(isset($_GET["id"]) && !empty($_GET["id"]))
 {
-    require_once "connection.php";
+    require_once "../connection.php";
     $book_id = $_GET['id'];
     
     session_start();
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-        header("location: user_books.php");
+        header("location: ../books/user_books.php");
         exit;
     }
     $id=$_SESSION["user_id"];
@@ -36,7 +36,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
     else{
     
         if(empty(trim($_GET["id"]))){
-            header("location: error.php");
+            header("location: ../error.php");
             exit();
         }
 

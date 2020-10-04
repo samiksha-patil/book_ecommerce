@@ -2,11 +2,11 @@
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../login.php");
     exit;
 }
 
-require_once "connection.php";
+require_once "../connection.php";
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type =$title="";
@@ -53,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
 
 // File upload path
-$targetDir = "uploads/";
+$targetDir = "../uploads/";
 $fileName = basename($_FILES["file"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);

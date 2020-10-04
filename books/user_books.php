@@ -28,13 +28,13 @@
                 <div class="col-md-12">
                     <div class="page-header clearfix">
                         <h2 class="pull-left">Book uploaded as rent</h2>
-                        <a href="book_form.php" class="btn btn-success pull-right">sell or rent a book</a>
+                        <a href="create.php" class="btn btn-success pull-right">sell or rent a book</a>
                     </div>
                     <?php
-                    include 'connection.php';
+                    include '../connection.php';
                     session_start();
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-                        header("location: login.php");
+                        header("location: ../accounts/login.php");
                         exit;
                     }
                     $id=$_SESSION["user_id"];
@@ -59,7 +59,7 @@
                                 echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
-                                    $imageURL = 'uploads/'.$row["cover_image"];
+                                    $imageURL = '../uploads/'.$row["cover_image"];
                                     echo "<tr>";
                                         echo "<td>" . $row['title'] . "</td>";
                                         echo "<td><img style=height:150px; src='$imageURL' /></td>";                                       
@@ -71,9 +71,9 @@
                                         echo "<td>" . $row['monthly_rate'] . "</td>";
                                         echo "<td>" . $row['rating'] . "</td>";
                                         echo "<td>";
-                                            echo "<a href='read.php?id=". $row['book_id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                            echo "<a href='detail.php?id=". $row['book_id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['book_id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                                            echo "<a href='book_delete.php?id=". $row['book_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                                            echo "<a href='delete.php?id=". $row['book_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
@@ -129,7 +129,7 @@
                                 echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
-                                    $imageURL = 'uploads/'.$row["cover_image"];
+                                    $imageURL = '../uploads/'.$row["cover_image"];
                                     echo "<tr>";
                                     echo "<td>" . $row['title'] . "</td>";
                                     echo "<td><img style=height:150px; src='$imageURL' /></td>";                                       
@@ -141,9 +141,9 @@
                                     echo "<td>" . $row['price'] . "</td>";
                                     echo "<td>" . $row['discount_price'] . "</td>";
                                         echo "<td>";
-                                            echo "<a href='read.php?id=". $row['book_id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                                            echo "<a href='detail.php?id=". $row['book_id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['book_id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                                            echo "<a href='book_delete.php?id=". $row['book_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                                            echo "<a href='delete.php?id=". $row['book_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }

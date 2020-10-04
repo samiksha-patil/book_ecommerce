@@ -1,6 +1,6 @@
 <?php
 if(isset($_POST["id"]) && !empty($_POST["id"])){
-    require_once "connection.php";
+    require_once "../connection.php";
     $book_id = $_POST['id'];
     $sql = "DELETE FROM book WHERE book_id=$book_id";
     
@@ -17,7 +17,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 } else{
 
     if(empty(trim($_GET["id"]))){
-        header("location: error.php");
+        header("location: ../error.php");
         exit();
     }
 }
