@@ -102,31 +102,50 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <label>Discount Price</label>
                         <p class="form-control-static"><?php echo $sale_row["discount_price"]; ?></p>
                     </div>
-                    <div class="form-group">
-                        <?php if($available) {?> Available
-                        <?php } else { ?> Sold Out
-                    </div>
-                    <?php }} ?>
+                    <?php } ?>
                     <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
-                    <?php if($row["user_id"]== $_SESSION["user_id"]){
+                    <?php if($row["user_id"]==$_SESSION["user_id"]){
                    
                     echo "<a href='update.php?id=". $row['book_id'] ."'class='btn btn-info'>Update</a>";                    
                     echo "<a href='delete.php?id=". $row['book_id'] ."'class='btn btn-danger'>Delete</a>";
                     
-                     } else{ 
-                        // echo "<a href='add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                     } 
+                     else{
+                         
+                        if($available) {?> 
+                        <div class="form-group">
+                        Available
+                        </div>
+                        <?php 
                         
                         $in_cart = false;
                         $book_id = $row["book_id"];
-                        $query = $link->query("SELECT book_id FROM book WHERE book_id = $book_id AND user_id = $id");
-                        if($query->num_rows == 0){ 
                         $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
                         if($query->num_rows > 0){ 
                             echo '<a href="../order/cart.php" class="btn btn-primary">View in cart</a>';
-                     } else { 
-                        echo "<a href='../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
-                         } }
-                         } ?>
+                        } 
+                        else { 
+                            echo "<a href='../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                        } 
+                        ?>
+                        <?php } else { ?> 
+                        <div class="form-group">
+                        Sold Out
+                        </div>
+                        <?php 
+                        
+                        $in_cart = false;
+                        $book_id = $row["book_id"];
+                        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
+                        if($query->num_rows > 0){ 
+                            echo '<button disabled class="btn btn-secondary">Already Bought</button>';
+                        } 
+                        else { 
+                            echo '<button disabled class="btn btn-secondary">Add to Cart</button>';
+                        } 
+                        ?>
+                        <?php }
+                    } ?>
                 </div>
                 <img src="../uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
             </div>        
