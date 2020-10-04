@@ -90,7 +90,9 @@
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){ ?>
                             <div class="row books">
-                            <?php while($row = mysqli_fetch_array($result)){ ?>
+                            <?php 
+                            $total =0;
+                            while($row = mysqli_fetch_array($result)){ ?>
                                         <div class="col-sm-3">
                                             <div class="card" style="width: 18rem;">
                                                 <img class="card-img-top" src="uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
@@ -98,7 +100,21 @@
                                                     <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                                                     <p class="card-text">Rs. <?php echo $row["price"] ?></p>
                                                     <a href="remove_from_cart.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">Remove from cart</a>
+                                                    <?php
+                                                    $book_id =$row["book_id"];
+                                                    $sql1 = "SELECT * FROM cart_item  WHERE cart_item.book_id=$book_id AND cart_item.is_ordered=1";
                                                     
+                                                    if($result1 = mysqli_query($link, $sql1)){
+                                                       
+                                                        if(mysqli_num_rows($result1) >0){
+                                                            echo "sold out";
+                                                        }
+                                                        else{
+                                                        $total = $total+ $row["price"];
+                                                        }
+
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -106,19 +122,13 @@
                             
                                 ?>
                         </div>
-
-                       
-                        <?php
-
-                         $sql1 = "SELECT SUM(price) FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
-                                    if($result = mysqli_query($link, $sql1)){
-                                         $row = mysqli_fetch_assoc($result)?>
+                        
                                   
-                                    <h3 class="card-title"> Total:  <?php echo $row["SUM(price)"]; ?></h3>
+                                    <h3 class="card-title"> Total:  <?php echo "$total" ?></h3>
                                     <a href="checkout.php" class="btn btn-warning">PROCEED TO CHECKOUT</a>
                                     <?php
                                
-                            }
+                           
                                
                           
                             // Free result set
