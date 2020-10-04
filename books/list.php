@@ -102,10 +102,10 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
                     <input type="radio" id="Action and Adventure" name="category" value="Action and Adventure">
                     <label for="Action and Adventure">Action and Adventure</label>
                     <br>
-                    <input type="radio" id="Action and Adventure" name="category" value="Action and Adventure">
+                    <input type="radio" id="Classics" name="category" value="Classics">
                     <label for="Classics">Classics</label>
                     <br>
-                    <input type="radio" id="Classics" name="category" value="Classics">
+                    <input type="radio" id="Comic Book or Graphic Novel" name="category" value="Comic Book or Graphic Novel">
                     <label for="Comic Book or Graphic Novel">Comic Book or Graphic Novel</label>
                     <br>
                     <input type="radio" id="Fiction" name="category" value="Fiction">
@@ -219,7 +219,9 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
     document.getElementById("sort").value ='<?php echo $q_sort ?>';
     var value="<?php echo $q_category; ?>";
     if(value=="") value="All";
-    $("input[name=category][value=" + value + "]").prop('checked', true);
+    value.replaceAll('+',' ');
+    console.log(value);
+    $("input[name=category][value='" + value + "']").prop('checked', true);
     </script>
 </body>
 </html>
