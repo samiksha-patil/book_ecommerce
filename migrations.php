@@ -151,6 +151,7 @@ $sql = "CREATE TABLE IF NOT EXISTS queue (
     status ENUM ('Waiting','Pending', 'Cancelled', 'Currently renting', 'Returned'),
     date_of_request DATETIME DEFAULT NOW(),
     date_granted DATETIME,
+    date_of_return DATETIME,
     FOREIGN KEY (user_id) REFERENCES customer(user_id),
     FOREIGN KEY (book_id) REFERENCES book(book_id)
     ON DELETE CASCADE
@@ -159,24 +160,6 @@ if (mysqli_query($link, $sql)) {
     echo "Queue table created successfully";
 } else {
     echo "Error creating queue table: " . mysqli_error($link);
-}
-
-echo"<br />";
-
-// Is Rented
-$sql = "CREATE TABLE IF NOT EXISTS is_rented (
-    book_rented_id INT NOT NULL,
-    cart_item_id INT NOT NULL,
-    no_of_months INT DEFAULT 1,
-    date_rented DATETIME DEFAULT NOW(),
-    FOREIGN KEY (cart_item_id) REFERENCES cart_item(cart_item_id),
-    FOREIGN KEY (book_rented_id) REFERENCES book(book_id)
-    ON DELETE CASCADE
-);";
-if (mysqli_query($link, $sql)) {
-    echo "Is rented table created successfully";
-} else {
-    echo "Error creating is rented table: " . mysqli_error($link);
 }
 
 echo"<br />";
