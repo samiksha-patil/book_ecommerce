@@ -76,8 +76,12 @@ if($query->num_rows == 1){
                $sql3= "UPDATE cart_item INNER JOIN book_for_rent on cart_item.book_id=book_for_rent.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()   WHERE cart_item.user_id=$user_id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
                if(mysqli_query($link, $sql3))
                {
+                $sql3= "UPDATE book_for_rent  SET is_available=0 WHERE book_id=$book_id";
+                if(mysqli_query($link, $sql3))
+                {
                 header("location: ../books/user_books.php");
                echo "Payment Successful!..you will soon receive your book.";
+                }
                }
            
            
