@@ -64,7 +64,13 @@ if($query->num_rows == 1){
       
        if(mysqli_query($link, $sql))
        {
-        $sql2 = "INSERT INTO queue (user_id, book_id, status, date_of_request , date_granted, date_of_return) VALUES ('$user_id','$book_id','Currently renting',NOW(),NOW(),NOW())";    
+
+        $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_months MONTH ) AS date_return ");
+        if($query->num_rows == 1){
+        $row = $query1->fetch_assoc();
+        $date_of_return = $row["date_return"];
+        }
+        $sql2 = "INSERT INTO queue (user_id, book_id, status, date_of_request , date_granted, date_of_return) VALUES ('$user_id','$book_id','Currently renting',NOW(),NOW(),'$date_of_return')";    
         if(mysqli_query($link, $sql2))
         {            
                       
