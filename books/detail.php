@@ -90,8 +90,15 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p class="form-control-static"><?php echo $rent_row["monthly_rate"]; ?></p>
                     </div>
                     <div class="form-group">
-                        <?php if($rent_row["is_available"]) {?> Available 
-                        <?php } else { ?> Rented <?php } ?>
+                        <?php if($rent_row["is_available"]) {?> 
+                        
+                        Available 
+
+                        <?php } else { ?> 
+                        
+                        Rented 
+                        
+                        <?php } ?>
                     </div>
                     <?php } else { ?>
                     <div class="form-group">
