@@ -19,10 +19,14 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
         
     $sql = "INSERT INTO cart_item (book_id, user_id) VALUES ('$book_id','$id')";
     if(mysqli_query($link, $sql)){
-        
+        $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
+        if($query->num_rows > 0){
+            header("location: ../order/payment_rent.php?id=$book_id");
+        }
+        else {
         //echo "Ooong. Please try again later.";
         header("location: ../books/detail.php?id=$book_id");
-        
+        }
         } 
      else{
             echo "Oops! Something went wrong. Please try again later.";
