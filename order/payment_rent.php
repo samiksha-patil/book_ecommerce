@@ -106,7 +106,7 @@ if($query->num_rows == 1){
 ?>
        
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post"> 
     <label>No of months:</label>
     <input type="number" name="no_months" class="form-control" required>
 
