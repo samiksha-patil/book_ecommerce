@@ -152,6 +152,7 @@ $sql = "CREATE TABLE IF NOT EXISTS queue (
     date_of_request DATETIME DEFAULT NOW(),
     date_granted DATETIME,
     date_of_return DATETIME,
+    PRIMARY KEY(book_id, user_id, status),
     FOREIGN KEY (user_id) REFERENCES customer(user_id),
     FOREIGN KEY (book_id) REFERENCES book(book_id)
     ON DELETE CASCADE

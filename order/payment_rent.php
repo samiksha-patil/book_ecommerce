@@ -79,8 +79,8 @@ if($query->num_rows == 1){
            {
        
                
-               $sql3= "UPDATE cart_item INNER JOIN book_for_rent on cart_item.book_id=book_for_rent.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()   WHERE cart_item.user_id=$user_id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
-               if(mysqli_query($link, $sql3))
+               $sql2= "UPDATE cart_item INNER JOIN book_for_rent on cart_item.book_id=book_for_rent.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID() WHERE cart_item.user_id=$user_id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
+               if(mysqli_query($link, $sql2))
                {
                 $sql3= "UPDATE book_for_rent  SET is_available=0 WHERE book_id=$book_id";
                 if(mysqli_query($link, $sql3))
@@ -88,11 +88,23 @@ if($query->num_rows == 1){
                 header("location: ../books/user_books.php");
                echo "Payment Successful!..you will soon receive your book.";
                 }
+                else{
+                    echo "ERROR: Could not able to execute $sql3. " . mysqli_error($link);
+                }
+               }    
+               else{
+                   echo "ERROR: Could not able to execute $sql2. " . mysqli_error($link);
                }
            
            
+           }       
+           else{
+               echo "ERROR: Could not able to execute $sql1. " . mysqli_error($link);
            }
-           } 
+           }   
+           else{
+               echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+           }
        }   
                
        else{
@@ -106,7 +118,7 @@ if($query->num_rows == 1){
 ?>
        
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
     <label>No of months:</label>
     <input type="number" name="no_months" class="form-control" required>
 

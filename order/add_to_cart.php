@@ -17,7 +17,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
     $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id AND is_ordered=0");
     if($query->num_rows == 0){
         
-    $sql = "INSERT INTO cart_item (book_id, user_id) VALUES ('$book_id','$id')";
+    $sql = "INSERT INTO cart_item (book_id, user_id) VALUES ($book_id,$id)";
     if(mysqli_query($link, $sql)){
         $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
         if($query->num_rows > 0){
@@ -29,7 +29,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
         }
         } 
      else{
-            echo "Oops! Something went wrong. Please try again later.";
+            echo "Oops! Something went wrong. Please try again later.",$sql,mysqli_error($link);
         }
     }
     else{

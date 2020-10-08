@@ -3,9 +3,9 @@
 include '../connection.php';
 session_start();
 $id=$_SESSION["user_id"];
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
 
+print_r($_POST); 
+if($_SERVER["REQUEST_METHOD"] == "GET"){
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
 
@@ -41,6 +41,60 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     header("location: ../error.php");
     exit();
 }
+}
+
+function add_to_queue()
+{
+    
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    if(isset($_POST["id"]) && !empty($_POST["id"]) && isset($_POST["no_of_months"]) && !empty($_POST["id"]) )
+    {
+        $book_id = $_POST['id'];
+        $no_of_months = $_POST["no_of_months"];
+        $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_of_months MONTH ) AS date_return ");
+        if($query->num_rows == 1){
+        $row = $query1->fetch_assoc();
+        $date_of_return = $row["date_return"];
+        }
+        echo $date_of_return;
+
+        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id AND is_ordered=0");
+        if($query->num_rows == 0){
+            
+        $sql = "INSERT INTO queue (user_id, book_id, status, date_of_request , date_granted, date_of_return) VALUES ('$user_id','$book_id','waiting',NOW(),NOW(),'$date_of_return')";
+        if(mysqli_query($link, $sql)){
+            $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
+            if($query->num_rows > 0){
+                header("location: ../order/payment_rent.php?id=$book_id");
+            }
+            else {
+                header("location: ../books/detail.php?id=$book_id");
+            }
+        } 
+        else{
+                echo "Oops! Something went wrong. Please try again later.",$sql,mysqli_error($link);
+            }
+        }
+        else{
+            echo "Book already exists in your cart";
+        }
+        mysqli_close($link);
+    }
+    else{
+        if(empty(trim($_POST["id"]))){
+            header("location: ../error.php");
+            exit();
+        }
+    }   
+}
+}
+if(isset($_POST['add_to_queue']))
+{
+    echo "hello";
+   add_to_queue();
+} 
+
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +151,12 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <?php } else { ?> 
                         
                         Rented 
+
+                        <form action="detail.php" method="post">
+                        <input type="text" name="no_of_months">
+                        <input type="hidden" name="id" value="<?php echo $param_id;?>">
+                        <input type="submit" name="add_to_queue">
+                        </form>
                         
                         <?php } ?>
                     </div>
