@@ -4,7 +4,6 @@ include '../connection.php';
 session_start();
 $id=$_SESSION["user_id"];
 
-print_r($_POST); 
 if($_SERVER["REQUEST_METHOD"] == "GET"){
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
