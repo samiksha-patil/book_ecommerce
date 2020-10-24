@@ -65,28 +65,32 @@ if($query->num_rows == 1){
        if(mysqli_query($link, $sql))
        {
 
-        $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_months MONTH ) AS date_return ");
+        $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_months MONTH) AS date_return");
         if($query->num_rows == 1){
         $row = $query1->fetch_assoc();
         $date_of_return = $row["date_return"];
         }
-        $sql2 = "INSERT INTO queue (user_id, book_id, status, date_of_request , date_granted, date_of_return) VALUES ('$user_id','$book_id','Currently renting',NOW(),NOW(),'$date_of_return')";    
-        if(mysqli_query($link, $sql2))
-        {            
-                      
+        echo "hello";
+        // date of request: Timestamp when user enters queue
+        // date of grant: When user accepts notif/request
+        // date of return: When book is returned
+        $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE book_id='$book_id' AND user_id='$id' AND status='Pending'";   
+        echo $sql2;
+        $result = mysqli_query($link, $sql2); 
+        if($result)
+        {      
+           if(mysqli_num_rows($result)>0) {      
            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
            if(mysqli_query($link, $sql1))
-           {
-       
-               
+           {               
                $sql2= "UPDATE cart_item INNER JOIN book_for_rent on cart_item.book_id=book_for_rent.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID() WHERE cart_item.user_id=$user_id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
                if(mysqli_query($link, $sql2))
                {
-                $sql3= "UPDATE book_for_rent  SET is_available=0 WHERE book_id=$book_id";
+                $sql3= "UPDATE book_for_rent SET is_available=0 WHERE book_id=$book_id";
                 if(mysqli_query($link, $sql3))
                 {
-                header("location: ../books/user_books.php");
-               echo "Payment Successful!..you will soon receive your book.";
+                    header("location: ../books/user_books.php");
+                    echo "Payment Successful!..you will soon receive your book.";
                 }
                 else{
                     echo "ERROR: Could not able to execute $sql3. " . mysqli_error($link);
@@ -101,12 +105,12 @@ if($query->num_rows == 1){
            else{
                echo "ERROR: Could not able to execute $sql1. " . mysqli_error($link);
            }
-           }   
+           }  
            else{
                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
            }
        }   
-               
+    }       
        else{
            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
        }

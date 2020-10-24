@@ -1,13 +1,18 @@
 <?php
 // Include the database configuration file
 include '../connection.php';
+echo "hello world";
 session_start();
 $id=$_SESSION["user_id"];
+
+//  TODO
+// refresh
+// currently --> returned
+// next in line: notification, waiting --> pending
 
 if($_SERVER["REQUEST_METHOD"] == "GET"){
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
-
     $param_id = trim($_GET["id"]);
     $type="";
     $available=true;
@@ -150,11 +155,20 @@ if(isset($_POST['add_to_queue']))
                         <?php } else { ?> 
                         
                         Rented 
+                        
 
-                        <form action="detail.php" method="post">
-                        <input type="text" name="no_of_months">
-                        <input type="hidden" name="id" value="<?php echo $param_id;?>">
-                        <input type="submit" name="add_to_queue">
+                        <a href="payment_rent.php?id=<?php echo $param_id ?>">Rent</a>
+
+                        <form action="queue.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $param_id ?>">
+
+                        <input type="submit" value="
+                        <!-- TODO -->
+                        <!-- if is_avaialble=1 -->
+                        Rent
+                        <!-- else -->
+                        Add to queue
+                        ">
                         </form>
                         
                         <?php } ?>
