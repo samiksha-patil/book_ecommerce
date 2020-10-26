@@ -97,15 +97,13 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
                         $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$id','$address','$zip', '$state')";
                         
                         if(mysqli_query($link, $sql))
-                        {
-                            
-                                      
+                        {                                 
                                        
                             $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
                             if(mysqli_query($link, $sql1))
                             {
                                 
-                                $sql3= "UPDATE cart_item INNER JOIN book_for_sale on cart_item.book_id=book_for_sale.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()   WHERE cart_item.user_id=$id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
+                                $sql3= "UPDATE cart_item SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()  WHERE cart_item.user_id=$id AND cart_item.is_ordered=0 AND cart_item.book_id  IN ( SELECT book_id FROM book_for_sale) AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
                                 echo $sql3;
                                 if(mysqli_query($link, $sql3))
                                 {

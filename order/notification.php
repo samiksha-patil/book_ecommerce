@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<script>
-function Update_status(){
-    
-  alert
-}
-</script>
 <?php
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -43,8 +37,7 @@ pendin requset
 <a href="payment_rent.php?id=<?php echo $row['book_id']  ?>" class="btn btn-info">accept</a> 
 <input type="hidden" name="id" value="<?php echo $row['book_id'] ?>">
 <input type="submit" name="reject" value="reject" />
-<button onclick="Update_status()" class="btn btn-info">reject</button>
-             <?php echo $row["book_id"]; 
+
                                                    
         }
     }

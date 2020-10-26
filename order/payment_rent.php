@@ -34,8 +34,7 @@ $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
        
         $total = $row["monthly_rate"];
         echo "$total";
-       
-        
+    
     }
 
 
@@ -75,11 +74,8 @@ if($query->num_rows == 1){
         // date of grant: When user accepts notif/request
         // date of return: When book is returned
         $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE book_id='$book_id' AND user_id='$id' AND status='Pending'";   
-        echo $sql2;
-        $result = mysqli_query($link, $sql2); 
-        if($result)
-        {      
-           if(mysqli_num_rows($result)>0) {      
+        
+           if(mysqli_query($link, $sql2)) {      
            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
            if(mysqli_query($link, $sql1))
            {               
@@ -109,7 +105,7 @@ if($query->num_rows == 1){
            else{
                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
            }
-       }   
+         
     }       
        else{
            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
