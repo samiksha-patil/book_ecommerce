@@ -152,23 +152,20 @@ if(isset($_POST['add_to_queue']))
                         
                         Available 
 
+                        <form action="queue.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $param_id ?>">
+                        <input type="submit" 
+                        value="Rent">
+                        </form>
+
                         <?php } else { ?> 
                         
                         Rented 
                         
-
-                        <a href="payment_rent.php?id=<?php echo $param_id ?>">Rent</a>
-
                         <form action="queue.php" method="post">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
-
-                        <input type="submit" value="
-                        <!-- TODO -->
-                        <!-- if is_avaialble=1 -->
-                        Rent
-                        <!-- else -->
-                        Add to queue
-                        ">
+                        <input type="submit" 
+                        value="Add to queue">
                         </form>
                         
                         <?php } ?>
