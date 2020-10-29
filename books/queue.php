@@ -24,10 +24,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $sql = "INSERT INTO queue (user_id, book_id, status, date_of_request) VALUES ('$id','$book_id','Waiting',NOW())";
             if(mysqli_query($link, $sql))
             {
-                // TODO
-                // queue has no one waiting
-                // status pending
-                // redirect to payement_rent.php
+                $query = $link->query("SELECT is_available FROM book_for_rent WHERE book_id=$book_id");
+                $row = $query->fetch_assoc();
+                if($row["is_available"]==1){
+                        $query = $link->query("UPDATE queue SET status='Pending' WHERE user_id=$id AND book_id=$book_id AND status='Waiting'");
+                        header("location: ../order/payment_rent.php?id=$book_id");
+                }
             }
             else {
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
