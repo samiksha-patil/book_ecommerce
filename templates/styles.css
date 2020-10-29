@@ -75,6 +75,8 @@ p{
   
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+    
   }
 
   .container {
@@ -239,14 +241,30 @@ p{
 
 }
 
-.fg{
-  background-image: url(title-img.jpg);
-    background-color: #EBFDFF;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    text-align: center;
-    padding: 10%;
-    
+.container-top {
+  position: relative;
 }
 
+.center {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+}
+
+
+.img-top { 
+  width: 100%;
+  height: auto;
+  
+}
+@media screen and (max-width: 500px) {
+  .center {
+    position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  }
+}
