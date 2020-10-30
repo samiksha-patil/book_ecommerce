@@ -32,12 +32,12 @@ if($result = mysqli_query($link, $sql)){
         $total =0;
         while($row = mysqli_fetch_array($result)){
 ?>
-pendin requset
+pending request
 <form name="form" method="post">
 <a href="payment_rent.php?id=<?php echo $row['book_id']  ?>" class="btn btn-info">accept</a> 
 <input type="hidden" name="id" value="<?php echo $row['book_id'] ?>">
 <input type="submit" name="reject" value="reject" />
-
+<?php
                                                    
         }
     }
@@ -46,7 +46,4 @@ pendin requset
 
 ?>
 
-<?php
-#$sql ="UPDATE queue set status='Reject' WHERE book_id=$row['book_id'] AND user_id=$user_id";
-?>
 </body>

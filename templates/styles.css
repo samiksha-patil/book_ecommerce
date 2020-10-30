@@ -1,0 +1,270 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+p{
+  -webkit-font-smoothing: antialiased;
+  background: 0 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  outline: 0;
+  color: #8d8d8d;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  line-height: 26px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
+.col-md-6 {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.ml-auto, .mx-auto {
+  margin-left: auto!important;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+@media only screen and  (min-width: 768px){
+.col-md-6 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+}
+.parent {
+  display: grid;
+  
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .child {
+    display: grid;
+  place-items: center;
+  
+  
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+    
+  }
+
+  .container {
+    position: relative;
+
+    height: fit-content;
+    
+ 
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+  }
+  
+  .container:hover .overlay {
+    display: block;
+    background:rgb(255 255 255 / 0.65);
+  }
+ 
+  
+  .button {
+    position: absolute;
+    width: 100%;
+    left:0;
+    top: 50%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  
+  .button a {
+    width: 200px;
+    padding: 12px 48px;
+    text-align: center;
+    color: #37465d;
+    text-decoration: none;
+    border: solid 2px #37465d;
+    z-index: 1;
+  }
+  
+  .button :hover{
+    color:white;
+    background-color:  #37465d;
+    
+  }
+  
+  .container:hover .button {
+    opacity: 1;
+  }
+  .product-title {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 50px;
+    line-height: 60px;
+    letter-spacing: 0px;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+    color: #000000;
+}
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column-50 {
+  float: left;
+  width: 50%;
+  padding: 5%;
+   /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column-50 {
+    width: 100%;
+  }
+}
+
+  
+.button-cart {
+  margin: 1rem;
+  text-align: center;
+ 
+}
+
+.button-cart a{
+  width: 200px;
+  padding: 12px 48px;
+  margin-top: 82px ;
+  text-align: center;
+  color: #37465d;
+  text-decoration: none;
+  border: solid 2px #37465d;
+}
+.button-cart :hover{
+  color:white;
+  background-color:  #37465d;
+  
+}
+
+.img-book{
+  width: 100%;
+  height: auto;
+  
+}
+
+.collapsible {
+  color: #37465d;
+  text-decoration: none;
+  border: solid 2px #37465d;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  margin-top:10px;
+  background-color: white;
+}
+
+.active, .collapsible:hover {
+  color:white;
+  background-color:  #37465d;
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  text-align: left;
+
+}
+
+.top-img{
+  width: 100%;
+}
+
+.top-title {
+
+  width: 100%;
+  left:0;
+  top: 50%;
+  text-align: center;
+  font-size: 100px;
+
+}
+
+.container-top {
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  font-size: 5vw;
+}
+
+
+.img-top { 
+  width: 100%;
+  height: auto;
+  
+}
+@media screen and (max-width: 500px) {
+  .center {
+    position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  }
+}
