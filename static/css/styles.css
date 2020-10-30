@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&family=Roboto&family=Crimson+Text&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.nav-link {
+  line-height: 70px;
+  padding: 0 29px;
+  color: #37465d;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  /* text-decoration: none;
+    text-decoration-line: none; */
+  /* text-decoration: underline;
+  text-decoration-style: initial;
+  text-decoration-color: initial; */
+  color: #ea524d;
+}
+
+.badge {
+  position: relative;
+  top: -40px;
+  right: 20px;
+  padding: 5px 9px;
+  border-radius: 50%;
+  background: #ea524d;
+  color: white;
+  font-size: 13px;
+}
+
+.mobile-badge {
+  padding: 5px 9px;
+  border-radius: 50%;
+  background: #ea524d;
+  color: white;
+  font-size: 13px;
+}
+
+nav ul ion-icon {
+  padding: 25px 15px;
+}
+
+nav ul:not(:last-child) {
+  margin-left: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.logo {
+  margin: 1em;
+}
+
+nav {
+  display: flex;
+  background: white;
+  position: sticky;
+  width: 100%;
+  top: 0;
+}
+
+body {
+  background: pink;
+}
+
+#notifContainer {
+  position: absolute;
+  background: #fff;
+  top: 90px;
+  width: 400px;
+  right: 10px;
+  padding: 20px 30px;
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+#notif:hover + .notif {
+  display: block;
+  color: red;
+}
+
+/* Notifications */
+.notif:not(:last-child) {
+  border-bottom: 1px #ccc solid;
+}
+
+.notif a {
+  font-family: "Crimson Text", "sans-serif";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+.notif {
+  color: #9d9d9d;
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: 25% auto;
+}
+
+/* Buttons */
+.primary:hover {
+  border-color: #324852;
+  color: #fff;
+  background-color: #324852;
+}
+
+.primary {
+  border-color: #324852;
+  color: #324852;
+  background-color: transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.secondary {
+  border: none;
+  color: #324852;
+  background-color: transparent;
+}
+
+.notif-buttons button {
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  border-width: 1px;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 30px;
+  font-size: 13px;
+  padding: 5px 20px;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* Responsive nav */
+
+nav ul li a:hover + .hidden,
+.hidden:hover {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+nav .show-menu {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  color: #000;
+  text-align: right;
+  padding: 10px;
+  display: none;
+  font-size: 28px;
+  align-self: flex-end;
+  right: 0;
+  margin-left: auto;
+}
+
+nav input[type="checkbox"] {
+  display: none;
+}
+
+@media screen and (max-width: 760px) {
+  nav input[type="checkbox"]:checked ~ #menu {
+    display: block;
+  }
+
+  nav ul {
+    position: static;
+    display: none;
+  }
+
+  nav li {
+    margin-bottom: 1px;
+  }
+
+  nav ul li,
+  nav li a {
+    width: 100%;
+  }
+
+  nav .show-menu {
+    display: inline-block;
+  }
+
+  nav .nav-title {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .logo {
+    height: 50%;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  #menu {
+    padding: 0 30px;
+    text-align: center;
+  }
+
+  #menu li:not(:last-child) {
+    border-bottom: 1px #ccc solid;
+  }
+
+  .nav-link {
+  }
+
+  nav {
+    display: block;
+  }
+}
+
+/* Search Bar */
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.overlay input[type="text"] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 80%;
+  background: white;
+}
+
+.overlay input[type="text"]:hover {
+  background: #f1f1f1;
+}
+
+.overlay button {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #fff;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background: #bbb;
+}
+.overlay-content form {
+  display: flex;
+}

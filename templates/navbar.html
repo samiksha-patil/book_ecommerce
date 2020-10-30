@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-title">
+        <img
+          class="logo"
+          src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/logo-img-01.png"
+        />
+        <label for="show-menu" class="show-menu" id="menu-icon"
+          ><ion-icon name="menu-outline"></ion-icon
+        ></label>
+      </div>
+      <input type="checkbox" id="show-menu" role="button" />
+      <ul id="menu">
+        <li>
+          <a class="nav-link" href="#">Shop</a>
+        </li>
+        <li class="mobile-only">
+          <a class="nav-link" href="#" style="padding-right: 3px"
+            >Notifications</a
+          >
+          <span class="mobile-badge">5</span>
+        </li>
+        <li class="mobile-only">
+          <a class="nav-link" href="#">Cart</a>
+        </li>
+        <li>
+          <a class="nav-link" href="#">Orders</a>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <div class="myDIV">
+            <ion-icon name="notifications" id="notifIcon"></ion-icon>
+            <span class="badge">5</span>
+            <div id="notifContainer">
+              <div class="notif">
+                <div>
+                  <img
+                    height="70"
+                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-04-600x525.png"
+                  />
+                </div>
+                <div>
+                  <a href="#">Foxy Jump</a> is available for rent.
+                  <br />
+                  <div class="notif-date">Now</div>
+                  <div class="notif-buttons">
+                    <button class="primary">Rent Now</button>
+                    <button class="secondary">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              <div class="notif">
+                <div>
+                  <img
+                    height="70"
+                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-03-600x525.png"
+                  />
+                </div>
+                <div>
+                  <a href="#">Mockup Book</a> is available for rent.
+                  <br />
+                  <div class="notif-date">Now</div>
+                  <div class="notif-buttons">
+                    <button class="primary">Rent Now</button>
+                    <button class="secondary">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              <div class="notif">
+                <div>
+                  <img
+                    height="70"
+                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-05.png"
+                  />
+                </div>
+                <div>
+                  <a href="#">Fernando</a>&nbsp;&nbsp;is available for rent.
+                  <br />
+                  <div class="notif-date">Now</div>
+                  <div class="notif-buttons">
+                    <button class="primary">Rent Now</button>
+                    <button class="secondary">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              <div class="notif">
+                <div>
+                  <img
+                    height="70"
+                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-02-600x525.png"
+                  />
+                </div>
+                <div>
+                  <a href="#">Heart in a box</a> is available for rent.
+                  <br />
+                  <div class="notif-date">Now</div>
+                  <div class="notif-buttons">
+                    <button class="primary">Rent Now</button>
+                    <button class="secondary">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <ion-icon name="cart"></ion-icon>
+        </li>
+        <li>
+          <ion-icon
+            name="search"
+            class="openBtn"
+            onclick="openSearch()"
+          ></ion-icon>
+        </li>
+      </ul>
+    </nav>
+    <div id="myOverlay" class="overlay">
+      <span class="closebtn" onclick="closeSearch()" title="Close Overlay"
+        >×</span
+      >
+      <div class="overlay-content">
+        <form action="/action_page.php">
+          <input type="text" placeholder="Search.." name="search" />
+          <button>
+            <ion-icon name="search"></ion-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non praesentium
+      culpa voluptatem repellat optio quaerat nisi. Saepe eaque illo natus nisi
+      neque delectus voluptates, quam libero quasi earum sint hic distinctio
+      ipsam, explicabo aut excepturi unde nesciunt ab iusto suscipit eligendi
+      nostrum iure doloribus! Aut quod quas perferendis modi, distinctio dolor
+      adipisci nulla dignissimos quis necessitatibus mollitia totam ut optio
+      repellat fugit dolore fugiat dolorum consequuntur veniam iure sint natus
+      delectus. Explicabo dignissimos numquam ullam facere fugit impedit vitae
+      molestias praesentium ab corrupti velit, qui atque, cumque quo. Deserunt,
+      unde eos? Unde odio sit, distinctio quo voluptatum quae tenetur harum
+      consequuntur sunt velit. Odio sint sapiente consequatur autem error
+      facere, atque laudantium animi nihil sunt fuga dolorum at eveniet! Ut,
+      impedit ex eveniet nulla ipsum, excepturi in nostrum illum aspernatur
+      maxime vel quis alias at maiores officiis beatae earum sed recusandae est
+      quas? Ad repellendus possimus facere aut soluta harum perferendis cum ab,
+      at repudiandae nobis itaque tempore molestias ducimus. Eaque, sunt
+      laudantium architecto praesentium autem minima repellat totam suscipit
+      voluptatum ipsa expedita sit sequi accusantium placeat odit illum quasi
+      enim voluptatem deleniti qui nesciunt, possimus accusamus nobis eos! Nam
+      aliquid incidunt explicabo expedita soluta culpa impedit at cupiditate
+      possimus. Repellat eius exercitationem quaerat ducimus officiis blanditiis
+      incidunt eaque eveniet, corporis ex velit veritatis natus nemo perferendis
+      qui praesentium enim tenetur. Similique quos enim repellendus dolores
+      reprehenderit explicabo a facere assumenda libero expedita molestias autem
+      ipsa natus nemo ex, cumque quam est eaque consequuntur animi tempora.
+      Animi, fugiat! Aliquam ab expedita aliquid modi quis eum molestias fuga
+      rem in laudantium, nesciunt eius quisquam accusantium hic aut itaque
+      earum! Laborum, enim animi. In culpa laborum aperiam non iusto id nostrum
+      tempore ullam facilis perspiciatis impedit ex iste quasi amet quaerat
+      veritatis dignissimos animi aspernatur quod magni delectus, architecto
+      laboriosam libero minima. Quibusdam officia deserunt odit cum facere
+      distinctio maiores quasi, ea porro obcaecati eos pariatur itaque quisquam
+      recusandae reiciendis assumenda debitis veniam fugit asperiores aliquam
+      ex. Cupiditate cum enim, deleniti nemo laborum provident? Illum
+      perferendis voluptate voluptas earum, sint excepturi nihil repellat! Qui
+      quis, saepe praesentium illo consectetur eaque quasi ut numquam nihil
+      atque ullam culpa natus sit harum, error ratione? Reiciendis, eum.
+      Reprehenderit facilis laboriosam temporibus soluta aliquam quos maiores
+      neque a corrupti maxime voluptates quo, ad tenetur blanditiis modi autem
+      explicabo error dolor dolorum provident? Rerum repudiandae ea accusamus
+      consequuntur enim numquam, deleniti porro dolorem aperiam tempore omnis
+      sint minus fugit quo iure officia odio quis eveniet tempora sed est facere
+      voluptate. Sit, minus sint perspiciatis distinctio nobis voluptas omnis
+      placeat iure, odio sed reiciendis rem dolor officia nostrum ex nesciunt
+      voluptate in sequi debitis inventore saepe modi! Iure minus nisi, nobis
+      illo voluptatum et tempore qui? Perferendis autem facilis exercitationem,
+      unde nemo laborum nesciunt molestias eum! Iure accusantium quos magni
+      velit dolor quo sed sunt. Ratione inventore veniam quaerat quidem aperiam
+      eum enim quia possimus temporibus voluptate ipsa necessitatibus
+      perspiciatis itaque quibusdam, ut animi deserunt iusto, nisi laborum.
+      Libero cumque at sapiente qui ab, corrupti omnis ullam animi dolor laborum
+      eius incidunt blanditiis ratione temporibus quos maxime aspernatur in
+      magnam repellendus mollitia autem. Accusantium, in! Sapiente enim esse
+      possimus voluptatibus adipisci. Voluptatibus vel maiores numquam earum
+      explicabo? Voluptatum ut quod alias praesentium consequuntur incidunt,
+      quisquam provident delectus deserunt molestias facilis doloremque nostrum.
+      Necessitatibus, asperiores. Sit nihil ducimus ex cum tenetur provident
+      totam maiores sint fugiat nam labore inventore doloribus, obcaecati enim
+      doloremque unde. Tenetur sint iusto iste sit minus id blanditiis quas
+      expedita nam explicabo. Ea, dolor necessitatibus natus, earum eveniet
+      porro ab commodi culpa assumenda quas voluptatibus cum officiis beatae
+      ratione excepturi rem perferendis nobis quidem maiores nihil dignissimos,
+      suscipit quo in! Exercitationem quibusdam, mollitia eos unde quo rem?
+      Doloribus consequuntur sit dolore, sunt ex reiciendis unde quidem eius
+      facilis maxime? Officia illo maxime temporibus reiciendis. At voluptates
+      porro repellendus id maiores itaque amet quaerat earum consectetur ipsum,
+      repudiandae excepturi iste, animi ad nam non ipsa dignissimos
+      reprehenderit? Excepturi sint, praesentium exercitationem nesciunt quod a
+      deserunt! Minus architecto cupiditate at id animi ex magnam culpa, porro,
+      quae nemo est? Dolorum nesciunt adipisci, officia sunt eos soluta
+      veritatis hic. Esse ipsam itaque consectetur ad laborum perferendis. Sunt
+      iusto nam minima. Laudantium, aperiam culpa officiis porro et laboriosam
+      possimus iste vel magnam saepe quod, ea tempora temporibus delectus fugiat
+      in! Vel voluptatum amet doloremque aut praesentium dicta modi cum non
+      repellat eum officiis temporibus veritatis placeat adipisci dolor, neque
+      eaque nemo. Dignissimos inventore culpa ratione consequatur tempore
+      voluptate repellat distinctio, provident nostrum dolores, quaerat
+      accusantium blanditiis aliquid aliquam tempora ullam cum vero sit iste qui
+      quos asperiores. Recusandae dolorum incidunt vitae. Labore nostrum ab ad
+      architecto odio doloribus quod natus placeat! Accusamus repellat non amet
+      atque, perspiciatis odio perferendis mollitia necessitatibus tenetur magni
+      tempora repudiandae facere! Similique quibusdam fugiat mollitia nam
+      accusantium expedita doloribus doloremque quisquam quas esse qui amet
+      excepturi nihil sapiente molestias non reprehenderit ex rerum magnam,
+      ullam asperiores in quasi laboriosam perferendis. Voluptatum quidem, vitae
+      quia magni unde earum officiis at minima repellat pariatur eos in mollitia
+      dolores saepe eius, voluptate, obcaecati blanditiis reprehenderit possimus
+      quibusdam aliquid! Doloribus accusamus a tempora hic fugiat quas facere
+      autem veniam, at adipisci accusantium quod ipsam exercitationem quaerat
+      sint beatae sapiente dolor aperiam voluptatibus modi dolorem assumenda.
+      Tempore, magnam ducimus odit voluptatum delectus dolorem vel fugit
+      architecto, aliquid numquam, maxime voluptas aliquam. Enim vero, modi
+      debitis nesciunt ad voluptatem itaque repellat ipsam in iure ratione at
+      qui fugit aspernatur officiis exercitationem neque dolorem sint doloribus
+      facere voluptate veniam repellendus assumenda libero? Asperiores ipsam vel
+      officiis enim at, nostrum vero? Pariatur magni eum ipsa corrupti maxime ex
+      eaque a, vitae alias, quibusdam sunt dolore laudantium! Possimus dolor
+      dolore iusto id earum omnis nobis, perspiciatis eos delectus nulla quos
+      odit consequuntur ullam distinctio? Nam iusto nihil fuga et veniam laborum
+      cupiditate ullam autem beatae molestias, quia aperiam perspiciatis quos
+      tempora dolore voluptatibus dicta culpa quo dolorem voluptas nisi ea iure
+      maxime! Dolor expedita distinctio officiis ipsa ab, exercitationem quod
+      accusamus nesciunt! Odit, quo similique. Repellendus ipsum et esse, dicta
+      recusandae exercitationem natus.
+    </div>
+
+    <script>
+      var notifContainer = document.getElementById("notifContainer");
+      var notifIcon = document.getElementById("notifIcon");
+
+      notifIcon.onclick = function () {
+        notifContainer.style.display = "block";
+      };
+      window.onclick = function (event) {
+        if (event.target != notifContainer && event.target != notifIcon) {
+          notifContainer.style.display = "none";
+        }
+      };
+
+      function openSearch() {
+        document.getElementById("myOverlay").style.display = "block";
+      }
+
+      function closeSearch() {
+        document.getElementById("myOverlay").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
