@@ -146,13 +146,14 @@ echo"<br />";
 
 // Queue
 $sql = "CREATE TABLE IF NOT EXISTS queue (
+    queue_id INT AUTO_INCREMENT,
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     status ENUM ('Waiting','Pending', 'Cancelled', 'Currently renting', 'Returned'),
     date_of_request DATETIME DEFAULT NOW(),
     date_granted DATETIME,
     date_of_return DATETIME,
-    PRIMARY KEY(book_id, user_id, status),
+    PRIMARY KEY(queue_id),
     FOREIGN KEY (user_id) REFERENCES customer(user_id),
     FOREIGN KEY (book_id) REFERENCES book(book_id)
     ON DELETE CASCADE
@@ -161,6 +162,23 @@ if (mysqli_query($link, $sql)) {
     echo "Queue table created successfully";
 } else {
     echo "Error creating queue table: " . mysqli_error($link);
+}
+
+echo"<br />";
+
+// Notifications
+$sql = "CREATE TABLE IF NOT EXISTS notification (
+    notif_id INT AUTO_INCREMENT,
+    queue_id INT NOT NULL,
+    timestamp DATETIME DEFAULT NOW(),
+    PRIMARY KEY(notif_id),
+    FOREIGN KEY (queue_id) REFERENCES queue(queue_id)
+    ON DELETE CASCADE
+);";
+if (mysqli_query($link, $sql)) {
+    echo "Notification table created successfully";
+} else {
+    echo "Error creating notification table: " . mysqli_error($link);
 }
 
 echo"<br />";

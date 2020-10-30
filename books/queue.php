@@ -29,6 +29,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($row["is_available"]==1){
                         $query = $link->query("UPDATE queue SET status='Pending' WHERE user_id=$id AND book_id=$book_id AND status='Waiting'");
                         header("location: ../order/payment_rent.php?id=$book_id");
+                        echo "hiiiiiiii";
+                        exit();
                 }
             }
             else {
@@ -41,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             exit();
         }
         mysqli_close($link);
-        header("location: ../books/detail.php?id=$book_id");
+        header("location: detail.php?id=$book_id");
     }
     else{
         if(empty(trim($_POST["id"]))){
