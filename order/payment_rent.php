@@ -88,18 +88,22 @@ $user_id= $_SESSION["user_id"];
                 if(mysqli_query($link, $sql3))
                 {
                     $event_sql= 
-                    "delimiter $$
-                    CREATE EVENT `test_event_$queue_id`
+                    "CREATE EVENT `test_event_$queue_id`
                     ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL $no_months MINUTE
-                    ON COMPLETION PRESERVE DISABLE
+                    ON COMPLETION PRESERVE
                     DO 
-                        BEGIN
-                            update queue
-                            set status ='Pending'
-                            where book_id=$book_id and status='Waiting'
-                            limit 1;
-                        END$$
-                    delimiter ;";
+                    BEGIN
+                    declare no_of_waiting INT default 0;
+                    declare next_waiting INT default 0;
+                    set no_of_waiting = (select count(*) from queue where status='Waiting' and book_id=$book_id);
+                    update queue set status='Returned' where queue_id=$queue_id;
+                    if no_of_waiting>0 then
+                    set next_waiting = (select queue_id from queue where status='Waiting' and book_id=$book_id limit 1);
+                    update queue set status='Pending' where queue_id=next_waiting;
+                    else
+                    update book_for_rent set is_available=1 where book_id=$book_id limit 1;
+                    end if;
+                    END;";
                     if(mysqli_query($link, $event_sql))
                 {
                     header("location: ../books/user_books.php");

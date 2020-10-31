@@ -31,7 +31,7 @@ if (mysqli_query($link, $sql)) {
 
 echo"<br />";
 
-// Create tables
+// TABLES
 
 // Customer
 $sql = "CREATE TABLE IF NOT EXISTS customer (
@@ -226,5 +226,27 @@ if (mysqli_query($link, $sql)) {
 } else {
     echo "Error creating payment table: " . mysqli_error($link);
 }
+
+echo"<br />";
+
+// TRIGGERS
+// Create notification
+$sql= "CREATE TRIGGER `create_notif` AFTER UPDATE ON `queue`
+FOR EACH ROW begin
+if new.status='Pending' and old.status<>'Pending' then
+insert into notification (queue_id) values (new.queue_id);
+end if;
+end";
+if (mysqli_query($link, $sql)) {
+    echo "Notification trigger created successfully";
+} else {
+    echo "Error creating notification trigger: " . mysqli_error($link);
+}
+
+// VIEWS
+// Book for rent
+// Book for sale
+// Notification
+// Queue
 
 ?>
