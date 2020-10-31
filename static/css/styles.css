@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&family=Roboto&family=Crimson+Text&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Roboto&family=Crimson+Text&display=swap");
 
 *,
 ::after,
@@ -136,7 +136,6 @@ p {
 }
 .parent {
   display: grid;
-
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
@@ -223,6 +222,27 @@ body {
   /* Should be removed. Only for demonstration */
 }
 
+.column-30 {
+  float: left;
+  width: 30%;
+  /* padding: 5%; */
+  /* Should be removed. Only for demonstration */
+}
+
+.column-70 {
+  float: left;
+  width: 70%;
+  /* padding: 5%; */
+  /* Should be removed. Only for demonstration */
+}
+
+.column-100 {
+  float: left;
+  width: 100%;
+  /* padding: 5%; */
+  /* Should be removed. Only for demonstration */
+}
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -232,7 +252,9 @@ body {
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column-50 {
+  .column-50,
+  .column-30,
+  .column-70 {
     width: 100%;
   }
   .row {
