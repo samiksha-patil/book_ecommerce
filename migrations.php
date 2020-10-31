@@ -232,7 +232,8 @@ echo"<br />";
 // TRIGGERS
 
 // Create notification
-$sql= "CREATE TRIGGER `create_notif` AFTER UPDATE ON `queue`
+$sql= "CREATE TRIGGER IF NOT EXISTS `create_notif`
+AFTER UPDATE ON `queue`
 FOR EACH ROW begin
 if new.status='Pending' and old.status<>'Pending' then
 insert into notification (queue_id) values (new.queue_id);
@@ -267,7 +268,9 @@ if (mysqli_query($link, $sql)) {
 echo"<br />";
 
 // Queue
-$sql= "";
+$sql= "CREATE VIEW IF NOT EXISTS queue_view AS
+SELECT queue.user_id, queue.queue_id, status, book.book_id, title, cover_image, customer.first_name, customer.last_name
+FROM queue INNER JOIN book ON book.book_id=queue.book_id INNER JOIN customer ON queue.user_id=customer.user_id WHERE status<>'Returned' AND status<>'Cancelled';";
 if (mysqli_query($link, $sql)) {
     echo "Queue view created successfully";
 } else {
@@ -277,7 +280,9 @@ if (mysqli_query($link, $sql)) {
 echo"<br />";
 
 // Notification
-$sql= "";
+$sql= "CREATE VIEW IF NOT EXISTS notification_view AS
+SELECT notif_id, queue.user_id, queue.queue_id, status, book.book_id, title, cover_image 
+FROM notification INNER JOIN queue ON queue.queue_id=notification.queue_id INNER JOIN book ON book.book_id=queue.book_id;";
 if (mysqli_query($link, $sql)) {
     echo "Notification view created successfully";
 } else {
