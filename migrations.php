@@ -230,6 +230,7 @@ if (mysqli_query($link, $sql)) {
 echo"<br />";
 
 // TRIGGERS
+
 // Create notification
 $sql= "CREATE TRIGGER `create_notif` AFTER UPDATE ON `queue`
 FOR EACH ROW begin
@@ -244,9 +245,43 @@ if (mysqli_query($link, $sql)) {
 }
 
 // VIEWS
+
 // Book for rent
+$sql= "";
+if (mysqli_query($link, $sql)) {
+    echo "Notification trigger created successfully";
+} else {
+    echo "Error creating notification trigger: " . mysqli_error($link);
+}
+
+echo"<br />";
+
 // Book for sale
-// Notification
+$sql= "";
+if (mysqli_query($link, $sql)) {
+    echo "Book rent view created successfully";
+} else {
+    echo "Error creating book rent view: " . mysqli_error($link);
+}
+
+echo"<br />";
+
 // Queue
+$sql= "";
+if (mysqli_query($link, $sql)) {
+    echo "Queue view created successfully";
+} else {
+    echo "Error creating queue view: " . mysqli_error($link);
+}
+
+echo"<br />";
+
+// Notification
+$sql= "";
+if (mysqli_query($link, $sql)) {
+    echo "Notification view created successfully";
+} else {
+    echo "Error creating notification view: " . mysqli_error($link);
+}
 
 ?>
