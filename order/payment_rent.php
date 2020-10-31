@@ -7,7 +7,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 require_once "../connection.php";
-
+echo $_SERVER["REQUEST_METHOD"];
 ?>
 
 <!DOCTYPE html>
@@ -52,12 +52,12 @@ $user_id= $_SESSION["user_id"];
        $book_id = $_POST['id'];
 
        
-$query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
-if($query->num_rows == 1){
-    $row = $query->fetch_assoc();
-    $total = $row["monthly_rate"];
-       
-}
+        $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
+        if($query->num_rows == 1){
+            $row = $query->fetch_assoc();
+            $total = $row["monthly_rate"];
+            
+        }
      
        $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$user_id','$address','$zip', '$state')";
       
@@ -73,7 +73,9 @@ if($query->num_rows == 1){
         // date of request: Timestamp when user enters queue
         // date of grant: When user accepts notif/request
         // date of return: When book is returned
-        $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE book_id='$book_id' AND user_id='$id' AND status='Pending'";   
+        $get_queue_id_sql =  $link->query("SELECT queue_id FROM queue WHERE book_id='$book_id' AND user_id='$id' AND status='Pending'");
+        $queue_id = $get_queue_id_sql->fetch_assoc()["queue_id"];
+        $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE queue_id=$queue_id";   
         
            if(mysqli_query($link, $sql2)) {      
            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
@@ -85,8 +87,30 @@ if($query->num_rows == 1){
                 $sql3= "UPDATE book_for_rent SET is_available=0 WHERE book_id=$book_id";
                 if(mysqli_query($link, $sql3))
                 {
+                    $event_sql= 
+                    "CREATE EVENT `test_event_$queue_id`
+                    ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL $no_months MINUTE
+                    ON COMPLETION PRESERVE
+                    DO 
+                    BEGIN
+                    declare no_of_waiting INT default 0;
+                    declare next_waiting INT default 0;
+                    set no_of_waiting = (select count(*) from queue where status='Waiting' and book_id=$book_id);
+                    update queue set status='Returned' where queue_id=$queue_id;
+                    if no_of_waiting>0 then
+                    set next_waiting = (select queue_id from queue where status='Waiting' and book_id=$book_id limit 1);
+                    update queue set status='Pending' where queue_id=next_waiting;
+                    else
+                    update book_for_rent set is_available=1 where book_id=$book_id limit 1;
+                    end if;
+                    END;";
+                    if(mysqli_query($link, $event_sql))
+                {
                     header("location: ../books/user_books.php");
                     echo "Payment Successful!..you will soon receive your book.";
+                } else {
+                     echo "ERROR: Could not able to execute $event_sql. " . mysqli_error($link);
+                }
                 }
                 else{
                     echo "ERROR: Could not able to execute $sql3. " . mysqli_error($link);

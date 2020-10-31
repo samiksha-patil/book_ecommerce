@@ -150,6 +150,10 @@ body {
   .column-50 {
     width: 100%;
   }
+  .row {
+    max-width: 300px;
+    padding-top: 30px;
+  }
 }
 
 .button-cart {

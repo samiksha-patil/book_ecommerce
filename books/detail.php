@@ -162,6 +162,15 @@ if(isset($_POST['add_to_queue']))
                         
                         Rented 
                         
+                        <?php 
+                            $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
+                            if($query->num_rows > 0){ 
+                                echo $query->num_rows."in line for this book<br>";
+                                while($queue_row = mysqli_fetch_array($query)){
+                                    echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
+                                }
+                            }
+                        ?> 
                         <form action="queue.php" method="post">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
@@ -225,7 +234,7 @@ if(isset($_POST['add_to_queue']))
                     } ?>
                 </div>
                 <img src="../uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
-            </div>        
+            </div>       
         </div>
     </div>
 </body>
