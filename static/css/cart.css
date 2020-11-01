@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&family=Roboto&family=Crimson+Text&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+  .container-top {
+    position: relative;
+  }
+  
+  .center {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    font-size: 5vw;
+  }
+  
+  
+  .img-top { 
+    width: 100%;
+    height: auto;
+    
+  }
+  @media screen and (max-width: 500px) {
+    .center {
+      position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    }
+  }
+.card {
+    font-weight: 400;
+    border: 0;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    position: relative;  
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,0.125);
+    border-radius: .25rem;
+    margin: 5%;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr >  .table > tbody > tr >  .table > tfoot > tr > td {
+    padding: 12px 12px;
+    vertical-align: middle;
+    border-color: #ddd;
+    font-size: 25px;
+    text-align: center;
+}
+thead,tr {
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+    font-size: 25px;
+    text-align: center;
+}
+.td{
+    vertical-align: middle;
+    width: 25%;
+}
+
+.product-title {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 60px;
+    line-height: 70px;
+    letter-spacing: 0px;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+    color: #000000;
+}
+.main-raised {
+    margin: -60px 30px -100px;
+    border-radius: 6px;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+td{
+font-family: 'Roboto', sans-serif;
+color: #888;
+font-weight: 100px;
+font-size: medium;
+}
+
+.align-center{
+  display: grid;
+  place-items: center;
+}
+
+@media screen and (max-width: 550px) {
+  table {
+    border-collapse: collapse;
+    table-layout: auto;
+}
+}
+@media screen and (max-width: 850px){
+  .main-raised{
+    margin: -10px 10px 0px;
+   
+  }
+}
+
+.checkout-btn {
+
+margin-bottom: 2rem;
+text-align: right;
+margin-right: 2rem;
+}
+.checkout-btn a{
+  width: 200px;
+  padding: 12px 48px;
+  margin-top: 82px ;
+  color: #37465d;
+  text-decoration: none;
+  border: solid 1px #37465d;
+}
+.checkout-btn :hover{
+  color:white;
+  background-color:  #37465d;
+  
+}
