@@ -6,25 +6,19 @@
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit recusandae
-      nostrum sint fuga quibusdam provident quasi saepe repellendus accusantium
-      natus, nemo vero est odio voluptate, voluptatem maiores fugiat dignissimos
-      voluptas dolore similique, animi voluptatum! Blanditiis molestiae, sunt
-      asperiores ad magnam modi numquam ducimus atque maiores. Quo error fuga
-      temporibus expedita animi, rem, dolore exercitationem incidunt autem eius
-      iste obcaecati praesentium iusto eligendi ea accusamus sequi, earum
-      delectus cum reiciendis. Laudantium eum labore, placeat ab nisi blanditiis
-      voluptatum tempora exercitationem amet consequuntur recusandae ea? Quo
-      recusandae tempora aliquam consectetur amet, commodi dignissimos, ducimus
-      suscipit aliquid nihil voluptatum sint veniam quam ipsum.
-    </p>
-    <!-- <div class="container-top">
-  <img class="img-top" src="title-img.jpg" alt="Cinque Terre" width="1000" height="300">
-  <div class="center product-title">Shop</div>
-</div> -->
+    <div class="container-top">
+      <img
+        class="img-top"
+        src="title-img.jpg"
+        alt="Cinque Terre"
+        width="1000"
+        height="300"
+      />
+      <div class="center product-title">Shop</div>
+    </div>
     <div class="row">
       <div class="search_filters column-30">
         <div class="search">
@@ -34,7 +28,7 @@
               type="text"
               id="search"
               name="q"
-              placeholder="Search something..."
+              placeholder="Search..."
               form="search_filter_form"
             />
           </div>
@@ -125,16 +119,13 @@
               <input type="radio" id="All" name="category" value="All" />
               <label for="All">All</label>
             </div>
-            <button type="submit">Apply</button>
+            <button type="submit" id="apply">Apply</button>
           </form>
         </div>
       </div>
-      <div class="column-70">
+      <div class="column-60">
         <div id="selectionContainer">
-          <button
-            class="selection sel-active"
-            onclick="filterSelection('all')"
-          >
+          <button class="selection sel-active" onclick="filterSelection('all')">
             All books
           </button>
           <button class="selection" onclick="filterSelection('buy')">
@@ -145,19 +136,53 @@
           </button>
         </div>
         <div class="parent">
-          <div class="child">
+          <?php
+                    $sql = "SELECT book.book_id, title, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id UNION SELECT book.book_id, title, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id".$sql_condition;
+                    // echo $sql;
+                    if($result = mysqli_query($link, $sql)){ ?>
+          <div class="page-header clearfix">
+            <h2 class="pull-left">
+              Books for rent
+              <?php echo mysqli_num_rows($result); ?>
+            </h2>
+          </div>
+          <?php if(mysqli_num_rows($result) >
+          0){ ?>
+          <div class="row books">
+            <?php while($row = mysqli_fetch_array($result)){ ?>
+            <div class="child filterDiv rent" data-id="<?php echo $row["book_id"] ?>"
+            onclick="goToDetail()">
+            <div class="container">
+              <img style="height: 200px" src="../uploads/<?php echo $row["cover_image"]; ?>"
+              alt="" />
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              <?php echo $row["title"]; ?>
+            </div>
+            <p style="text-align: center">
+              Rs.
+              <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+            </p>
+          </div>
+          <?php } ?>
+          <div class="child filterDiv rent" data-id="1" onclick="goToDetail()">
             <div class="container">
               <img style="height: 200px" src="book.png" alt="" />
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv rent">
             <div class="container">
@@ -165,12 +190,12 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART </a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
               <p style="text-align: center">$5</p>
             </div>
           </div>
@@ -181,14 +206,28 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#">ADD TO CART </a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv buy">
             <div class="container">
@@ -196,14 +235,14 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv buy">
             <div class="container">
@@ -211,14 +250,14 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv buy">
             <div class="container">
@@ -226,29 +265,14 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
-          </div>
-          <div class="child filterDiv buy">
-            <div class="container">
-              <img style="height: 200px" src="book.png" alt="" />
-
-              <div class="overlay"></div>
-              <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
             </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv rent">
             <div class="container">
@@ -256,14 +280,14 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
           <div class="child filterDiv rent">
             <div class="container">
@@ -271,125 +295,17 @@
 
               <div class="overlay"></div>
               <div class="button"><a href="#"> ADD TO CART</a></div>
-              <div
-                class="product-title"
-                style="font-size: 22px; text-align: center"
-              >
-                Most Popular Edition
-              </div>
-              <p style="text-align: center">$5</p>
             </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
           </div>
         </div>
       </div>
-    </div>
-
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea eligendi ipsa
-      quo a obcaecati ullam reprehenderit aperiam, nemo voluptate dignissimos
-      dolor in nisi architecto, recusandae veniam rerum? Molestiae ipsum harum
-      reiciendis numquam neque accusamus consequatur amet asperiores ullam.
-      Maxime, delectus consequatur. Velit molestiae totam officia reprehenderit
-      atque quas omnis eligendi enim tempore accusantium eius natus fugiat
-      adipisci iure dolorem alias odio, laudantium neque architecto illo labore
-      illum commodi, ea magni. Minus dolorum a qui error est dolores dicta. Vel,
-      architecto amet. Itaque explicabo facere quos ipsum ullam est quae,
-      cupiditate unde magni dolor id, sapiente, recusandae enim! Rerum soluta
-      tenetur modi ullam, quaerat perspiciatis ratione voluptas tempora, sint
-      corporis quasi ab officia culpa libero delectus laborum placeat, sequi
-      aliquam repellendus illo doloribus! Cum ut odit incidunt beatae reiciendis
-      eius dolor, excepturi at fugiat porro illo fugit quos, vel modi odio
-      voluptate voluptatibus laboriosam a quod! Delectus inventore cum officia
-      rem quaerat, ipsum deleniti recusandae qui voluptas non aut repudiandae
-      ullam ut ab in voluptatibus neque, explicabo laborum vel ducimus commodi
-      voluptate sequi labore placeat. Porro impedit nam similique facere beatae
-      veritatis in velit incidunt itaque saepe nobis iure quidem est sequi,
-      repellendus nisi exercitationem ad. Recusandae non rem quisquam rerum unde
-      eos fuga accusantium similique ducimus cum porro consequatur quod sint
-      provident culpa eaque illo dolores, sunt deleniti nemo. Aperiam magni
-      animi quaerat suscipit repellendus error repudiandae asperiores accusamus
-      velit dicta vero aliquam odio fugit iure, ea sunt veniam magnam ab minima
-      quae. Recusandae rerum aliquid quo nulla voluptas laborum ea repellat,
-      veritatis illum non illo et consectetur, magni amet quae esse minima.
-      Corrupti, sint voluptas quis doloremque velit ratione et reiciendis itaque
-      rem beatae minus repellendus ipsam laboriosam eaque obcaecati nesciunt
-      possimus necessitatibus, ipsa laborum culpa nobis eos. Autem optio tempora
-      odit eum neque accusamus porro odio eligendi nesciunt labore, assumenda
-      voluptate in doloribus nemo suscipit culpa fuga ut adipisci cupiditate
-      blanditiis? Repellat optio nisi qui sint rerum ipsum nemo incidunt facere
-      aliquid quod. Omnis eaque vitae quas modi quisquam neque qui cumque
-      repudiandae, totam nisi et, excepturi repellat? Consequatur rem facere
-      neque voluptate tempore, inventore recusandae labore corrupti placeat nisi
-      dicta dolorum odio sunt! Illum molestiae inventore maiores laboriosam,
-      tempore quia unde modi provident, alias expedita ratione eum dolor soluta,
-      necessitatibus quae adipisci eaque! Ea aliquam, voluptates unde quibusdam
-      velit fugiat. Asperiores quasi sit ut odit laudantium, reprehenderit neque
-      vero consequatur voluptas labore magnam aliquam voluptate voluptatum
-      itaque minus non fugit quaerat, deleniti illo laborum quis repellendus
-      velit. Optio explicabo rerum repellendus veniam natus consequatur?
-      Deleniti qui dicta in neque odio itaque nulla doloribus iusto expedita id
-      et obcaecati aliquam minus necessitatibus tempore eum a, recusandae
-      aspernatur. Et labore beatae quae delectus officiis fugit vitae, qui cum
-      aut earum accusantium! Pariatur qui repellat exercitationem at maxime
-      consequuntur quasi placeat facilis, cum, quo quae sed soluta ex. Minima
-      incidunt officia, iste animi unde veritatis aperiam. Optio dicta tempore
-      ut ea, hic vero eligendi eaque perferendis cupiditate magnam in odio iste
-      voluptatem nulla, excepturi quod reprehenderit consequatur consectetur
-      obcaecati, impedit quidem exercitationem architecto a eius. Eos ea
-      corporis laboriosam odio nihil deserunt asperiores iusto facere,
-      praesentium alias? Dolore nostrum unde dolorem blanditiis vel sint
-      voluptate nulla voluptas. Laboriosam quam architecto accusantium iusto,
-      fugiat consectetur dignissimos aspernatur omnis vel facere, itaque
-      inventore modi ratione error perspiciatis non fuga eos quae quas earum
-      voluptatibus at. Obcaecati odit labore doloribus laborum dolor iure
-      tempore quae reprehenderit, recusandae fuga atque laudantium architecto
-      possimus unde, quisquam numquam, libero mollitia. Voluptatum, omnis saepe
-      eaque officia doloremque, optio at quos labore qui sed maxime tempora esse
-      id fuga. Doloremque ducimus molestias, laboriosam, aliquam perspiciatis
-      voluptates a, exercitationem hic voluptas accusamus vitae tempora iusto
-      non nulla magni doloribus sint. Soluta quas minus aperiam maxime?
-      Veritatis temporibus, ipsa repudiandae incidunt debitis ea minus nihil at
-      laudantium, dolor rerum dolores nostrum mollitia doloremque. Laboriosam
-      asperiores quasi consectetur in odit illum beatae tempora repellat enim
-      reprehenderit accusantium maxime, dolorem vitae! Quas ullam error quod
-      nostrum atque ad cupiditate quasi deserunt a, consequuntur vero nisi iure
-      adipisci, tempore assumenda nesciunt praesentium dolorem aliquam sunt
-      laborum. Facilis odio beatae quia fugiat nisi eius repellendus quam
-      possimus nulla laboriosam distinctio nostrum omnis vero labore, incidunt
-      totam ab eos, a id voluptatum. Commodi et illo error dolorem repellat
-      ducimus, quis quisquam sunt doloremque suscipit, dicta, provident esse cum
-      dolorum consequatur dignissimos? Assumenda explicabo ipsa ex adipisci modi
-      voluptatem qui quibusdam id beatae nobis officiis temporibus delectus,
-      voluptatibus dolorum atque libero aperiam? Voluptate, excepturi natus
-      dolores corporis, ducimus quia voluptates reprehenderit praesentium sunt
-      delectus, doloribus eveniet? Nihil assumenda mollitia perferendis sed
-      deleniti commodi voluptatum vel nulla ipsam harum. Dolor similique dolorem
-      modi quaerat quasi, minus nulla nemo sint vel eos culpa aperiam nesciunt.
-      Omnis magni exercitationem perspiciatis maiores similique nam ab aliquam
-      iste officia asperiores possimus, unde temporibus! Dicta, earum. Eligendi
-      eum veniam labore ad, debitis nemo commodi sequi aliquid. Quidem nisi
-      assumenda ducimus repellendus dolore autem aut? Repellat hic assumenda
-      laboriosam harum? Laborum tenetur sunt cupiditate dolorem iusto obcaecati
-      laudantium itaque sapiente ipsum pariatur nulla, aliquam architecto
-      similique rem nisi, expedita nostrum modi praesentium numquam adipisci?
-      Eveniet culpa laboriosam assumenda fugiat libero doloribus dignissimos
-      neque eligendi ab nisi illum voluptas, porro unde, tempora dicta rem
-      corrupti praesentium voluptatum quos hic labore cumque atque! Quos
-      distinctio odio consequatur dolorem reiciendis praesentium repudiandae,
-      aspernatur possimus est vero exercitationem? Nobis tenetur veniam
-      similique quidem, aliquam corporis obcaecati harum, maiores ullam
-      repudiandae optio aperiam mollitia quibusdam repellendus, praesentium illo
-      voluptatum veritatis suscipit laudantium commodi nam neque! Blanditiis
-      nulla, error laboriosam officiis labore, quasi commodi laborum illum esse
-      facilis adipisci, enim quos neque consequuntur in fugit nemo quia delectus
-      illo quis soluta? Officia perspiciatis, velit similique commodi deleniti
-      quaerat, libero molestiae earum aperiam rem, error dolore saepe aspernatur
-      cum? Sit nulla quo voluptatum asperiores nisi molestiae, autem, iure error
-      neque unde aspernatur, molestias eveniet illo dolorum quod exercitationem
-      amet voluptas veritatis provident libero. Eveniet, non illo odit molestias
-      praesentium quibusdam eum. Labore, hic corrupti tempore ullam repellat
-      voluptatem laborum quidem, facilis nesciunt iusto doloremque officiis
-      eveniet aperiam, asperiores placeat suscipit.
     </div>
     <script>
       filterSelection("all");
@@ -432,9 +348,16 @@
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function () {
           var current = document.getElementsByClassName("sel-active");
-          current[0].className = current[0].className.replace(" sel-active", "");
+          current[0].className = current[0].className.replace(
+            " sel-active",
+            ""
+          );
           this.className += " sel-active";
         });
+      }
+
+      function goToDetail(e) {
+        console.log($(e.target).data("id"));
       }
     </script>
   </body>

@@ -1,3 +1,23 @@
+<?php 
+session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../accounts/login.php");
+    exit;
+}
+
+$user_id= $_SESSION["user_id"];
+require_once "../connection.php";
+
+
+if(isset($_POST['reject'])){
+$queue_id = $_POST['id'];
+$sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
+    if(mysqli_query($link, $sql))
+    {
+    // echo "The book requested has be succesfully cancelled";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,74 +69,42 @@
             <ion-icon name="notifications" id="notifIcon"></ion-icon>
             <span class="badge">5</span>
             <div id="notifContainer">
-              <div class="notif">
+
+            <?php 
+            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id";
+            if($result = mysqli_query($link, $sql)){
+                if(mysqli_num_rows($result) > 0){ 
+                    $total=0;
+                    while($row = mysqli_fetch_array($result)){
+                    ?>
+                <div class="notif">
                 <div>
                   <img
                     height="70"
-                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-04-600x525.png"
+                    src="../uploads/<?php echo $row["cover_image"] ?>"
                   />
                 </div>
                 <div>
-                  <a href="#">Foxy Jump</a> is available for rent.
+                  <a class="book_title" href="#"><?php echo $row["title"] ?></a> is available for rent.
                   <br />
                   <div class="notif-date">Now</div>
                   <div class="notif-buttons">
-                    <button class="primary">Rent Now</button>
-                    <button class="secondary">Cancel</button>
+                      <form name="form" method="post">
+                    <a href="payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 
+                    <input type="hidden" name="id" value="<?php echo $row['queue_id'] ?>">
+                    <button type="submit" name="reject" class="secondary" />Cancel</button>
                   </div>
                 </div>
               </div>
-              <div class="notif">
-                <div>
-                  <img
-                    height="70"
-                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-03-600x525.png"
-                  />
-                </div>
-                <div>
-                  <a href="#">Mockup Book</a> is available for rent.
-                  <br />
-                  <div class="notif-date">Now</div>
-                  <div class="notif-buttons">
-                    <button class="primary">Rent Now</button>
-                    <button class="secondary">Cancel</button>
-                  </div>
-                </div>
-              </div>
-              <div class="notif">
-                <div>
-                  <img
-                    height="70"
-                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-05.png"
-                  />
-                </div>
-                <div>
-                  <a href="#">Fernando</a>&nbsp;&nbsp;is available for rent.
-                  <br />
-                  <div class="notif-date">Now</div>
-                  <div class="notif-buttons">
-                    <button class="primary">Rent Now</button>
-                    <button class="secondary">Cancel</button>
-                  </div>
-                </div>
-              </div>
-              <div class="notif">
-                <div>
-                  <img
-                    height="70"
-                    src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/shop-img-02-600x525.png"
-                  />
-                </div>
-                <div>
-                  <a href="#">Heart in a box</a> is available for rent.
-                  <br />
-                  <div class="notif-date">Now</div>
-                  <div class="notif-buttons">
-                    <button class="primary">Rent Now</button>
-                    <button class="secondary">Cancel</button>
-                  </div>
-                </div>
-              </div>
+                    <?php
+                    }
+                } else {
+                    ?>
+                        No new notifications.
+                    <?php
+                }
+            }
+            ?>
             </div>
           </div>
         </li>
