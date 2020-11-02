@@ -95,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <link rel="stylesheet" href="../static/css/form.css">
 
 </head>
-<body>
+<body class="background-login">
    
 <div class="container">
   <div class="row">
