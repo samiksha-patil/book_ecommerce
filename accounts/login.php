@@ -1,6 +1,6 @@
 <?php
 // Initialize the session
-session_start();
+// session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -86,9 +86,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     mysqli_close($link);
 }
+
+// include "../components/navbar.php";
+
+
 ?>
- 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,6 +99,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 </head>
 <body class="background-login">
+<body>
+    <?php 
+    include '../components/navbar.php'; 
+    ?>
    
 <div class="container">
   <div class="row">

@@ -5,13 +5,13 @@ echo "hello world";
 session_start();
 $id=$_SESSION["user_id"];
     
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "GET"){
     
-    if(isset($_POST["id"]) && !empty($_POST["id"]))
+    if(isset($_GET["id"]) && !empty($_GET["id"]))
     {
-        $book_id = $_POST['id'];
+        $book_id = $_GET['id'];
         echo $book_id, $id;
-        // $no_of_months = $_POST["no_of_months"];
+        // $no_of_months = $_GET["no_of_months"];
         // $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_of_months MONTH ) AS date_return ");
         // if($query->num_rows == 1){
         // $row = $query1->fetch_assoc();
@@ -37,10 +37,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             exit();
         }
         mysqli_close($link);
-        header("location: detail.php?id=$book_id");
+        header("location: ../books/detail.php?id=$book_id");
     }
     else{
-        if(empty(trim($_POST["id"]))){
+        if(empty(trim($_GET["id"]))){
             header("location: ../error.php");
             exit();
         }
