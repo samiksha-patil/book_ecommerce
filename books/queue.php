@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             exit();
         }
         mysqli_close($link);
-        header("location: detail.php?id=$book_id");
+        header("location: ../books/detail.php?id=$book_id");
     }
     else{
         if(empty(trim($_POST["id"]))){

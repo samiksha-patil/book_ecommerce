@@ -1,7 +1,6 @@
 <?php
 // Include the database configuration file
 include '../connection.php';
-echo "hello world";
 session_start();
 $id=$_SESSION["user_id"];
 
@@ -95,7 +94,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 if(isset($_POST['add_to_queue']))
 {
-    echo "hello";
    add_to_queue();
 } 
 
@@ -152,7 +150,7 @@ if(isset($_POST['add_to_queue']))
                         
                         Available 
 
-                        <form action="queue.php" method="post">
+                        <form action="../queue.php" method="post">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
                         value="Rent">
@@ -171,7 +169,7 @@ if(isset($_POST['add_to_queue']))
                                 }
                             }
                         ?> 
-                        <form action="queue.php" method="post">
+                        <form action="../queue.php" method="post">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
                         value="Add to queue">

@@ -94,7 +94,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                   <div class="notif-date">Now</div>
                   <div class="notif-buttons">
                       <form name="form" method="post">
-                    <a href="payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 
+                    <a href="../order/payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 
                     <input type="hidden" name="id" value="<?php echo $row['queue_id'] ?>">
                     <button type="submit" name="reject" class="secondary" />Cancel</button>
                   </div>
