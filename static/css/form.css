@@ -115,7 +115,7 @@
       
   }
   
-  .login-page-new__main-form-button-text {
+  .login-page-new__main-form-button {
       font-weight: 600;
       font-size: 14px;
       line-height: 1;
@@ -137,6 +137,7 @@
       margin-bottom: 25px;
       cursor: pointer;
       outline: 0px;
+      
   }
   
   .login-page-new__main-form-button:hover {
@@ -160,3 +161,19 @@
       visibility: hidden;
     }
   } 
+
+.sub-register{
+  font-family: "roboto","Source Sans Pro", sans-serif;
+  color: #7b7b7b;
+}
+
+.sub-register a{
+  text-decoration: none;
+  color: #37465d;
+}
+
+.help-block{
+  color: #e9524d;
+  font-family: "roboto","Source Sans Pro", sans-serif;
+  font-size: 15px;
+}
