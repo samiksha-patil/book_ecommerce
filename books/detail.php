@@ -206,10 +206,10 @@ if(isset($_POST['add_to_queue']))
                         $book_id = $row["book_id"];
                         $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
                         if($query->num_rows > 0){ 
-                            echo '<a href="../order/cart.php" class="btn btn-primary">View in cart</a>';
+                            echo '<a href="../../order/cart.php" class="btn btn-primary">View in cart</a>';
                         } 
                         else { 
-                            echo "<a href='order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                            echo "<a href='../../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
                         } 
                         ?>
                         <?php } else { ?> 

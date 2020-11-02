@@ -17,18 +17,15 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
         
     $sql = "INSERT INTO cart_item (book_id, user_id) VALUES ($book_id,$id)";
     if(mysqli_query($link, $sql)){
-       
-            header("location: ../order/payment_rent.php?id=$book_id");
-        }
-        else {
-        //echo "Ooong. Please try again later.";
-        header("location: ../books/detail.php?id=$book_id");
-        }
+        
+            header("location: ../order/cart.php");
+          
+              
         } 
      else{
             echo "Oops! Something went wrong. Please try again later.",$sql,mysqli_error($link);
         }
-    }0
+    }
     else{
         echo "Book already exists in your cart";
     }
@@ -45,4 +42,3 @@ if(isset($_GET["id"]) && !empty($_GET["id"]))
     }
 
 ?>
-

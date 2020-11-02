@@ -10,8 +10,7 @@
     place-items: center;
   }
   
-  
-  .container {
+.login-container {
     border-radius: 5px;
     background-color:#fff;
     max-width: 800px;
@@ -23,20 +22,20 @@
     box-shadow: 0 25px 75px rgba(16,30,54,.25);
   }
   
-  .col-40 {
+  .login-col-40 {
     float: left;
     width: 40%;
     margin-top: 6px;
   }
   
-  .col-60 {
+  .login-col-60 {
     float: left;
     width: 60%;
     margin-top: 6px;
   }
   
   /* Clear floats after the columns */
-  .row:after {
+  .login-row:after {
     content: "";
     display: table;
     clear: both;
@@ -44,7 +43,7 @@
   
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
-    .col-40, .col-60, input[type=submit] {
+    .login-col-40, .login-col-60, input[type=submit] {
       width: 100%;
       margin-top: 0;
       
@@ -156,10 +155,11 @@
   
   }
   @media screen and (max-width: 600px) {
-    .col-40 {
+    .login-col-40 {
       width: 0px;
       margin-top: 0;
       visibility: hidden;
+      display: none;
     }
   } 
 
