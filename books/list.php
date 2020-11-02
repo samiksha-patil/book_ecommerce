@@ -1,12 +1,5 @@
 <?php
 
-include '../connection.php';
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../accounts/login.php");
-    exit;
-}
-$id=$_SESSION["user_id"];
 $sql_condition="";
 $q_query="";
 $q_category="";
@@ -37,185 +30,372 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
     else if($q_sort=="z-a") $sql_condition .= "title DESC";
     else if($q_sort=="newest") $sql_condition .= "book.book_id DESC";
     else if($q_sort=="oldest") $sql_condition .= "book.book_id";
+    else if($q_sort == "low-high")   $sql .= "price";
+    else if($q_sort == "high-low")   $sql .= "price DESC";
 } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <style type="text/css">
-        
-        .page-header h2{
-            margin-top: 0;
-        }
-        table tr td:last-child a{
-            margin-right: 15px;
-        }
-        .books img {
-            height: 200px
-        }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
-</head>
-<body>
-        <div class="row">
-        <div class="col-md-3">
-            <div class="container-fluid">
-                <h3>Filters</h3>
-                <form>
-                    <input type="text" id="search" name="q" value="<?php echo $q_query ?>" placeholder="Search something..."></input>
-                    <br>
-                    <!-- Price Range
+  <head>
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="stylesheet" href="../static/css/list.css" />
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container-top">
+      <img
+        class="img-top"
+        src="title-img.jpg"
+        alt="Cinque Terre"
+        width="1000"
+        height="300"
+      />
+      <div class="center product-title">Shop</div>
+    </div>
+    <div class="row">
+      <div class="search_filters column-30">
+        <div class="search">
+          <!-- value="<?php echo $q_query ?>" -->
+          <div>
+            <input
+              type="text"
+              id="search"
+              name="q"
+              placeholder="Search..."
+              form="search_filter_form"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              form="search_filter_form"
+              class="search_button"
+            >
+              <ion-icon name="search"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <form id="search_filter_form">
+            <!-- Price Range
                     <br>
                     <input type="nu mber" id="lowest_price" value="<?php echo $q_lowest ?>"></input>-
                     <input type="number" id="highest_price" value="<?php echo $q_highest ?>"></input>
                     <br> -->
-                    Sort by
-                    <select id="sort" name="sort">
-                        <option value="low-high">$-$$$</option>
-                        <option value="high-low">$$$-$</option>
-                        <option value="a-z">A-Z</option>
-                        <option value="z-a">Z-A</option>
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
-                    <br>
-                    Category
-                    <br>
-                    <input type="radio" id="Textbook" name="category" value="Textbook">
-                    <label for="Textbook">Textbook</label>
-                    <br>
-                    <input type="radio" id="Memoir" name="category" value="Memoir">
-                    <label for="Memoir">Memoir</label>
-                    <br>
-                    <input type="radio" id="Essays" name="category" value="Essays">
-                    <label for="Essays">Essays</label>
-                    <br>
-                    <input type="radio" id="Action and Adventure" name="category" value="Action and Adventure">
-                    <label for="Action and Adventure">Action and Adventure</label>
-                    <br>
-                    <input type="radio" id="Classics" name="category" value="Classics">
-                    <label for="Classics">Classics</label>
-                    <br>
-                    <input type="radio" id="Comic Book or Graphic Novel" name="category" value="Comic Book or Graphic Novel">
-                    <label for="Comic Book or Graphic Novel">Comic Book or Graphic Novel</label>
-                    <br>
-                    <input type="radio" id="Fiction" name="category" value="Fiction">
-                    <label for="Fiction">Fiction</label>
-                    <br>
-                    <input type="radio" id="All" name="category" value="All">
-                    <label for="All">All</label>
-                    <br>
-                    <button type="submit">Apply</button>
-                </form>
+            <h3>Sort By</h3>
+            <select id="sort" name="sort">
+              <option value="low-high">$-$$$</option>
+              <option value="high-low">$$$-$</option>
+              <option value="a-z">A-Z</option>
+              <option value="z-a">Z-A</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+            <br />
+            <h3>Category</h3>
+            <div class="option">
+              <input
+                type="radio"
+                id="Textbook"
+                name="category"
+                value="Textbook"
+              />
+              <label for="Textbook">Textbook</label>
             </div>
+            <div class="option">
+              <input type="radio" id="Memoir" name="category" value="Memoir" />
+              <label for="Memoir">Memoir</label>
+            </div>
+            <div class="option">
+              <input type="radio" id="Essays" name="category" value="Essays" />
+              <label for="Essays">Essays</label>
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="Action and Adventure"
+                name="category"
+                value="Action and Adventure"
+              />
+              <label for="Action and Adventure">Action and Adventure</label>
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="Classics"
+                name="category"
+                value="Classics"
+              />
+              <label for="Classics">Classics</label>
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="Comic Book or Graphic Novel"
+                name="category"
+                value="Comic Book or Graphic Novel"
+              />
+              <label for="Comic Book or Graphic Novel"
+                >Comic Book or Graphic Novel</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="Fiction"
+                name="category"
+                value="Fiction"
+              />
+              <label for="Fiction">Fiction</label>
+            </div>
+            <div class="option">
+              <input type="radio" id="All" name="category" value="All" />
+              <label for="All">All</label>
+            </div>
+            <button type="submit" id="apply">Apply</button>
+          </form>
         </div>
-        <div class="col-md-9">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    $sql = "SELECT * FROM book INNER JOIN book_for_rent on book.book_id=book_for_rent.book_id".$sql_condition;
-                    if($q_sort == "low-high")   $sql .= "monthly_rate";
-                    else if($q_sort == "high-low")   $sql .= "monthly_rate DESC";
+      </div>
+      <div class="column-60">
+        <div id="selectionContainer">
+          <button class="selection sel-active" onclick="filterSelection('all')">
+            All books
+          </button>
+          <button class="selection" onclick="filterSelection('buy')">
+            Books for sale
+          </button>
+          <button class="selection" onclick="filterSelection('rent')">
+            Books for rent
+          </button>
+        </div>
+        <div class="parent">
+          <?php
+                    $sql = "SELECT book.book_id, title, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id UNION SELECT book.book_id, title, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id".$sql_condition;
                     // echo $sql;
                     if($result = mysqli_query($link, $sql)){ ?>
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Books for rent <?php echo mysqli_num_rows($result); ?> </h2>
-                    </div>
-                        <?php if(mysqli_num_rows($result) > 0){ ?>
-                        <div class="row books">
-                        <?php while($row = mysqli_fetch_array($result)){ ?>
-                                    <div class="col-sm-3">
-                                    <a href="detail.php?id=<?php echo $row["book_id"] ?>">
-                                        <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?php echo $row["title"]; ?></h5>
-                                                <p class="card-text">Rs. <?php echo $row["monthly_rate"] ?>/month</p>
-                                                <a href="detail.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
-                                            </div>
-                                        </div>
-                                        </a>
-                                    </div>
-                                <?php } ?>
-                    </div>
-                    <?php
-                            // Free result set
-                            mysqli_free_result($result);
-                        }
-                        
-                        else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                        
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
-                    ?>
-                </div>
-            </div>        
+          <div class="page-header clearfix">
+            <h2 class="pull-left">
+              Books for rent
+              <?php echo mysqli_num_rows($result); ?>
+            </h2>
+          </div>
+          <?php if(mysqli_num_rows($result) >
+          0){ ?>
+          <div class="row books">
+            <?php while($row = mysqli_fetch_array($result)){ ?>
+            <div class="child filterDiv rent" data-id="<?php echo $row["book_id"] ?>"
+            onclick="goToDetail()">
+            <div class="container">
+              <img style="height: 200px" src="../uploads/<?php echo $row["cover_image"]; ?>"
+              alt="" />
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              <?php echo $row["title"]; ?>
+            </div>
+            <p style="text-align: center">
+              Rs.
+              <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+            </p>
+          </div>
+          <?php } }}?>
+          <div class="child filterDiv rent" data-id="1" onclick="goToDetail()">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv rent">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART </a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+              <p style="text-align: center">$5</p>
+            </div>
+          </div>
+
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#">ADD TO CART </a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv buy">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv rent">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
+          <div class="child filterDiv rent">
+            <div class="container">
+              <img style="height: 200px" src="book.png" alt="" />
+
+              <div class="overlay"></div>
+              <div class="button"><a href="#"> ADD TO CART</a></div>
+            </div>
+            <div
+              class="product-title"
+              style="font-size: 22px; text-align: center"
+            >
+              Most Popular Edition
+            </div>
+            <p style="text-align: center">$5</p>
+          </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    $sql = "SELECT * FROM book RIGHT JOIN book_for_sale on book.book_id=book_for_sale.book_id".$sql_condition;
-                    if($q_sort == "low-high")   $sql .= "price";
-                    else if($q_sort == "high-low")   $sql .= "price DESC";
-                    // echo $sql;
-                    if($result = mysqli_query($link, $sql)){?>
-                        <div class="page-header clearfix">
-                            <h2 class="pull-left">Books for sale <?php echo mysqli_num_rows($result); ?> </h2>
-                        </div>
-                            <?php if(mysqli_num_rows($result) > 0){ ?>
-                            <div class="row books">
-                            <?php while($row = mysqli_fetch_array($result)){ ?>
-                                        <div class="col-sm-3">
-                                        <a href="detail.php?id=<?php echo $row["book_id"] ?>">
-                                            <div class="card" style="width: 18rem;">
-                                                <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><?php echo $row["title"]; ?></h5>
-                                                    <p class="card-text">Rs. <?php echo $row["price"] ?></p>
-                                                    </a>
-                                                    <a href="detail.php?id=<?php echo $row["book_id"] ?>" class="btn btn-primary">View</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                        </div>
-                        <?php
-                    
-                            // Free result set
-                            mysqli_free_result($result);
-                        }
-                        
-                        else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                        
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
- 
-                    // Close connection
-                    mysqli_close($link);
-                    ?>
-                </div>
-            </div>        
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
     <script>
+      filterSelection("all");
+      function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+          w3RemoveClass(x[i], "show");
+          if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+      }
+
+      function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          if (arr1.indexOf(arr2[i]) == -1) {
+            element.className += " " + arr2[i];
+          }
+        }
+      }
+
+      function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+          while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+          }
+        }
+        element.className = arr1.join(" ");
+      }
+
+      // Add active class to the current button (highlight it)
+      var btnContainer = document.getElementById("selectionContainer");
+      var btns = btnContainer.getElementsByClassName("selection");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+          var current = document.getElementsByClassName("sel-active");
+          current[0].className = current[0].className.replace(
+            " sel-active",
+            ""
+          );
+          this.className += " sel-active";
+        });
+      }
+
+      function goToDetail(e) {
+        console.log($(e.target).data("id"));
+      }
+      
     document.getElementById("sort").value ='<?php echo $q_sort ?>';
     var value="<?php echo $q_category; ?>";
     if(value=="") value="All";
@@ -223,7 +403,6 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
     console.log(value);
     $("input[name=category][value='" + value + "']").prop('checked', true);
     </script>
-</body>
+  </body>
 </html>
-
-
+ 

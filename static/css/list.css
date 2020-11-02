@@ -1,11 +1,11 @@
 .search_filters {
-    /* position: -webkit-sticky;
+  /* position: -webkit-sticky;
   position: sticky; */
   /* top: 40px; */
   /* top: 0; */
   /* left: 0; */
   max-width: 300px;
-  margin: 0 auto;
+  margin: 0 20px;
   /* overflow: auto; */
 }
 
@@ -20,11 +20,15 @@
 
 .container-fluid h3 {
   color: #333;
-  padding-bottom: 15px;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.6;
+  padding-bottom: 10px;
   margin: 0;
+}
+
+.container-fluid h3:not(:first-child) {
+  padding-top: 27px;
 }
 
 input[type="radio"] {
@@ -43,7 +47,7 @@ input[type="radio"]:checked ~ label {
 .search {
   justify-content: space-between;
   display: flex;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #263348;
   padding: 0 23px;
 }
 
@@ -51,21 +55,30 @@ input[type="radio"]:checked ~ label {
   font-size: 15px;
   height: 60px;
   border: none;
+  color: #263348;
 }
 
-.column-70 {
-  margin-left: auto;
+#search:focus {
+  outline: none;
+}
+
+#search:focus ~ .search {
+  border: 1px solid red !important;
+}
+
+.column-60 {
+  margin: 0 auto;
 }
 
 .row {
   display: flex;
-  max-width: 1200px;
+  max-width: 90vw;
 }
 
 .parent {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
   .search_filters {
     position: initial;
     max-width: 90vw;
@@ -73,8 +86,16 @@ input[type="radio"]:checked ~ label {
     width: 100%;
   }
 
+  .column-60 {
+    width: 100%;
+  }
+
   .parent {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  #selectionContainer {
+    margin-top: 24px;
   }
 }
 
@@ -86,7 +107,7 @@ input[type="radio"]:checked ~ label {
 }
 
 #selectionContainer {
-    padding: 0 20px;
+  text-align: center;
 }
 
 #selectionContainer button {
@@ -95,20 +116,46 @@ input[type="radio"]:checked ~ label {
   border: none;
   outline: none;
   margin: 5px 32px 5px 0;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0;
 }
 
-.sel-active, #active {
+.sel-active,
+#active {
   color: #333333 !important;
   border-bottom: 1px solid #333333 !important;
 }
 
 .child {
-    display: none;
-    text-align: center;
+  display: none;
+  text-align: center;
 }
 
 .show {
   display: block;
+}
+
+#sort,
+#apply {
+  border: 1px solid #263348 !important;
+  background-color: transparent;
+  font-size: 13px;
+  width: 100%;
+  height: 36px;
+  padding: 0 20px;
+  color: #263348;
+  letter-spacing: 1px;
+}
+
+#apply {
+  background-color: #ea524d;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 15px;
+  border: none !important;
+}
+
+#apply:hover {
+  background-color: #263348;
+  color: #fff;
 }

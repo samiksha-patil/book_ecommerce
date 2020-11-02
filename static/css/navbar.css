@@ -70,10 +70,11 @@ nav {
   position: sticky;
   width: 100%;
   top: 0;
+  z-index: 10000;
 }
 
 body {
-  background: pink;
+  /* background: pink; */
 }
 
 #notifContainer {
@@ -100,7 +101,7 @@ body {
   border-bottom: 1px #ccc solid;
 }
 
-.notif a {
+.book_title {
   font-family: "Crimson Text", "sans-serif";
   font-style: normal;
   font-weight: 600;
@@ -124,10 +125,12 @@ body {
 }
 
 .primary {
-  border-color: #324852;
+  border: 1px solid #324852;
   color: #324852;
   background-color: transparent;
   transition: all 0.5s ease-in-out;
+  text-decoration: none;
+  margin-top: 10px;
 }
 
 .secondary {
@@ -136,7 +139,8 @@ body {
   background-color: transparent;
 }
 
-.notif-buttons button {
+.notif-buttons button,
+.notif-buttons a {
   letter-spacing: 2.6px;
   text-transform: uppercase;
   border-width: 1px;
@@ -231,19 +235,19 @@ nav input[type="checkbox"] {
 
 /* Search Bar */
 
-.overlay {
+.search-overlay {
   height: 100%;
   width: 100%;
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 100001;
   top: 0;
   left: 0;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.overlay-content {
+.search-overlay-content {
   position: relative;
   top: 46%;
   width: 80%;
@@ -252,7 +256,7 @@ nav input[type="checkbox"] {
   margin: auto;
 }
 
-.overlay .closebtn {
+.search-overlay .closebtn {
   position: absolute;
   top: 20px;
   right: 45px;
@@ -261,11 +265,11 @@ nav input[type="checkbox"] {
   color: white;
 }
 
-.overlay .closebtn:hover {
+.search-overlay .closebtn:hover {
   color: #ccc;
 }
 
-.overlay input[type="text"] {
+.search-overlay input[type="text"] {
   padding: 15px;
   font-size: 17px;
   border: none;
@@ -274,11 +278,11 @@ nav input[type="checkbox"] {
   background: white;
 }
 
-.overlay input[type="text"]:hover {
+.search-overlay input[type="text"]:hover {
   background: #f1f1f1;
 }
 
-.overlay button {
+.search-overlay button {
   float: left;
   width: 20%;
   padding: 15px;
@@ -288,9 +292,21 @@ nav input[type="checkbox"] {
   cursor: pointer;
 }
 
-.overlay button:hover {
+.search-overlay button:hover {
   background: #bbb;
 }
-.overlay-content form {
+.search-overlay-content form {
   display: flex;
+}
+
+nav {
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+-moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+}
+
+#notifContainer {
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+-moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
 }
