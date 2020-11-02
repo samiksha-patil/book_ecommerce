@@ -1,15 +1,18 @@
 <link rel="stylesheet" href="../static/css/main.css">
 <link rel="stylesheet" href="../static/css/styles.css">
+<link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
 <div class="container-top">
     <div class="main-img-top main-row" >
-         <div class="main-column-50-main">     
-      <img class="top-book1" src="../static/images/h1-rev-img-01.png" alt="" />
-      <img class="top-book2" src="../static/images/shop-img-08-600x525.png" alt="" />
-      <img class="top-book3" src="../static/images/h1-rev-img-02.png" alt="" />
+         <div class="main-column-50-main" >     
+      <img class="top-book1" data-aos="fade-right" src="../static/images/h1-rev-img-01.png" alt="" />
+      <img class="top-book2" data-aos="fade-right" src="../static/images/shop-img-08-600x525.png" alt="" />
+      <img class="top-book3" data-aos="fade-right" src="../static/images/h1-rev-img-02.png" alt="" />
     </div>  
      
-        <div style="margin:auto;"  class="column-40">  
+        <div style="margin:auto;" class="column-40" data-aos="fade-left">  
             
             <div class="title-main">This Month</div><br>
             <div class="elementor-divider-separator-left"></div>
@@ -23,7 +26,7 @@
 </div>
 
 <div class="main-row">
-    <div style="padding: 2%;" class="main-column-50 ">
+    <div style="padding: 2%;" class="main-column-50">
         
     <div  class="img-first"><div style="align-items: center;">
         <div class="head-sub"> Order E Books Online</div>
@@ -42,7 +45,7 @@
 </div>
 
 
-<div class="product-title align-center">Newest Editions Out
+<div class="product-title align-center" data-aos="zoom-in" >Newest Editions Out
 <div class="elementor-divider-separator"></div>
 <p style="margin: 15px; max-width: 300px; text-align: center;">At vero eos et accusamus et iusto od lorem ipsum gnissimos ducimus bland.</p>
 </div>
@@ -85,5 +88,10 @@
      
     </div>
   </div>
-
-
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+   AOS.init({
+  duration: 900,
+})
+</script>
+</body>
