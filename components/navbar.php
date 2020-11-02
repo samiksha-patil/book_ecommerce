@@ -67,12 +67,16 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <div class="myDIV">
             <ion-icon name="notifications" id="notifIcon"></ion-icon>
-            <span class="badge">5</span>
-            <div id="notifContainer">
-
             <?php 
             $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id";
             if($result = mysqli_query($link, $sql)){
+              if(mysqli_num_rows($result) > 0){?>
+              <span class="badge"><?php echo mysqli_num_rows($result) ?></span>
+              <?php }
+              ?>
+            <div id="notifContainer">
+
+            <?php 
                 if(mysqli_num_rows($result) > 0){ 
                     $total=0;
                     while($row = mysqli_fetch_array($result)){
@@ -125,8 +129,8 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         >×</span
       >
       <div class="search-overlay-content">
-        <form action="/action_page.php">
-          <input type="text" placeholder="Search.." name="search" />
+        <form action="../books/list.php">
+          <input type="text" placeholder="Search.." name="q" />
           <button>
             <ion-icon name="search"></ion-icon>
           </button>
