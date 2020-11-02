@@ -185,7 +185,13 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
               <img style="height: 200px" src="../uploads/<?php echo $row["cover_image"]; ?>"
               alt="" />
               <div class="overlay"></div>
-              <div class="button"><a href="#"> ADD TO CART</a></div>
+              <div class="button">
+              <?php if($row['type']==="buy") {?>
+              <a href="../order/add_to_cart.php?id=<?php echo $row['book_id']; ?>">Add to Cart</a>
+              <?php } else { ?> 
+              <a href="../books/queue.php?id=<?php echo $row['book_id']; ?>">Rent</a>
+              <?php } ?>
+              </div>
             </div>
             <div onclick="goToDetail(<?php echo $row["book_id"] ?>)">
               <div

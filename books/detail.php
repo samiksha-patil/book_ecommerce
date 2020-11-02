@@ -150,7 +150,7 @@ if(isset($_POST['add_to_queue']))
                         
                         Available 
 
-                        <form action="../queue.php" method="post">
+                        <form action="../queue.php" method="get">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
                         value="Rent">
@@ -169,7 +169,7 @@ if(isset($_POST['add_to_queue']))
                                 }
                             }
                         ?> 
-                        <form action="../queue.php" method="post">
+                        <form action="queue.php" method="get">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
                         value="Add to queue">
@@ -209,7 +209,7 @@ if(isset($_POST['add_to_queue']))
                             echo '<a href="../order/cart.php" class="btn btn-primary">View in cart</a>';
                         } 
                         else { 
-                            echo "<a href='../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
+                            echo "<a href='order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
                         } 
                         ?>
                         <?php } else { ?> 

@@ -1,11 +1,12 @@
 <?php 
 session_start();
+$logged_in=True;
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../accounts/login.php");
-    exit;
+    $logged_in=False;
 }
 
-$user_id= $_SESSION["user_id"];
+if($logged_in)
+  $user_id= $_SESSION["user_id"];
 require_once "../connection.php";
 
 
@@ -50,6 +51,9 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <a class="nav-link" href="#">Shop</a>
         </li>
+        <?php 
+          if($logged_in) {
+        ?>
         <li class="mobile-only">
           <a class="nav-link" href="#" style="padding-right: 3px"
             >Notifications</a
@@ -62,8 +66,18 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <a class="nav-link" href="#">Orders</a>
         </li>
+        <?php }  else { ?>
+        <li class="mobile-only">
+          <a class="nav-link" href="#">Login</a>
+        </li>
+        <li class="mobile-only">
+          <a class="nav-link" href="#">Register</a>
+        </li>
+          <?php } ?>
       </ul>
       <ul>
+        <?php 
+        if($logged_in) { ?>
         <li>
           <div class="myDIV">
             <ion-icon name="notifications" id="notifIcon"></ion-icon>
@@ -115,6 +129,14 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <ion-icon name="cart"></ion-icon>
         </li>
+          <?php } else { ?>
+        <li>
+          <a class="nav-link" href="#">Login</a>
+        </li>
+        <li>
+          <a class="nav-link" href="#">Register</a>
+        </li>
+          <?php } ?>
         <li>
           <ion-icon
             name="search"
