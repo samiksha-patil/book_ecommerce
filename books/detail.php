@@ -2,6 +2,10 @@
 // Include the database configuration file
 include '../connection.php';
 session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../accounts/login.php");
+    exit;
+}
 $id=$_SESSION["user_id"];
 
 //  TODO
@@ -15,25 +19,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     $param_id = trim($_GET["id"]);
     $type="";
     $available=true;
-    $query = $link->query("SELECT * FROM book WHERE book_id = $param_id");
+    $query = $link->query("SELECT * FROM book_view WHERE book_id = $param_id");
     if($query->num_rows > 0){
         $row = $query->fetch_assoc();
-        $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $param_id");
-        if($query->num_rows > 0){
-            $type="rent";
-            $rent_row = $query->fetch_assoc();
-        }
-        else {
-            $query = $link->query("SELECT * FROM book_for_sale WHERE book_id = $param_id");
-            if($query->num_rows > 0){
-                $type="sale";
-                $sale_row = $query->fetch_assoc();
-            }
-        }
-        $query = $link->query("SELECT is_ordered FROM cart_item WHERE book_id = $param_id AND is_ordered = True");
-        if($query->num_rows > 0){
-            $available=false;
-        }
     }
     else {
         header("location: ../error.php");
@@ -46,194 +34,207 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 }
 }
 
-function add_to_queue()
-{
-    
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    
-    if(isset($_POST["id"]) && !empty($_POST["id"]) && isset($_POST["no_of_months"]) && !empty($_POST["id"]) )
-    {
-        $book_id = $_POST['id'];
-        $no_of_months = $_POST["no_of_months"];
-        $query1 = $link->query("SELECT ADDDATE(CURDATE(),INTERVAL $no_of_months MONTH ) AS date_return ");
-        if($query->num_rows == 1){
-        $row = $query1->fetch_assoc();
-        $date_of_return = $row["date_return"];
-        }
-        echo $date_of_return;
-
-        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id AND is_ordered=0");
-        if($query->num_rows == 0){
-            
-        $sql = "INSERT INTO queue (user_id, book_id, status, date_of_request , date_granted, date_of_return) VALUES ('$user_id','$book_id','waiting',NOW(),NOW(),'$date_of_return')";
-        if(mysqli_query($link, $sql)){
-            $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
-            if($query->num_rows > 0){
-                header("location: ../order/payment_rent.php?id=$book_id");
-            }
-            else {
-                header("location: ../books/detail.php?id=$book_id");
-            }
-        } 
-        else{
-                echo "Oops! Something went wrong. Please try again later.",$sql,mysqli_error($link);
-            }
-        }
-        else{
-            echo "Book already exists in your cart";
-        }
-        mysqli_close($link);
-    }
-    else{
-        if(empty(trim($_POST["id"]))){
-            header("location: ../error.php");
-            exit();
-        }
-    }   
-}
-}
-if(isset($_POST['add_to_queue']))
-{
-   add_to_queue();
-} 
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>View Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        .wrapper{
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
+<link rel="stylesheet" href="../../static/css/styles.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-header">
-                        <h1><?php echo $row["title"]; ?></h1>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <p class="form-control-static"><?php echo $row["info"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <p class="form-control-static"><?php echo $row["category"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Author</label>
-                        <p class="form-control-static"><?php echo $row["author"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Lanuage</label>
-                        <p class="form-control-static"><?php echo $row["lang"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <label>No. of pages</label>
-                        <p class="form-control-static"><?php echo $row["no_of_pages"]; ?></p>
-                    </div>
-                    <?php if($type=="rent") { ?>
-                    <div class="form-group">
-                        <label>Rate per month</label>
-                        <p class="form-control-static"><?php echo $rent_row["monthly_rate"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <?php if($rent_row["is_available"]) {?> 
-                        
-                        Available 
+<div class="container-top">
+  <img
+    class="img-top"
+    src="../../static/images/title-img.jpg"
+    alt="Cinque Terre"
+    width="1000"
+    height="300"
+  />
+  <div class="center product-title">
+    Shop List
+    <div class="elementor-divider-separator"></div>
+  </div>
+</div>
 
-                        <form action="../queue.php" method="get">
+<!-- <div class="fg">
+  <h1 class="top-title">Cart</h1>
+</div> -->
+<div class="row">
+  <div style="text-align: center" class="column-50">
+    <img class="img-book" src="../../uploads/<?php echo $row["cover_image"]; ?>" alt="" />
+  </div>
+  <div class="column-50">
+    <div class="product-title"><?php echo $row["title"]; ?></div>
+    <p style="font-size: 30px; line-height: 40px">$56</p>
+
+    <p>
+      <?php echo $row["info"]; ?>
+    </p>
+    <br />
+        <?php 
+        if($row["uploaded_by"]==$id) { ?>
+
+        <a href='../update.php?id=<?php echo $row['book_id']; ?>'class='btn btn-info'>Update</a>                   
+        <a href='../delete.php?id=<?php echo $row['book_id']; ?>'class='btn btn-danger'>Delete</a>
+        <?php
+        }
+        else {
+        if($row["type"]=="buy") {
+            if($row["is_available"]==1) {
+                $in_cart = false;
+                $book_id = $row["book_id"];
+                $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
+                if($query->num_rows > 0){  ?>
+                <a href="../../order/cart.php" class="btn btn-primary">View in cart</a>
+                <?php 
+                } 
+                else { ?>
+                    <a href='../../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>
+                <?php
+                } 
+            }
+            else {
+                ?>
+                Sold Out
+                <?php
+            }
+        } else {
+            
+                $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
+                if($query->num_rows > 0){ 
+                    echo $query->num_rows."in line for this book<br>";
+                    while($queue_row = mysqli_fetch_array($query)){
+                        echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
+                    }
+                }
+                $currently_renting = false;
+                $book_id = $row["book_id"];
+                $query = $link->query("SELECT status FROM queue_view WHERE book_id = $book_id AND user_id = $id limit 1");
+                if($query->num_rows > 0){  
+                    $status=$query->fetch_assoc()["status"];
+                    ?>
+                <button disabled><?php echo $status; ?></button>
+                <?php 
+                } 
+                else {
+                    if($row["is_available"]==1) { ?>
+                    <form action="../queue.php" method="get">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
                         <input type="submit" 
                         value="Rent">
+                    </form>
+                    <?php
+                    }
+                    else { ?>
+                        <form action="../queue.php" method="get">
+                            <input type="hidden" name="id" value="<?php echo $param_id ?>">
+                            <input type="submit" 
+                            value="Join waiting list">
                         </form>
-
-                        <?php } else { ?> 
-                        
-                        Rented 
-                        
-                        <?php 
-                            $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
-                            if($query->num_rows > 0){ 
-                                echo $query->num_rows."in line for this book<br>";
-                                while($queue_row = mysqli_fetch_array($query)){
-                                    echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
-                                }
-                            }
-                        ?> 
-                        <form action="queue.php" method="get">
-                        <input type="hidden" name="id" value="<?php echo $param_id ?>">
-                        <input type="submit" 
-                        value="Add to queue">
-                        </form>
-                        
-                        <?php } ?>
-                    </div>
-                    <?php } else { ?>
-                    <div class="form-group">
-                        <label>Price</label>
-                        <p class="form-control-static"><?php echo $sale_row["price"]; ?></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Discount Price</label>
-                        <p class="form-control-static"><?php echo $sale_row["discount_price"]; ?></p>
-                    </div>
-                    <?php } ?>
-                    <p><a href="user_books.php" class="btn btn-primary">Back</a></p>
-                    <?php if($row["user_id"]==$_SESSION["user_id"]){
-                   
-                    echo "<a href='update.php?id=". $row['book_id'] ."'class='btn btn-info'>Update</a>";                    
-                    echo "<a href='delete.php?id=". $row['book_id'] ."'class='btn btn-danger'>Delete</a>";
-                    
-                     } 
-                     else{
-                         
-                        if($available) {?> 
-                        <div class="form-group">
-                        Available
-                        </div>
-                        <?php 
-                        
-                        $in_cart = false;
-                        $book_id = $row["book_id"];
-                        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
-                        if($query->num_rows > 0){ 
-                            echo '<a href="../order/cart.php" class="btn btn-primary">View in cart</a>';
-                        } 
-                        else { 
-                            echo "<a href='order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>";
-                        } 
-                        ?>
-                        <?php } else { ?> 
-                        <div class="form-group">
-                        Sold Out
-                        </div>
-                        <?php 
-                        
-                        $in_cart = false;
-                        $book_id = $row["book_id"];
-                        $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
-                        if($query->num_rows > 0){ 
-                            echo '<button disabled class="btn btn-secondary">Already Bought</button>';
-                        } 
-                        else { 
-                            echo '<button disabled class="btn btn-secondary">Add to Cart</button>';
-                        } 
-                        ?>
-                        <?php }
-                    } ?>
-                </div>
-                <img src="../uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
-            </div>       
-        </div>
+                    <?php
+                    }
+                } 
+            }
+        }
+        ?>
+    <div style="text-align: center">
+      <button class="collapsible">DESCRIPTION</button>
+      <div class="content">
+        <p>
+            <?php echo $row["info"]; ?>
+        </p>
+      </div>
+      <button class="collapsible">ADDITIONAL INFORMATION</button>
+      <div class="content">
+        <p>
+          <b>Category:</b> <?php echo $row["category"]; ?>
+          <b>Author:</b> <?php echo $row["author"]; ?>
+          <b>Language:</b> <?php echo $row["lang"]; ?>
+          <b>No. of pages:</b> <?php echo $row["no_of_pages"]; ?>
+        </p>
+      </div>
+      <button class="collapsible">People In Line</button>
+      <div class="content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
     </div>
+  </div>
+</div>
+<div class="product-title" style="font-size: 25px; margin-left: 5rem">
+  Related products
+</div>
+<div class="parent">
+  <div class="child">
+    <div class="container">
+      <img style="height: 200px" src="book.png" alt="" />
+      <div class="overlay"></div>
+      <div class="button"><a href="#"> ADD TO CART</a></div>
+    </div>
+    <div class="product-title" style="font-size: 22px; text-align: center">
+      Most Popular Edition
+    </div>
+    <p style="text-align: center">$5</p>
+  </div>
+  <div class="child">
+    <div class="container">
+      <img style="height: 200px" src="book.png" alt="" />
+
+      <div class="overlay"></div>
+      <div class="button"><a href="#"> ADD TO CART </a></div>
+    </div>
+    <div class="product-title" style="font-size: 22px; text-align: center">
+      Most Popular Edition
+    </div>
+    <p style="text-align: center">$5</p>
+  </div>
+
+  <div class="child">
+    <div class="container">
+      <img style="height: 200px" src="book.png" alt="" />
+
+      <div class="overlay"></div>
+      <div class="button"><a href="#">ADD TO CART </a></div>
+    </div>
+    <div class="product-title" style="font-size: 22px; text-align: center">
+      Most Popular Edition
+    </div>
+    <p style="text-align: center">$5</p>
+  </div>
+  <div class="child">
+    <div class="container">
+      <img style="height: 200px" src="book.png" alt="" />
+
+      <div class="overlay"></div>
+      <div class="button"><a href="#"> ADD TO CART</a></div>
+    </div>
+    <div class="product-title" style="font-size: 22px; text-align: center">
+      Most Popular Edition
+    </div>
+    <p style="text-align: center">$5</p>
+  </div>
+</div>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  }
+</script>
 </body>
 </html>

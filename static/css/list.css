@@ -78,7 +78,7 @@ input[type="radio"]:checked ~ label {
 .parent {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1080px) {
   .search_filters {
     position: initial;
     max-width: 90vw;
