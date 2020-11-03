@@ -43,7 +43,7 @@ $user_id= $_SESSION["user_id"];
    ?>
    <?php
    if(isset($_POST["id"]) && !empty($_POST["id"]) && ($_SERVER["REQUEST_METHOD"] == "POST")){
-       $id=$_SESSION["user_id"];;
+       $id=$_SESSION["user_id"];
        $address = $_POST['address'];
        $zip = $_POST['zip'];
        $state =$_POST['state'];
@@ -58,8 +58,8 @@ $user_id= $_SESSION["user_id"];
             $total = $row["monthly_rate"];
             
         }
-     
-       $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$user_id','$address','$zip', '$state')";
+     echo "ttt";
+       $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$user_id','$address','$zip', '$state');";
       
        if(mysqli_query($link, $sql))
        {
@@ -69,7 +69,7 @@ $user_id= $_SESSION["user_id"];
         $row = $query1->fetch_assoc();
         $date_of_return = $row["date_return"];
         }
-        echo "hello";
+        echo "hello fff";
         // date of request: Timestamp when user enters queue
         // date of grant: When user accepts notif/request
         // date of return: When book is returned
@@ -77,7 +77,8 @@ $user_id= $_SESSION["user_id"];
         $queue_id = $get_queue_id_sql->fetch_assoc()["queue_id"];
         $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE queue_id=$queue_id";   
         
-           if(mysqli_query($link, $sql2)) {      
+           if(mysqli_query($link, $sql2)) {   
+               echo "tt";   
            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
            if(mysqli_query($link, $sql1))
            {               
@@ -127,7 +128,7 @@ $user_id= $_SESSION["user_id"];
            }
            }  
            else{
-               echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+               echo "ERROR: Could not able to execute $sql2. " . mysqli_error($link);
            }
          
     }       

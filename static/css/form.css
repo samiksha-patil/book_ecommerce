@@ -184,3 +184,20 @@
   font-family: "roboto","Source Sans Pro", sans-serif;
   font-size: 15px;
 }
+
+.p-l{
+  padding-left: 10px;
+}
+
+
+.p-r{
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .margin-l,.margin-r {
+    margin:0px;
+  }
+
+}
+
