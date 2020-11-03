@@ -140,25 +140,21 @@ body {
 .column-50 {
   float: left;
   width: 50%;
-
 }
 
 .column-30 {
   float: left;
   width: 30%;
-
 }
 
 .column-60 {
   float: left;
-  width: 70%;
- 
+  width: 60%;
 }
 
 .column-100 {
   float: left;
   width: 100%;
- 
 }
 
 /* Clear floats after the columns */
@@ -180,11 +176,11 @@ body {
 }
 
 .button-cart {
-  margin: 1rem;
+  /* margin: 1rem; */
   text-align: center;
 }
 
-.button-cart a {
+.button-cart a, .btn-group a {
   width: 200px;
   padding: 12px 48px;
   margin-top: 82px;
@@ -192,8 +188,11 @@ body {
   color: #37465d;
   text-decoration: none;
   border: solid 1px #37465d;
+  letter-spacing: 2.6px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
-.button-cart :hover {
+.button-cart :hover, .btn-group a {
   color: white;
   background-color: #37465d;
 }
@@ -215,6 +214,9 @@ body {
   font-size: 15px;
   margin-top: 10px;
   background-color: white;
+  letter-spacing: 2.6px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .active,

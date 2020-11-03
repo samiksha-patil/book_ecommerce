@@ -248,22 +248,60 @@ if (mysqli_query($link, $sql)) {
 // VIEWS
 
 // Book for rent
-$sql= "";
-if (mysqli_query($link, $sql)) {
-    echo "Notification trigger created successfully";
-} else {
-    echo "Error creating notification trigger: " . mysqli_error($link);
-}
+// $sql= "";
+// if (mysqli_query($link, $sql)) {
+//     echo "Notification trigger created successfully";
+// } else {
+//     echo "Error creating notification trigger: " . mysqli_error($link);
+// }
 
 echo"<br />";
 
 // Book for sale
-$sql= "";
+// $sql= "";
+// if (mysqli_query($link, $sql)) {
+//     echo "Book rent view created successfully";
+// } else {
+//     echo "Error creating book rent view: " . mysqli_error($link);
+// }
+
+// Book
+$sql='CREATE VIEW IF NOT EXISTS book_view AS
+SELECT a.book_id, title, info, author, cover_image, price, type, category, is_available, user_id AS uploaded_by
+FROM (SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, "rent" AS type, category, user_id 
+      FROM book INNER JOIN book_for_rent 
+      ON book.book_id=book_for_rent.book_id) AS a 
+      INNER JOIN 
+      (SELECT book_for_rent.book_id, IF(c, 0, 1) AS is_available 
+       FROM (SELECT book_id, count(*) AS c 
+             FROM queue 
+             WHERE status="Waiting" or status="Pending" or status="Currently Renting" 
+             GROUP BY book_id) AS t
+       RIGHT JOIN book_for_rent ON book_for_rent.book_id=t.book_id) AS b 
+       ON a.book_id=b.book_id
+
+UNION
+
+SELECT a.book_id, title, info, author, cover_image, price, type, category, is_available, user_id AS uploaded_by
+FROM (SELECT book.book_id, title, info, author, cover_image, price, "buy" AS type, category, user_id
+      FROM book 
+      RIGHT JOIN book_for_sale 
+      ON book.book_id=book_for_sale.book_id) AS a 
+      INNER JOIN (SELECT book_for_sale.book_id, IF(is_ordered, 0, 1) AS is_available 
+                  FROM (select book_id, "1" AS is_ordered 
+                        FROM cart_item 
+                        WHERE is_ordered=1 GROUP BY book_id) AS t 
+                  RIGHT JOIN book_for_sale 
+                  ON book_for_sale.book_id=t.book_id) AS b 
+                  ON a.book_id=b.book_id
+                  
+ORDER BY book_id';
 if (mysqli_query($link, $sql)) {
-    echo "Book rent view created successfully";
+    echo "Book view created successfully";
 } else {
-    echo "Error creating book rent view: " . mysqli_error($link);
+    echo "Error creating book view: " . mysqli_error($link);
 }
+
 
 echo"<br />";
 
