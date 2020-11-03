@@ -154,16 +154,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 
 <body>
+<?php 
+    include '../components/navbar.php'; 
+    ?>
    
-<div class="container">
-  <div class="row">
-    <div class="col-40">
-  <img style="height:400px" src="../static/images/book-login.jpg">
-</div>
+<div class="login-container">
+  <div class="login-row">
+
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-        <div style="padding: 30px 60px 26px;" class="col-60">
+        <div style="padding: 30px 60px 26px;" >
         <div class="login-page-new__main-form-title">Sign Up</div>
             <div class="login-page-new__main-form-row">
 
@@ -175,52 +176,75 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
                 <span class="help-block"><?php echo $email_err; ?></span>
             </div>
+        </div>
+
+        <div class="login-page-new__main-form-row">
+        <div style="padding-right:10px" class="signup-col-50">
             <div class=" <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
-                <label>First Name</label>
+                <label class="login-page-new__main-form-row-label">First Name</label>
                 <input type="text" class="cu-form__input ng-pristine ng-invalid ng-touched" name="first_name"  value="<?php echo $first_name; ?>">
                 <span class="help-block"><?php echo $first_name_err; ?></span>
             </div> 
+        </div>
+
+        <div  style="padding-left:10px" class="signup-col-50">
             <div class="<?php echo (!empty($last_name_err)) ? 'has-error' : ''; ?>">
-                <label>Last Name</label>
-                <input type="text" name="last_name"  value="<?php echo $last_name; ?>">
+                <label class="login-page-new__main-form-row-label">Last Name</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="last_name"  value="<?php echo $last_name; ?>">
                 <span class="help-block"><?php echo $last_name_err; ?></span>
-            </div>    
+            </div>  
+        </div>
+</div>   
+        <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" value="<?php echo $password; ?>">
+                <label class="login-page-new__main-form-row-label" >Password</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="password" value="<?php echo $password; ?>">
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
+        </div>
+
+        <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
+                <label class="login-page-new__main-form-row-label" >Confirm Password</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-            Address
+
+    </div>
+            <div class="login-page-new__main-form-row ">
+            <div style="padding-right:10px"  class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">Country</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="country" value="<?php echo $country; ?>">
+                </span>
+            </div>
             
-                <label>Country</label>
-                <input type="text" name="country" value="<?php echo $country; ?>">
+            <div style="padding-left:10px" class="signup-col-50  ">
+                <label class="login-page-new__main-form-row-label">State</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="state"  value="<?php echo $state; ?>">
+                </span>
+</div></div>
+            <div class="login-page-new__main-form-row">
+            <div style="padding-right:10px"  class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">City</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="city"  value="<?php echo $city; ?>">
                 </span>
             
-           
-                <label>State</label>
-                <input type="text" name="state"  value="<?php echo $state; ?>">
+</div>
+
+<div style="padding-left:10px" class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">Phone Number</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="phone_no" value="<?php echo $phone_no; ?>">
                 </span>
-           
-                <label>City</label>
-                <input type="text" name="city"  value="<?php echo $city; ?>">
-                </span>
-            
-           
-                <label>Phone Number</label>
-                <input type="text" name="phone_no" value="<?php echo $phone_no; ?>">
-                </span>
-          
-                <input type="submit" value="Submit">
-                <input type="reset" value="Reset">
+</div>      </div>   
+                <input class="login-page-new__main-form-button" type="submit" value="Submit">
+                <input class="login-page-new__main-form-button" type="reset" value="Reset">
          
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-     
+        </form>
+
+</div>
+</div>   
 </body>
 </html>
 
@@ -241,7 +265,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-40">
   <img style="height:400px" src="../static/images/book-login.jpg">
@@ -290,4 +314,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   </form>
 </div> 
 </div>
-</div>
+</div> -->

@@ -93,7 +93,7 @@
   }
   
     .head-sub {
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-family: 'Crimson Text',Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         font-size: 40px;
         line-height: 70px;
         letter-spacing: 0px;
@@ -117,7 +117,7 @@
         vertical-align: baseline;
         outline: 0;
         color: #8d8d8d;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family:'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 15px;
         line-height: 26px;
         font-style: normal;
@@ -138,6 +138,9 @@
         color: #37465d;
         text-decoration: none;
         border: solid 1px #37465d;
+        font-size: 13px;
+        letter-spacing: 2px;
+        font-weight: 600;
       }
       .explore-btn :hover{
         color:white;

@@ -33,6 +33,12 @@
     width: 60%;
     margin-top: 6px;
   }
+
+  .signup-col-50 {
+    float: left;
+    width: 50%;
+    padding-bottom: 20px;
+  }
   
   /* Clear floats after the columns */
   .login-row:after {
@@ -43,7 +49,7 @@
   
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
-    .login-col-40, .login-col-60, input[type=submit] {
+    .login-col-40, .login-col-60,.signup-col-50, input[type=submit] {
       width: 100%;
       margin-top: 0;
       
