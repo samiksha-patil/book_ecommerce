@@ -101,13 +101,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             }
         } else {
             
-                $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
-                if($query->num_rows > 0){ 
-                    echo $query->num_rows."in line for this book<br>";
-                    while($queue_row = mysqli_fetch_array($query)){
-                        echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
-                    }
-                }
                 $currently_renting = false;
                 $book_id = $row["book_id"];
                 $query = $link->query("SELECT status FROM queue_view WHERE book_id = $book_id AND user_id = $id limit 1");
@@ -154,15 +147,29 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
           <b>No. of pages:</b> <?php echo $row["no_of_pages"]; ?>
         </p>
       </div>
-      <button class="collapsible">People In Line</button>
-      <div class="content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
-      </div>
+      <?php 
+      if($row["type"]=="rent" && $row["is_available"]==0) {
+        ?>
+
+        <button class="collapsible">People In Line</button>
+        <div class="content">
+          <p>
+          <?php
+            $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
+                if($query->num_rows > 0){ 
+                    echo $query->num_rows."in line for this book<br>";
+                    while($queue_row = mysqli_fetch_array($query)){
+                        echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
+                    }
+                }
+            ?>
+          </p>
+        </div>
+
+        <?php
+      }
+      ?>
+      
     </div>
   </div>
 </div>
@@ -170,55 +177,57 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   Related products
 </div>
 <div class="parent">
-  <div class="child">
-    <div class="container">
-      <img style="height: 200px" src="book.png" alt="" />
-      <div class="overlay"></div>
-      <div class="button"><a href="#"> ADD TO CART</a></div>
+    <?php
+        $sql = "SELECT * FROM ((SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id) UNION (SELECT book.book_id, title, info, author, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id)) as t limit 4";
+        // echo $sql;
+        if($result = mysqli_query($link, $sql)){ 
+            // echo mysqli_num_rows($result); 
+            if(mysqli_num_rows($result) > 0){ 
+                while($row = mysqli_fetch_array($result)){ ?>
+        <div class="child filterDiv <?php echo $row['type'] ?>">
+        <div class="container">
+        <img style="height: 200px" src="../../uploads/<?php echo $row["cover_image"]; ?>"
+        alt="" />
+        <div class="overlay"></div>
+        <div class="button">
+        <?php if($row['type']==="buy") {?>
+        <a href="../order/add_to_cart.php?id=<?php echo $row['book_id']; ?>">Add to Cart</a>
+        <?php } else { ?> 
+        <a href="../books/queue.php?id=<?php echo $row['book_id']; ?>">Rent</a>
+        <?php } ?>
+        </div>
+        </div>
+        <div onclick="goToDetail(<?php echo $row["book_id"] ?>)">
+        <div
+            class="product-title"
+            style="font-size: 22px; text-align: center"
+        >
+            <?php echo $row["title"]; ?>
+        </div>
+        <p style="text-align: center">
+            Rs.
+            <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+        </p>
+        </div>
     </div>
-    <div class="product-title" style="font-size: 22px; text-align: center">
-      Most Popular Edition
-    </div>
-    <p style="text-align: center">$5</p>
-  </div>
-  <div class="child">
-    <div class="container">
-      <img style="height: 200px" src="book.png" alt="" />
+                <?php }
+                    
+                    // Free result set
+                    mysqli_free_result($result);
+                    }
+                    
+                else{
+                    echo "<p class='lead'><em>No records were found.</em></p>";
+                }
+                    
+            } else{
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            }
 
-      <div class="overlay"></div>
-      <div class="button"><a href="#"> ADD TO CART </a></div>
-    </div>
-    <div class="product-title" style="font-size: 22px; text-align: center">
-      Most Popular Edition
-    </div>
-    <p style="text-align: center">$5</p>
+        // Close connection
+        mysqli_close($link);
+    ?>
   </div>
-
-  <div class="child">
-    <div class="container">
-      <img style="height: 200px" src="book.png" alt="" />
-
-      <div class="overlay"></div>
-      <div class="button"><a href="#">ADD TO CART </a></div>
-    </div>
-    <div class="product-title" style="font-size: 22px; text-align: center">
-      Most Popular Edition
-    </div>
-    <p style="text-align: center">$5</p>
-  </div>
-  <div class="child">
-    <div class="container">
-      <img style="height: 200px" src="book.png" alt="" />
-
-      <div class="overlay"></div>
-      <div class="button"><a href="#"> ADD TO CART</a></div>
-    </div>
-    <div class="product-title" style="font-size: 22px; text-align: center">
-      Most Popular Edition
-    </div>
-    <p style="text-align: center">$5</p>
-  </div>
-</div>
 
 <script>
   var coll = document.getElementsByClassName("collapsible");
@@ -234,6 +243,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         content.style.maxHeight = content.scrollHeight + "px";
       }
     });
+  }
+
+  function goToDetail(id) {
+    window.location.href="../detail.php/?id="+id; 
   }
 </script>
 </body>

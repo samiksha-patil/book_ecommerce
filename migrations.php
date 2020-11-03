@@ -267,8 +267,8 @@ echo"<br />";
 
 // Book
 $sql='CREATE VIEW IF NOT EXISTS book_view AS
-SELECT a.book_id, title, info, author, cover_image, price, type, category, is_available, user_id AS uploaded_by
-FROM (SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, "rent" AS type, category, user_id 
+SELECT a.book_id, title, info, author, lang, no_of_pages, cover_image, price, type, category, is_available, user_id AS uploaded_by
+FROM (SELECT book.book_id, title, info, author, lang, no_of_pages, cover_image, monthly_rate AS price, "rent" AS type, category, user_id 
       FROM book INNER JOIN book_for_rent 
       ON book.book_id=book_for_rent.book_id) AS a 
       INNER JOIN 
@@ -282,8 +282,8 @@ FROM (SELECT book.book_id, title, info, author, cover_image, monthly_rate AS pri
 
 UNION
 
-SELECT a.book_id, title, info, author, cover_image, price, type, category, is_available, user_id AS uploaded_by
-FROM (SELECT book.book_id, title, info, author, cover_image, price, "buy" AS type, category, user_id
+SELECT a.book_id, title, info, author, lang, no_of_pages, cover_image, price, type, category, is_available, user_id AS uploaded_by
+FROM (SELECT book.book_id, title, info, author, lang, no_of_pages, cover_image, price, "buy" AS type, category, user_id
       FROM book 
       RIGHT JOIN book_for_sale 
       ON book.book_id=book_for_sale.book_id) AS a 

@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
             exit();
         }
         mysqli_close($link);
-        header("location: ../books/detail.php?id=$book_id");
+        header("location: ../books/detail.php/?id=$book_id");
     }
     else{
         if(empty(trim($_GET["id"]))){
