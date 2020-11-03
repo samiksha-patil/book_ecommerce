@@ -1,9 +1,11 @@
 <?php
 // Include the database configuration file
 include '../connection.php';
-echo "hello world";
-session_start();
-$id=$_SESSION["user_id"];
+// echo "hello world";
+// session_start();
+// $id=$_SESSION["user_id"];
+
+  include '../components/navbar.php'; 
 ?>
 <link rel="stylesheet" href="../static/css/main.css">
 <link rel="stylesheet" href="../static/css/styles.css">

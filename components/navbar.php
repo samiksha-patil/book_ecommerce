@@ -52,29 +52,36 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
       <input type="checkbox" id="show-menu" role="button" />
       <ul id="menu">
         <li>
-          <a class="nav-link" href="#">Shop</a>
+          <a class="nav-link" href="../books/list.php">Shop</a>
         </li>
         <?php 
           if($logged_in) {
         ?>
         <li class="mobile-only">
-          <a class="nav-link" href="#" style="padding-right: 3px"
+          <a class="nav-link" href="../order/notification.php" style="padding-right: 3px"
             >Notifications</a
           >
-          <span class="mobile-badge">5</span>
+          <?php 
+            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id";
+            if($result = mysqli_query($link, $sql)){
+              if(mysqli_num_rows($result) > 0){?>
+              <span class="mobile-badge"><?php echo mysqli_num_rows($result) ?></span>
+              <?php }
+            }
+              ?>
         </li>
         <li class="mobile-only">
-          <a class="nav-link" href="#">Cart</a>
+          <a class="nav-link" href="../order/cart.php">Cart</a>
         </li>
         <li>
-          <a class="nav-link" href="#">Orders</a>
+          <a class="nav-link" href="../order/my_orders.php">Orders</a>
         </li>
         <?php }  else { ?>
         <li class="mobile-only">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="../accounts/login.php">Login</a>
         </li>
         <li class="mobile-only">
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="../accounts/register.php">Register</a>
         </li>
           <?php } ?>
       </ul>
@@ -99,7 +106,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                     while($row = mysqli_fetch_array($result)){
                     ?>
                 <div class="notif">
-                <div>
+                <div style="margin: auto;">
                   <img
                     height="70"
                     src="../uploads/<?php echo $row["cover_image"] ?>"
@@ -121,7 +128,9 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                     }
                 } else {
                     ?>
-                        No new notifications.
+                      <div class="no-notif">
+                          No new notifications.
+                      </div>
                     <?php
                 }
             }
@@ -130,14 +139,16 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
           </div>
         </li>
         <li>
-          <ion-icon name="cart"></ion-icon>
+          <a style="color: #000" href="../order/cart.php">
+            <ion-icon name="cart"></ion-icon>
+          </a>
         </li>
           <?php } else { ?>
         <li>
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="../accounts/login.php">Login</a>
         </li>
         <li>
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="../accounts/register.php">Register</a>
         </li>
           <?php } ?>
         <li>
