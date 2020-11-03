@@ -3,79 +3,9 @@
 <link rel="stylesheet" href="../static/css/styles.css" />
 <link rel="stylesheet" href="../static/css/form.css" />
 <link rel="stylesheet" href="../static/css/cart.css" />
+<link rel="stylesheet" href="../static/css/checkout.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Roboto&family=Crimson+Text&display=swap");
-  .woocommerce #payment {
-    margin-bottom: 20px;
-}
-#payment {
-    margin-top: 15px;
-}
-
- ul.payment_methods {
-    list-style: none;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 25px;
-}
-ul {
-    list-style-position: inside;
-}
- ul.payment_methods li {
-    padding: 10px 20px;
-    border: 1px solid #e0dede;
-    border-bottom: 0;
-}
-ul.payment_methods li label {
-    color: #000;
-    margin-left: 10px;
-}
-
-ul.payment_methods li .payment_box {
-    padding: 10px 0 0 35px;
-}
-
-ul.payment_methods li label img {
-    margin: 0 10px;
-    position: relative;
-    top: 10px;
-}
-.payment-under{
-  font-size: 15px;
-}
-.payment_box{
-transition: max-height 0.3s ease-out;
-}
-tr{
-  border:1px solid #ddd
-}
-
-th,td{
-  padding: 10px;
-  
-}
-
-.row-checkout {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    margin: auto;
-    padding: 103px 0 83px;
-}
-
-@media only screen and (max-width: 600px) {
-  .row-checkout{
-    padding: 10px;
-    display: flex;
-  flex-direction: column-reverse;
-  }
-}
-.bg{
-  background-color:#f4ccb41a;
-
-}
 
 </style>
 <div class="container-top">
@@ -107,14 +37,10 @@ th,td{
             <input class="cu-form__input bg " formcontrolname="address" id="address" placeholder="Enter your address" type="text">   
           </div> 
 
-
-
-
-
           <div style="font-size: 27px;" class="head-sub">Payment Method: </div>
-          <div id="payment" class="woocommerce-checkout-payment">
-            <ul class="wc_payment_methods payment_methods methods">
-            <li class="wc_payment_method payment_method_bacs">
+          <div id="payment">
+            <ul class=" payment_methods methods">
+            <li class=" payment_method_bacs">
           <input id="payment_method_bacs" onclick="javascript:PaymentMethodCheck();" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked" data-order_button_text="">
           
           <label for="payment_method_bacs">
@@ -123,7 +49,7 @@ th,td{
             <p class="payment-under">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
           </div>
           </li>
-          <li class="wc_payment_method payment_method_cod">
+          <li class="payment_method_cod">
           <input id="payment_method_cod" onclick="javascript:PaymentMethodCheck();" type="radio" class="input-radio" name="payment_method" value="cod" data-order_button_text="">
           
           <label for="payment_method_cod">
@@ -132,7 +58,7 @@ th,td{
             <p class="payment-under">Pay with cash upon delivery.</p>
           </div>
           </li>
-          <li class="wc_payment_method payment_method_paypal">
+          <li class="payment_method_paypal">
           <input id="payment_method_paypal" onclick="javascript:PaymentMethodCheck();" type="radio" class="input-radio" name="payment_method" value="paypal" data-order_button_text="Proceed to PayPal">
           
           <label for="payment_method_paypal">
@@ -143,19 +69,15 @@ th,td{
           </li>
           </ul>
 </div>          
-
-
           
 <div class="explore-btn"><a href="#">Place Order </a></div>
-
 
     </div>
     <div style="padding: 2%;" class="column-50 ">
     
       <div style="text-align: center;" class="head-sub">Order Summary</div>
      <table style="width:100%; max-width: 800px;">
-       
-     
+           
      <tbody>
       
        <tr>
@@ -173,12 +95,6 @@ th,td{
     <div style="float: right; font-size: 27px;" class="head-sub"> Total	$90</div>
 </div>
 </div>
-
-
-
-</div>
-
-
 
 
   <script>
@@ -206,6 +122,5 @@ document.getElementById('bank_transfer').style.display = 'none';
                 }
                 
             }
-    </script>
-
+</script>
 

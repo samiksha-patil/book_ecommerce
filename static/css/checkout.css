@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Roboto&family=Crimson+Text&display=swap");
+  .woocommerce #payment {
+    margin-bottom: 20px;
+}
+#payment {
+    margin-top: 15px;
+}
+
+ ul.payment_methods {
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
+}
+ul {
+    list-style-position: inside;
+}
+ ul.payment_methods li {
+    padding: 10px 20px;
+    border: 1px solid #e0dede;
+    border-bottom: 0;
+}
+ul.payment_methods li label {
+    color: #000;
+    margin-left: 10px;
+}
+
+ul.payment_methods li .payment_box {
+    padding: 10px 0 0 35px;
+}
+
+ul.payment_methods li label img {
+    margin: 0 10px;
+    position: relative;
+    top: 10px;
+}
+.payment-under{
+  font-size: 15px;
+}
+tr{
+  border:1px solid #ddd
+}
+
+th,td{
+  padding: 10px;
+  
+}
+
+.row-checkout {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto;
+    padding: 103px 0 83px;
+    flex-direction: row-reverse;
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+  .row-checkout{
+    padding: 10px;
+    
+  
+  }
+}
+.bg{
+  background-color:#f4ccb41a;
+
+}
+
+.place-order-btn{
+    width: 200px;
+    padding: 12px 48px;
+    margin-top: 1rem;
+    color: #37465d;
+    text-decoration: none;
+    border: solid 1px #37465d;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    background-color:transparent;
+}
+.place-order-btn:hover {
+    color: white;
+    background-color: #37465d;
+}
