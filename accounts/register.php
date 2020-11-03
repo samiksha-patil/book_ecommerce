@@ -149,72 +149,169 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/css/form.css">
 </head>
+
 <body>
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
+<?php 
+    include '../components/navbar.php'; 
+    ?>
+   
+<div class="login-container">
+  <div class="login-row">
+
+
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
+
+        <div style="padding: 30px 60px 26px;" >
+        <div class="login-page-new__main-form-title">Sign Up</div>
+            <div class="login-page-new__main-form-row">
+
+
+        
+
+            <div class="<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+            <div class="login-page-new__main-form-row-label">Email</div>
+                <input type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
                 <span class="help-block"><?php echo $email_err; ?></span>
             </div>
-            <div class="form-group <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
-                <label>First Name</label>
-                <input type="text" name="first_name" class="form-control" value="<?php echo $first_name; ?>">
+        </div>
+
+        <div class="login-page-new__main-form-row">
+        <div style="padding-right:10px" class="signup-col-50">
+            <div class=" <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
+                <label class="login-page-new__main-form-row-label">First Name</label>
+                <input type="text" class="cu-form__input ng-pristine ng-invalid ng-touched" name="first_name"  value="<?php echo $first_name; ?>">
                 <span class="help-block"><?php echo $first_name_err; ?></span>
             </div> 
-            <div class="form-group <?php echo (!empty($last_name_err)) ? 'has-error' : ''; ?>">
-                <label>Last Name</label>
-                <input type="text" name="last_name" class="form-control" value="<?php echo $last_name; ?>">
+        </div>
+
+        <div  style="padding-left:10px" class="signup-col-50">
+            <div class="<?php echo (!empty($last_name_err)) ? 'has-error' : ''; ?>">
+                <label class="login-page-new__main-form-row-label">Last Name</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="last_name"  value="<?php echo $last_name; ?>">
                 <span class="help-block"><?php echo $last_name_err; ?></span>
-            </div>    
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+            </div>  
+        </div>
+</div>   
+        <div class="login-page-new__main-form-row">
+            <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                <label class="login-page-new__main-form-row-label" >Password</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="password" value="<?php echo $password; ?>">
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+        </div>
+
+        <div class="login-page-new__main-form-row">
+            <div class="<?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+                <label class="login-page-new__main-form-row-label" >Confirm Password</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-            Address
-            <div class="form-group">
-                <label>Country</label>
-                <input type="text" name="country" class="form-control" value="<?php echo $country; ?>">
-                </span>
-            </div> 
-            <div class="form-group">
-                <label>State</label>
-                <input type="text" name="state" class="form-control" value="<?php echo $state; ?>">
+
+    </div>
+            <div class="login-page-new__main-form-row ">
+            <div style="padding-right:10px"  class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">Country</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="country" value="<?php echo $country; ?>">
                 </span>
             </div>
-            <div class="form-group">
-                <label>City</label>
-                <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
-                </span>
-            </div> 
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="text" name="phone_no" class="form-control" value="<?php echo $phone_no; ?>">
-                </span>
-            </div> 
             
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-default" value="Reset">
-            </div>
+            <div style="padding-left:10px" class="signup-col-50  ">
+                <label class="login-page-new__main-form-row-label">State</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="state"  value="<?php echo $state; ?>">
+                </span>
+</div></div>
+            <div class="login-page-new__main-form-row">
+            <div style="padding-right:10px"  class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">City</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="city"  value="<?php echo $city; ?>">
+                </span>
+            
+</div>
+
+<div style="padding-left:10px" class="signup-col-50">
+                <label class="login-page-new__main-form-row-label">Phone Number</label>
+                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="phone_no" value="<?php echo $phone_no; ?>">
+                </span>
+</div>      </div>   
+                <input class="login-page-new__main-form-button" type="submit" value="Submit">
+                <input class="login-page-new__main-form-button" type="reset" value="Reset">
+         
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-    </div>    
+        </form>
+
+</div>
+</div>   
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-40">
+  <img style="height:400px" src="../static/images/book-login.jpg">
+</div>
+
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+<div style="padding: 30px 60px 26px;" class="col-60">
+  <div class="login-page-new__main-form-title">Welcome back!</div>
+    <div class="login-page-new__main-form-row">
+
+    <div class=" <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+
+        <div class="login-page-new__main-form-row-label">Email</div>
+        <div class="login-page-new__main-form-row-icon">
+          <svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" d="M10.121.878a3 3 0 00-4.242 0L.877 4.88A2.989 2.989 0 000 7v7a2 2 0 002 2h12a2 2 0 002-2V7a2.99 2.99 0 00-.879-2.122l-5-4zm3.042 4.986L8 8.844l-5.164-2.98 4.457-3.565a1 1 0 011.414 0l4.456 3.565zm.838 1.825l-5.49 3.17a.993.993 0 01-1.012.007L2 7.69V14h12V7.69z" fill="#B9BEC7" fill-rule="evenodd"></path>
+          </svg>
+        </div>
+        <input type="email" name="email"  value="<?php echo $email; ?>" class="cu-form__input ng-pristine ng-invalid ng-touched" formcontrolname="email" id="login-email-input" placeholder="Enter your email" >
+        <span class="help-block" ><?php echo $email_err; ?></span>
+    </div>
+    </div>   
+     
+    
+
+
+    <div class="login-page-new__main-form-row">
+    <div class=" <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+
+        <div class="login-page-new__main-form-row-label">Password</div>
+        <div class="login-page-new__main-form-row-icon">
+          <svg fill="none" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" d="M5 4a2 2 0 114 0v2.058A35.706 35.706 0 007 6c-.695 0-1.37.022-2 .058V4zM3 6.22V4a4 4 0 118 0v2.22a39.5 39.5 0 011.315.162C13.306 6.52 14 7.373 14 8.336v4.962c0 .836-.529 1.624-1.39 1.873C11.554 15.478 9.407 16 7 16s-4.553-.522-5.61-.829A1.938 1.938 0 010 13.298V8.336c0-.963.693-1.815 1.685-1.954.35-.05.796-.106 1.315-.161zM2 8.358v4.909c.983.282 2.896.734 5 .734s4.017-.452 5-.734V8.357A37.569 37.569 0 007 8c-2.075 0-3.961.213-5 .357zM7 9a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1z" fill="#B9BEC7" fill-rule="evenodd"></path>
+          </svg>
+        </div>
+        <input type="password" name="password"  autocomplete="off" autocorrect="off" class="cu-form__input cu-form__input-pwd ng-untouched ng-pristine ng-invalid" formcontrolname="password" maxlength="100" placeholder="Enter password" spellcheck="false" >
+        <span class="help-block"><?php echo $password_err; ?></span>
+    </div>
+      </div>
+
+      <input type="submit" value="LOG IN" class="login-page-new__main-form-button" type="submit">
+
+ 
+  <p class="sub-register">Don't have an account? <a href="register.php">Sign up now</a></p>
+  </form>
+</div> 
+</div>
+</div> -->

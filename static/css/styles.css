@@ -4,7 +4,7 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "roboto","Source Sans Pro", sans-serif;
 }
 .row {
   display: -ms-flexbox;
@@ -25,7 +25,7 @@ p {
   vertical-align: baseline;
   outline: 0;
   color: #8d8d8d;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "roboto", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
   line-height: 28px;
   font-style: normal;

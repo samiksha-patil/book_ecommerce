@@ -98,20 +98,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <link rel="stylesheet" href="../static/css/form.css">
 
 </head>
+<body class="background-login">
 <body>
     <?php 
     include '../components/navbar.php'; 
     ?>
    
-<div class="container">
-  <div class="row">
-    <div class="col-40">
+<div class="login-container">
+  <div class="login-row">
+    <div class="login-col-40">
   <img style="height:400px" src="../static/images/book-login.jpg">
 </div>
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-<div style="padding: 30px 60px 26px;" class="col-60">
+<div style="padding: 30px 60px 26px;" class="login-col-60">
   <div class="login-page-new__main-form-title">Welcome back!</div>
     <div class="login-page-new__main-form-row">
 

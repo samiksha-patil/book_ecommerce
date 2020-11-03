@@ -1,5 +1,13 @@
+
+ <!DOCTYPE html>
+<html>
+<head>
+
+
 <link rel="stylesheet" href="../static/css/main.css">
 <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="container-top">
     <div class="main-img-top main-row" >
@@ -85,5 +93,5 @@
      
     </div>
   </div>
-
+</body>
 
