@@ -41,18 +41,7 @@ $id= $_SESSION["user_id"];
 </div>
 
 
-                   
-
-
-
-
 <div class="row-checkout">
-
-
-
-
-
-
 
 
 <div style="padding: 2%;" class="column-50 ">
@@ -61,6 +50,11 @@ $id= $_SESSION["user_id"];
    <table style="width:100%; max-width: 800px;">
          
    <tbody>
+   <tr>
+   <th></th>
+   <th>Title</th>
+   <th>Sub Total</th>
+   </tr>
    
         
 <?php
@@ -87,7 +81,7 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
                                                         
                                                     ?>
                                                     <td>  <img style="height: 65px; width: auto;" class="img-book" src="../uploads/<?php echo $row1["cover_image"]; ?>" alt="" /></td>
-                                                   <td> <?php echo $row1["title"]; ?></td>
+                                                   <td> <?php echo $row1["title"]; ?> </td>
                                                     <td>$ <?php echo $row1["price"] ?></td></tr>
                                                      <?php   $total = $total+ $row1["price"];
                                                         }
@@ -98,9 +92,13 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
                                     <?php }                             
                             
                                 ?>
-                      </tbody>
+                     
+    <tr >
+    <td style=" font-size: 27px;" class="head-sub">Total:</td><td></td> <td style=" font-size: 27px;" class="head-sub">$<?php echo "$total" ?></td></div>
+    </tr>
+    </tbody>
     </table>
-    <div style="float: right; font-size: 27px;" class="head-sub">Total: $<?php echo "$total" ?></div>
+
 </div>
 
 
@@ -168,7 +166,7 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
 <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Address:</label>
     <input  class="cu-form__input bg" type="text" name="address" required>
-                    </div>
+</div>
    <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Postcode / Zip:</label>
     <input type="text" name="zip" class="cu-form__input bg" required>
@@ -211,7 +209,7 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
           </ul>
 </div>          
     
-<input class="place-order-btn" type="submit" name="submit" value="Proceed to pay">
+<input class="place-order-btn" type="submit" name="submit" value="Place Order">
 </form>
 </div>
       

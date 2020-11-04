@@ -110,26 +110,42 @@ mysqli_close($link);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-   
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/css/form.css">
+</head>
+
+<body>
+ 
+    
 </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-    <div class="form-group <?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
-    <label>Title:</label>
-    <input type="text" name="title" class="form-control" required>
+<div class="login-container">
+  <div class="login-row">
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+
+  <div style="padding: 30px 60px 26px;" >
+        <div class="login-page-new__main-form-title">Create a Book for sell</div>
+            <div class="login-page-new__main-form-row">
+
+
+    <div class="<?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
+    <label class="login-page-new__main-form-row-label" >Title:</label>
+    <input class="cu-form__input" type="text" name="title" required>
     <span class="help-block"><?php echo $title_err; ?></span>
     </div>
-    <label>Description:</label>
-    <input type="text" name="info" class="form-control" required>
-    <label for="cover_image">Cover Image"</label>
-    <input type="file" name="file">
-    <label for="category">Category"</label>
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label">Description:</label>
+    
+    <input class="cu-form__input" type="text" name="info"  required>
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label" for="cover_image">Cover Image"</label>
+    <input class="cu-form__input" type="file" name="file">
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label" for="category">Category"</label>
     <select name="category">
     <option value="Textbook">Textbook</option>
     <option value="Memoir">Memoir</option>
@@ -139,37 +155,52 @@ mysqli_close($link);
     <option value="Comic Book or Graphic Novel">Comic Book or Graphic Novel</option>
     <option value="Fiction">Fiction</option>
     </select>
-    <label>Author:</label>
-    <input type="text" name="author" class="form-control"required>
-    <label>Language:</label>
-    <input type="text" name="language" class="form-control" required>
-    <label>No. of pages:</label>
-    <input type="number" name="pages" class="form-control" required>
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label">Author:</label>
+    <input class="cu-form__input" type="text" name="author" required>
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label  class="login-page-new__main-form-row-label">Language:</label>
+    <input class="cu-form__input" type="text" name="language"  required>
+    </div>
+    <div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label">No. of pages:</label>
+    <input  class="cu-form__input" type="number" name="pages"  required>
+    </div>
     <br><br>
-    <div class="form-group <?php echo (!empty($type_err)) ? 'has-error' : ''; ?>">
-    <label>rent</label><input type="radio" name="type" value="rent" id="rent" onclick="javascript:BooktypeCheck();" required> 
-    <label>sale</label><input type="radio" name="type" value="sale" id="sale" onclick="javascript:BooktypeCheck();" required>
+    <div class="login-page-new__main-form-row">
+    <div class="<?php echo (!empty($type_err)) ? 'has-error' : ''; ?>">
+    <label class="login-page-new__main-form-row-label">rent</label>
+    <input class="" type="radio" name="type" value="rent" id="rent" onclick="javascript:BooktypeCheck();" required> 
+    </div></div>
+    <label class="login-page-new__main-form-row-label">sale</label>
+    <input class="" type="radio" name="type" value="sale" id="sale" onclick="javascript:BooktypeCheck();" required>
     <span class="help-block"><?php echo $type_err; ?></span><br>
     </div>
-<div class="form-group <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
+<div class=" <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
 <span class="help-block"><?php echo $price_err; ?></span>
 <div id="for_sale">
-    <label>Price:</label>
-    <input type="text" name="price" id="price" class="form-control" required>
+<div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label">Price:</label>
+    <input class="cu-form__input" type="text" name="price" id="price"  required>
     </div>   
-</div>
-<div class="form-group <?php echo (!empty($rate_err)) ? 'has-error' : ''; ?>">
+</div></div>
+<div class=" <?php echo (!empty($rate_err)) ? 'has-error' : ''; ?>">
 <span class="help-block"><?php echo $rate_err; ?></span>
 <div id="for_rent">
-    
-    <label>Monthly rate:</label>
-    <input type="text" id="rate" name="rate" class="form-control" required>
+<div class="login-page-new__main-form-row">
+    <label class="login-page-new__main-form-row-label">Monthly rate:</label>
+    <input class="cu-form__input" type="text" id="rate" name="rate" required>
     </div>
-      
+ </div>     
 </div>
 <input type="submit" name="submit" value="Upload">
        
 </form>
+</div>
+</div>   
+</body>
 <script>
 
 document.getElementById('for_sale').style.display = 'none';

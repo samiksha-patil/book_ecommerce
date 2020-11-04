@@ -90,7 +90,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 <?php 
                 } 
                 else { ?>
-                    <a href='../../order/add_to_cart.php?id=". $row['book_id'] ."'class='btn btn-info'>Add to Cart</a>
+                    <a href='../../order/add_to_cart.php?id=<?php echo $row['book_id'] ?>' class='btn btn-info'>Add to Cart</a>
                 <?php
                 } 
             }
