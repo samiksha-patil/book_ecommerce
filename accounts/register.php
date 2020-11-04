@@ -161,30 +161,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
    
 <div class="registration-container">
   <div class="login-row">
-  <div class="column-40 ">
+  <div class="signup-col-1">
       <div class="reg-bg">
           <p style="">Already have an Account? Login</p>
       </div>
  
   </div>
-  <div class="column-60">
+  <div>
 
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-        <div style="padding: 30px 60px 26px;" >
+        <div style="padding: 30px 75px 0;" >
         <div class="login-page-new__main-form-title">Sign Up</div>
-            <div class="login-page-new__main-form-row">
-
-
-        
-
-            <div class="<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-            <div class="login-page-new__main-form-row-label">Email</div>
-                <input type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
-                <span class="help-block"><?php echo $email_err; ?></span>
-            </div>
-        </div>
+            
 <div style="padding:0px 0px;" class="row">
 <div class="column-50 p-r">
         <div  class="login-page-new__main-form-row">
@@ -207,6 +197,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>      
 </div>   
 </div>
+
+        <div class="login-page-new__main-form-row">
+            <div class="<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+            <div class="login-page-new__main-form-row-label">Email</div>
+                <input type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
+                <span class="help-block"><?php echo $email_err; ?></span>
+            </div>
+        </div>
+
+<div style="padding:0px 0px;" class="row">
+<div class="column-50 p-r">
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label" >Password</label>
@@ -214,15 +215,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
         </div>
-
+</div>
+<div class="column-50 p-l">
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label" >Confirm Password</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
-
+        </div>
     </div>
+</div>
     <div style="padding:0px 0px;" class="row">
 <div class="column-50 p-r">
             <div class="login-page-new__main-form-row ">
