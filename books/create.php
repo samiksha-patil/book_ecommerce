@@ -169,15 +169,18 @@ mysqli_close($link);
     <input  class="cu-form__input" type="number" name="pages"  required>
     </div>
     <br><br>
-    <div class="login-page-new__main-form-row">
+    
     <div class="<?php echo (!empty($type_err)) ? 'has-error' : ''; ?>">
-    <label class="login-page-new__main-form-row-label">rent</label>
+    
     <input class="" type="radio" name="type" value="rent" id="rent" onclick="javascript:BooktypeCheck();" required> 
-    </div></div>
-    <label class="login-page-new__main-form-row-label">sale</label>
-    <input class="" type="radio" name="type" value="sale" id="sale" onclick="javascript:BooktypeCheck();" required>
-    <span class="help-block"><?php echo $type_err; ?></span><br>
+    <label class="login-page-new__main-form-row-label">rent</label>
     </div>
+
+    <input class="" type="radio" name="type" value="sale" id="sale" onclick="javascript:BooktypeCheck();" required>
+    <label class="login-page-new__main-form-row-label">sale</label>
+   
+    <span class="help-block"><?php echo $type_err; ?></span><br>
+    
 <div class=" <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
 <span class="help-block"><?php echo $price_err; ?></span>
 <div id="for_sale">

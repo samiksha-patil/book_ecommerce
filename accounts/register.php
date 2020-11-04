@@ -151,6 +151,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/css/form.css">
+<link rel="stylesheet" href="../static/css/styles.css">
 </head>
 
 <body>
@@ -158,8 +159,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     include '../components/navbar.php'; 
     ?>
    
-<div class="login-container">
+<div class="registration-container">
   <div class="login-row">
+  <div class="column-40 ">
+      <div class="reg-bg">
+          <p style="">Already have an Account? Login</p>
+      </div>
+ 
+  </div>
+  <div class="column-60">
 
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -248,12 +256,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>      </div>   </div>
 
                 <input class="login-page-new__main-form-button" type="submit" value="Submit">
-                <input class="login-page-new__main-form-button" type="reset" value="Reset">
+              
          
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+           
+       
         </form>
-        </form>
-
+</div>
 </div>
 </div>   
 </body>
