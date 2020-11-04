@@ -114,11 +114,11 @@ body {
   color: #9d9d9d;
   padding: 10px 0;
   display: grid;
-  grid-template-columns: 25% auto;
+  grid-template-columns: 30% auto;
 }
 
 /* Buttons */
-.primary:hover {
+.primary {
   border-color: #324852;
   color: #fff;
   background-color: #324852;
@@ -126,8 +126,8 @@ body {
 
 .primary {
   border: 1px solid #324852;
-  color: #324852;
-  background-color: transparent;
+  /* color: #324852; */
+  /* background-color: transparent; */
   transition: all 0.5s ease-in-out;
   text-decoration: none;
   margin-top: 10px;
@@ -300,13 +300,24 @@ nav input[type="checkbox"] {
 }
 
 nav {
-  -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
--moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
 }
 
 #notifContainer {
-  -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
--moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+#notifContainerMobile {
+  margin: 23px 5vw;
+  padding: 20px;
+  background: #fff;
+}
+
+.no-notif {
+  text-align: center;
+  color: #555d69;
 }
