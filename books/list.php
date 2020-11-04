@@ -193,7 +193,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
               <?php } ?>
               </div>
             </div>
-            <div onclick="goToDetail(<?php echo $row["book_id"] ?>)">
+            <div onclick='goToDetail(<?php echo $row["book_id"] ?>)'>
               <div
                 class="product-title"
                 style="font-size: 22px; text-align: center"

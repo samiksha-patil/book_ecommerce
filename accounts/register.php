@@ -151,6 +151,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/css/form.css">
+<link rel="stylesheet" href="../static/css/styles.css">
 </head>
 
 <body>
@@ -158,8 +159,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     include '../components/navbar.php'; 
     ?>
    
-<div class="login-container">
+<div class="registration-container">
   <div class="login-row">
+  <div class="column-40 ">
+      <div class="reg-bg">
+          <p style="">Already have an Account? Login</p>
+      </div>
+ 
+  </div>
+  <div class="column-60">
 
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -177,24 +185,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $email_err; ?></span>
             </div>
         </div>
-
-        <div class="login-page-new__main-form-row">
-        <div style="padding-right:10px" class="signup-col-50">
+<div style="padding:0px 0px;" class="row">
+<div class="column-50 p-r">
+        <div  class="login-page-new__main-form-row">
+        
             <div class=" <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label">First Name</label>
                 <input type="text" class="cu-form__input ng-pristine ng-invalid ng-touched" name="first_name"  value="<?php echo $first_name; ?>">
                 <span class="help-block"><?php echo $first_name_err; ?></span>
             </div> 
         </div>
-
-        <div  style="padding-left:10px" class="signup-col-50">
+</div>
+<div class="column-50 p-l">
+<div class="login-page-new__main-form-row">
+       
             <div class="<?php echo (!empty($last_name_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label">Last Name</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="last_name"  value="<?php echo $last_name; ?>">
                 <span class="help-block"><?php echo $last_name_err; ?></span>
             </div>  
-        </div>
+            </div>      
 </div>   
+</div>
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label" >Password</label>
@@ -211,38 +223,45 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
 
     </div>
+    <div style="padding:0px 0px;" class="row">
+<div class="column-50 p-r">
             <div class="login-page-new__main-form-row ">
-            <div style="padding-right:10px"  class="signup-col-50">
+            
                 <label class="login-page-new__main-form-row-label">Country</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="country" value="<?php echo $country; ?>">
                 </span>
             </div>
-            
-            <div style="padding-left:10px" class="signup-col-50  ">
+</div>       
+<div class="column-50 p-l">
+            <div class="login-page-new__main-form-row ">
                 <label class="login-page-new__main-form-row-label">State</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="state"  value="<?php echo $state; ?>">
                 </span>
-</div></div>
+</div></div></div>
+<div style="padding:0px 0px;" class="row">
+<div class="column-50 p-r">
             <div class="login-page-new__main-form-row">
-            <div style="padding-right:10px"  class="signup-col-50">
+            
                 <label class="login-page-new__main-form-row-label">City</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="city"  value="<?php echo $city; ?>">
                 </span>
             
-</div>
-
-<div style="padding-left:10px" class="signup-col-50">
+</div></div>
+<div class="column-50 p-l">
+<div class="login-page-new__main-form-row">
+            
                 <label class="login-page-new__main-form-row-label">Phone Number</label>
                 <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="phone_no" value="<?php echo $phone_no; ?>">
                 </span>
-</div>      </div>   
-                <input class="login-page-new__main-form-button" type="submit" value="Submit">
-                <input class="login-page-new__main-form-button" type="reset" value="Reset">
-         
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </form>
-        </form>
+</div>      </div>   </div>
 
+                <input class="login-page-new__main-form-button" type="submit" value="Submit">
+              
+         
+           
+       
+        </form>
+</div>
 </div>
 </div>   
 </body>

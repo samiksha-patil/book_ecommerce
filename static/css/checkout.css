@@ -37,12 +37,14 @@ ul.payment_methods li label img {
   font-size: 15px;
 }
 tr{
-  border:1px solid #ddd
+  border:1px solid #ddd;
+ 
 }
 
-th,td{
+td{
   padding: 10px;
-  
+  font-size: 22px;
+  font-family:  'Crimson Text',Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .row-checkout {
@@ -84,4 +86,13 @@ th,td{
 .place-order-btn:hover {
     color: white;
     background-color: #37465d;
+}
+
+th{
+  padding: 12px;
+  text-transform: uppercase;
+  font-family: "Source Sans Pro";
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
 }
