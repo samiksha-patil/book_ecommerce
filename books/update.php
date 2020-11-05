@@ -1,7 +1,6 @@
 <?php
 
 // Include the database configuration file
-include '../connection.php';
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type="";
@@ -11,6 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
     exit;
 }
+include '../connection.php';
 
 
 // Check existence of id parameter before processing further
@@ -119,39 +119,87 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Update Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        .wrapper{
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/css/form.css">
+<link rel="stylesheet" href="../static/css/styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<style>
+    .thumb-image{
+width:90%;
+ position:relative;
+ padding:5px;
+ margin: auto;
+}
+.hide_file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+    
+}
+.abc{
+  padding:15px 15px;
+  background:#F7F7F7;
+  border:1px solid #ffaea0fc;
+  position:relative;
+ 
+  border-radius:2px;
+  text-align:center;
+  float:left;
+  cursor:pointer
+}
+</style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-header">
-                        <h2>Update Record</h2>
-                    </div>
-                    <p>Please edit the input values and submit to update the record.</p>
+<div class="registration-container" >
+<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
+
+  <div class="login-row" >
+
+  <div style="margin:auto;">
+
+   <div >   
+    <div  class="abc  login-page-new__main-form-row-label" for="cover_image">Update Cover Image <ion-icon name="cloud-upload-outline"></ion-icon>
+
+    <input  id="fileUpload"
+     class="hide_file" type="file"  name="file">
+    </div>
+    </div>
+    <div style="margin:auto;"> 
+      <div  id="image-holder"><img class="thumb-image" src="../uploads/<?php echo $row["cover_image"]; ?>"  > </div>
+</div></div>
+  <div class="">
+
+
+  <div style="padding: 30px 60px 0px 26px ;" >
+        <div class="login-page-new__main-form-title">Update the Book</div>
+            <div class="login-page-new__main-form-row">
+
+
+
                                         
-                    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?php echo $param_id; ?>"/>
+                                        <div class="login-page-new__main-form-row">    
+                    <input type="hidden" name="id" value="<?php echo $param_id; ?>"/>
                         <div class="form-group <?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
-                        <label>Title:</label>
-                        <input type="text" name="title" class="form-control" required value="<?php echo $row["title"]; ?>">
+                        <label class="login-page-new__main-form-row-label">Title</label>
+                        <input class="cu-form__input" type="text" name="title"  required value="<?php echo $row["title"]; ?>">
                         <span class="help-block"><?php echo $title_err; ?></span>
-                        </div>
-                        <label>Description:</label>
-                        <input type="text" name="info" class="form-control" required value="<?php echo $row["info"]; ?>">
-                        <label>Cover Image:</label>
-                        <img src="../uploads/<?php echo $row["cover_image"]; ?>" height="200px" >
-                        <input type="file" name="file" value="<?php echo $row["cover_image"]; ?>">
-                        <label for="category">Category:</label>
+                        </div></div>
+                        <div class="login-page-new__main-form-row">
+                        <label class="login-page-new__main-form-row-label" >Description:</label>
+                        <input class="cu-form__input" type="text" name="info" required value="<?php echo $row["info"]; ?>">
+</div>
+                        <div style="padding:0px 0px;" class="row">
+                        <div class="column-50 p-r">
+                        <div class="login-page-new__main-form-row">
+                        <label class="login-page-new__main-form-row-label" for="category">Category:</label>
                         <select  id="category" name="category">
                         <option value="Textbook">Textbook</option>
                         <option value="Memoir">Memoir</option>
@@ -160,36 +208,51 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
                         <option value="Classics">Classics</option>
                         <option value="Comic Book or Graphic Novel">Comic Book or Graphic Novel</option>
                         <option value="Fiction">Fiction</option>
-                        </select>
-                        <br>
-                        <label>Author:</label>
-                        <input type="text" name="author" class="form-control"required value="<?php echo $row["author"]; ?>">
-                        <label>Language:</label>
-                        <input type="text" name="language" class="form-control" required value="<?php echo $row["lang"]; ?>">
-                        <label>No. of pages:</label>
-                        <input type="number" name="pages" class="form-control" required value="<?php echo $row["no_of_pages"]; ?>">
-                        <br><br>
+                        </select></div>
+                        </div><div class="column-50 p-l">
+                        <div class="login-page-new__main-form-row">
+                        <label class="login-page-new__main-form-row-label">Author:</label>
+                        <input class="cu-form__input" type="text" name="author" required value="<?php echo $row["author"]; ?>">
+                        </div></div> </div>
+                        <div style="padding:0px 0px;" class="row">
+                        <div class="column-50 p-r">
+                        <div class="login-page-new__main-form-row">
+                        <label class="login-page-new__main-form-row-label">Language:</label>
+                        <input class="cu-form__input" type="text" name="language"  required value="<?php echo $row["lang"]; ?>">
+                        </div>
+                        </div><div class="column-50 p-l">
+                        <div class="login-page-new__main-form-row">
+                                                <label class="login-page-new__main-form-row-label">No. of pages:</label>
+                                                <input class="cu-form__input" type="number" name="pages"  required value="<?php echo $row["no_of_pages"]; ?>">
+                        </div></div> </div>
                         <?php if($type=="sale") { ?>
-                        <div class="form-group <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
+                        <div class=" <?php echo (!empty($price_err)) ? 'has-error' : ''; ?>">
                         <span class="help-block"><?php echo $price_err; ?></span>
                         <div id="for_sale">
-                            <label>Price:</label>
-                            <input type="text" name="price" id="price" class="form-control" required value="<?php echo $sale_row["price"]; ?>">
+                            <label class="login-page-new__main-form-row-label">Price</label>
+                            <input class="cu-form__input" type="text" name="price" id="price"  required value="<?php echo $sale_row["price"]; ?>">
                             <label>Discount Price:</label>
-                            <input type="text" name="discount_price" class="form-control" required value="<?php echo $sale_row["discount_price"]; ?>">
+                            <input type="text" name="discount_price" required value="<?php echo $sale_row["discount_price"]; ?>">
                             </div>   
                         </div>
                         <?php } else { ?>
-                        <div class="form-group <?php echo (!empty($rate_err)) ? 'has-error' : ''; ?>">
+                        <div class=" <?php echo (!empty($rate_err)) ? 'has-error' : ''; ?>">
                         <span class="help-block"><?php echo $rate_err; ?></span>
                         <div id="for_rent">
-                            <label>Monthly rate:</label>
-                            <input type="text" id="rate" name="rate" class="form-control" required value="<?php echo $rent_row["monthly_rate"]; ?>">
+                            <label class="login-page-new__main-form-row-label">Monthly rate</label>
+                            <input class="cu-form__input" type="text" id="rate" name="rate"  required value="<?php echo $rent_row["monthly_rate"]; ?>">
                         </div>
                         <?php } ?>
+                        
                         </div>
-                        <input type="submit" name="submit" value="Update" class="btn btn-primary" id="submit"> 
-                    <a href="user_books.php" class="btn btn-danger">Back</a>
+                        </div>
+                        <div style="padding:0px 0px;" class="row">
+                        
+                        <input class="login-page-new__main-form-button" type="submit" name="submit" value="Update" id="submit"> 
+                        
+                    <a class="login-page-new__main-form-button" href="user_books.php" >Back</a>
+                    </div>
+                    </div>
                     </form>
                 </div>
             </div>        
@@ -200,3 +263,36 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
     </script>
 </body>
 </html>
+<script>
+$(document).ready(function() {
+        $("#fileUpload").on('change', function() {
+          //Get count of selected files
+          var countFiles = $(this)[0].files.length;
+          var imgPath = $(this)[0].value;
+          var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+          var image_holder = $("#image-holder");
+          image_holder.empty();
+          if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof(FileReader) != "undefined") {
+              //loop for each file selected for uploaded.
+              for (var i = 0; i < countFiles; i++) 
+              {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  $("<img />", {
+                    "src": e.target.result,
+                    "class": "thumb-image"
+                  }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[i]);
+              }
+            } else {
+              alert("This browser does not support FileReader.");
+            }
+          } else {
+            alert("Pls select only images");
+          }
+        });
+      });
+</script>
