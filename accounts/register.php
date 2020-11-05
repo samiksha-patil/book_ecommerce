@@ -163,7 +163,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="login-row">
   <div class="signup-col-1">
       <div class="reg-bg">
-          <p style="">Already have an Account? Login</p>
+          <div class="image-content">
+              <div class="">Already have an Account? Login</div>
+          </div>
       </div>
  
   </div>

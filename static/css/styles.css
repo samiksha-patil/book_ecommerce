@@ -4,7 +4,7 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  font-family: "roboto","Source Sans Pro", sans-serif;
+  font-family: "roboto", "Source Sans Pro", sans-serif;
 }
 .row {
   display: -ms-flexbox;
@@ -183,7 +183,8 @@ body {
   text-align: center;
 }
 
-.button-cart a, .btn-group a {
+.button-cart a,
+.btn-group a {
   width: 200px;
   padding: 12px 48px;
   margin-top: 82px;
@@ -195,7 +196,8 @@ body {
   font-weight: 600;
   text-transform: uppercase;
 }
-.button-cart :hover, .btn-group a {
+.button-cart :hover,
+.btn-group a {
   color: white;
   background-color: #37465d;
 }
@@ -278,4 +280,14 @@ body {
   border-bottom: solid 2px #37465d;
   margin: auto;
   padding: 10px;
+}
+
+.image-content {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+}
+
+.reg-bg {
+  position: relative;
 }

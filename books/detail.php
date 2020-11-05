@@ -3,7 +3,7 @@
 include '../connection.php';
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../accounts/login.php");
+    header("location: ../../accounts/login.php");
     exit;
 }
 $id=$_SESSION["user_id"];

@@ -1,4 +1,40 @@
 <?php 
+
+// function to convert timestamp 
+// to time ago 
+  
+function to_time_ago( $time ) { 
+      
+    // Calculate difference between current 
+    // time and given timestamp in seconds 
+    $diff = time() - $time; 
+      
+    if( $diff < 60 ) {  
+        return 'Now';  
+    } 
+      
+    $time_rules = array (  
+                12 * 30 * 24 * 60 * 60 => 'year', 
+                30 * 24 * 60 * 60      => 'month', 
+                24 * 60 * 60           => 'day', 
+                60 * 60                => 'hour', 
+                60                     => 'minute'
+    ); 
+  
+    foreach( $time_rules as $secs => $str ) { 
+          
+        $div = $diff / $secs; 
+  
+        if( $div >= 1 ) { 
+              
+            $t = round( $div ); 
+              
+            return $t . ' ' . $str .  
+                ( $t > 1 ? 's' : '' ) . ' ago'; 
+        } 
+    } 
+} 
+
 session_start();
 $logged_in=True;
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -115,7 +151,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                 <div>
                   <a class="book_title" href="#"><?php echo $row["title"] ?></a> is available for rent.
                   <br />
-                  <div class="notif-date">Now</div>
+                  <div class="notif-date"><?php echo to_time_ago($row["unix_time"]) ?></div>
                   <div class="notif-buttons">
                       <form name="form" method="post">
                     <a href="../order/payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 

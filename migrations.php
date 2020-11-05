@@ -319,7 +319,7 @@ echo"<br />";
 
 // Notification
 $sql= "CREATE VIEW IF NOT EXISTS notification_view AS
-SELECT notif_id, queue.user_id, queue.queue_id, status, book.book_id, title, cover_image 
+SELECT notif_id, queue.user_id, queue.queue_id, status, book.book_id, title, cover_image, unix_timestamp(timestamp) as unix_time  
 FROM notification INNER JOIN queue ON queue.queue_id=notification.queue_id INNER JOIN book ON book.book_id=queue.book_id;";
 if (mysqli_query($link, $sql)) {
     echo "Notification view created successfully";
