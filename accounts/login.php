@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-<div style="padding: 30px 60px 26px;" class="login-col-60">
+<div style="padding: 30px 60px 26px;" class="">
   <div class="login-page-new__main-form-title">Welcome back!</div>
     <div class="login-page-new__main-form-row">
 
@@ -124,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <path clip-rule="evenodd" d="M10.121.878a3 3 0 00-4.242 0L.877 4.88A2.989 2.989 0 000 7v7a2 2 0 002 2h12a2 2 0 002-2V7a2.99 2.99 0 00-.879-2.122l-5-4zm3.042 4.986L8 8.844l-5.164-2.98 4.457-3.565a1 1 0 011.414 0l4.456 3.565zm.838 1.825l-5.49 3.17a.993.993 0 01-1.012.007L2 7.69V14h12V7.69z" fill="#B9BEC7" fill-rule="evenodd"></path>
           </svg>
         </div>
-        <input type="email" name="email"  value="<?php echo $email; ?>" class="cu-form__input ng-pristine ng-invalid ng-touched" formcontrolname="email" id="login-email-input" placeholder="Enter your email" >
+        <input style="padding:8px 20px 8px 40px;" type="email" name="email"  value="<?php echo $email; ?>" class="cu-form__input ng-pristine ng-invalid ng-touched" formcontrolname="email" id="login-email-input" placeholder="Enter your email" >
         <span class="help-block" ><?php echo $email_err; ?></span>
     </div>
     </div>   
@@ -141,7 +141,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <path clip-rule="evenodd" d="M5 4a2 2 0 114 0v2.058A35.706 35.706 0 007 6c-.695 0-1.37.022-2 .058V4zM3 6.22V4a4 4 0 118 0v2.22a39.5 39.5 0 011.315.162C13.306 6.52 14 7.373 14 8.336v4.962c0 .836-.529 1.624-1.39 1.873C11.554 15.478 9.407 16 7 16s-4.553-.522-5.61-.829A1.938 1.938 0 010 13.298V8.336c0-.963.693-1.815 1.685-1.954.35-.05.796-.106 1.315-.161zM2 8.358v4.909c.983.282 2.896.734 5 .734s4.017-.452 5-.734V8.357A37.569 37.569 0 007 8c-2.075 0-3.961.213-5 .357zM7 9a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1z" fill="#B9BEC7" fill-rule="evenodd"></path>
           </svg>
         </div>
-        <input type="password" name="password"  autocomplete="off" autocorrect="off" class="cu-form__input cu-form__input-pwd ng-untouched ng-pristine ng-invalid" formcontrolname="password" maxlength="100" placeholder="Enter password" spellcheck="false" >
+        <input style="padding:8px 20px 8px 40px;" type="password" name="password"  autocomplete="off" autocorrect="off" class="cu-form__input cu-form__input-pwd ng-untouched ng-pristine ng-invalid" formcontrolname="password" maxlength="100" placeholder="Enter password" spellcheck="false" >
         <span class="help-block"><?php echo $password_err; ?></span>
     </div>
       </div>

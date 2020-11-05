@@ -32,7 +32,7 @@
 }
 
 input[type="radio"] {
-  display: none;
+  /*display: none;*/
 }
 
 input[type="radio"]:checked ~ label {

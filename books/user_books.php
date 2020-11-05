@@ -71,6 +71,7 @@
                                         echo "<td>" . $row['monthly_rate'] . "</td>";
                                         echo "<td>" . $row['rating'] . "</td>";
                                         echo "<td>";
+
                                             echo "<a href='detail.php/?id=". $row['book_id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['book_id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
                                             echo "<a href='delete.php?id=". $row['book_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";

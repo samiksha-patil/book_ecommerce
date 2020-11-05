@@ -127,10 +127,10 @@
   line-height: 22px;
   font-family: "Source Sans Pro", sans-serif;
   width: 100%;
-  /* border: 1px solid #e9ebf0; */
+  border: 1px solid #f7f7f7; 
   box-sizing: border-box;
   border-radius: 4px;
-  padding: 8px 20px 8px 40px;
+  padding: 8px 20px 8px 20px;
   color: #292d34;
   margin-top: 5px;
   background: #f7f7f7;
@@ -223,4 +223,16 @@
   .p-r {
     padding: 0px;
   }
+}
+
+#category {
+  border: 1px solid #263348 !important;
+  background-color: transparent;
+  font-size: 13px;
+  width: 100%;
+  height: 36px;
+  padding: 0 20px;
+  color: #263348;
+  letter-spacing: 1px;
+  background-color: #f7f7f7;
 }
