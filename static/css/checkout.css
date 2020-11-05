@@ -91,8 +91,9 @@ td{
 th{
   padding: 12px;
   text-transform: uppercase;
-  font-family: "Source Sans Pro";
-  font-size: 15px;
-  font-weight: 300;
+  font-family: "Source Sans Pro";    
+  font-size: 13px;
+  font-weight: 400;
   letter-spacing: 2px;
+  color: #888;
 }

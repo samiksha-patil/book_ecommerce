@@ -121,7 +121,7 @@
   width: 18px;
   height: 18px;
 }
-.login-page-new__main-form-row input {
+.login-page-new__main-form-row input, .login-page-new__main-form-row textarea {
   font-weight: 400;
   font-size: 15px;
   line-height: 22px;

@@ -183,7 +183,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
             <div class=" <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label">First Name</label>
-                <input type="text" class="cu-form__input ng-pristine ng-invalid ng-touched" name="first_name"  value="<?php echo $first_name; ?>">
+                <input required type="text" class="cu-form__input ng-pristine ng-invalid ng-touched" name="first_name"  value="<?php echo $first_name; ?>">
                 <span class="help-block"><?php echo $first_name_err; ?></span>
             </div> 
         </div>
@@ -193,7 +193,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        
             <div class="<?php echo (!empty($last_name_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label">Last Name</label>
-                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="last_name"  value="<?php echo $last_name; ?>">
+                <input required class="cu-form__input ng-pristine ng-invalid ng-touched" type="text" name="last_name"  value="<?php echo $last_name; ?>">
                 <span class="help-block"><?php echo $last_name_err; ?></span>
             </div>  
             </div>      
@@ -203,7 +203,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
             <div class="login-page-new__main-form-row-label">Email</div>
-                <input type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
+                <input required type="email" class="cu-form__input ng-pristine ng-invalid ng-touched" name="email" value="<?php echo $email; ?>">
                 <span class="help-block"><?php echo $email_err; ?></span>
             </div>
         </div>
@@ -213,7 +213,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label" >Password</label>
-                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="password" value="<?php echo $password; ?>">
+                <input required class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="password" value="<?php echo $password; ?>">
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
         </div>
@@ -222,7 +222,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="login-page-new__main-form-row">
             <div class="<?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
                 <label class="login-page-new__main-form-row-label" >Confirm Password</label>
-                <input class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
+                <input required class="cu-form__input ng-pristine ng-invalid ng-touched" type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
         </div>
