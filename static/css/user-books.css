@@ -185,3 +185,11 @@ body{
 a{
     text-decoration: none;
 }
+.no-record{
+        background-color: white;
+        padding: 10px;
+        margin: 1% 5%;
+        border: 1px;
+        border-radius: 4px;
+}
+

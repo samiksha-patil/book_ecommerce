@@ -33,7 +33,17 @@ $id=$_SESSION["user_id"];
     
 <div class="table-responsive">
     
-        <table class="table table-shopping">
+       
+                 
+
+    
+                    <?php
+                   
+                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
+                    
+                    if($result = mysqli_query($link, $sql)){
+                        if(mysqli_num_rows($result) > 0){ ?>
+ <table class="table table-shopping">
           <thead>
             <tr>
               <th class="product-title">Image</th>
@@ -45,16 +55,6 @@ $id=$_SESSION["user_id"];
           </thead>
           <tbody>
               
-                 
-
-    
-                    <?php
-                   
-                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
-                    
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){ ?>
-
           
                             <?php 
                             $total =0;
@@ -81,28 +81,36 @@ $id=$_SESSION["user_id"];
 
 
                                <tr <?php if($sold){?>
-                     style="opacity: 0.2;"
+                     style="background-color: #c9c9d326;"
                  <?php   } ?>    class="cart-element">
-                               <td class="align-center">
+                               <td  class="align-center" <?php if($sold){?>
+                     style='opacity: 0.4;'
+                 <?php   } ?>>
                                <img style="height: 150px; padding-bottom: 10px;" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="" />
               
                                 </td>
-                                <td class="td-name">
+                                <td class="td-name"  <?php if($sold){?>
+                     style='opacity: 0.4;'
+                 <?php   } ?>>
                                                
                                 <?php echo $row["title"]; ?>
                                 </td>
-                                <td>
+                                <td <?php if($sold){?>
+                     style='opacity: 0.4;'
+                 <?php   } ?>>
                                 <?php echo $row["category"] ?>
                                 </td>
-                                <td>
+                                <td <?php if($sold){?>
+                     style='opacity: 0.4;'
+                 <?php   } ?>>
                                 Rs. <?php echo $row["price"] ?>
                                 </td>
                                 
                                 <td>
                                 <?php if($sold){?>
-                   <p style="opacity: 1;">  sold out</p>
+                   <p style="" class="sold-out align-center">  sold out</p>
                  <?php   } ?>
-                                 <a style="color:#888;" href="remove_from_cart.php?id=<?php echo $row["book_id"] ?>" ><i class="fas fa-times"></i></a>
+                                 <a class="close-icon" href="remove_from_cart.php?id=<?php echo $row["book_id"] ?>" ><ion-icon name="close-outline"></ion-icon></a>
                                 </td>
                                 </tr>
                                                    
@@ -111,11 +119,14 @@ $id=$_SESSION["user_id"];
                                     <?php }                             
                             
                                 ?>          
+       
+</tbody>
+        </table>
                                
       </div>
       
       <div class="checkout-btn">
-        <div style="margin-bottom: 1rem" class="head-sub">Total	 <?php echo "$total" ?></div>
+        <div style="margin-bottom: 1rem" class="head-sub">Total	 $<?php echo "$total" ?></div>
         <a href="checkout.php">PROCEED TO CHECKOUT</a>
       
     </div>
@@ -134,7 +145,7 @@ $id=$_SESSION["user_id"];
                         
                         else{
                             ?>
-                         
+                     <p style="font-size:20px;margin-bottom:20px;" class="align-center">    No items in your cart </p>
 
                            <?php
                         }
@@ -147,9 +158,6 @@ $id=$_SESSION["user_id"];
                     mysqli_close($link);
                     ?>
 
-</tbody>
-        </table>
-       
 
 </body>
 </html>
