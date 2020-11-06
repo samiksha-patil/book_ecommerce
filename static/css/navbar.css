@@ -93,7 +93,7 @@ body {
 
 #notif:hover + .notif {
   display: block;
-  color: red;
+  color: #ea524d;
 }
 
 /* Notifications */

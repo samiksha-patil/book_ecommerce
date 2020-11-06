@@ -67,18 +67,21 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   <div class="column-50">
     <div class="title-row">
       <div class="product-title"><?php echo $row["title"]; ?></div>
-      <div class="price" style="font-size: 30px; line-height: 40px">$56/mo</div>
+      <div class="price" style="font-size: 20px; line-height: 40px">$ <span class="amount"><?php echo $row["price"]; ?></span>/month</div>
     </div>
 
     <p>
       <?php echo $row["info"]; ?>
     </p>
     <br />
+      
         <?php 
         if($row["uploaded_by"]==$id) { ?>
 
-        <a href='../update.php?id=<?php echo $row['book_id']; ?>'class='btn btn-info'>Update</a>                   
-        <a href='../delete.php?id=<?php echo $row['book_id']; ?>'class='btn btn-danger'>Delete</a>
+        <div class="buttons-row">
+        <button id="update_button" onclick="goto('../update.php?id=<?php echo $row['book_id']; ?>')" class='btn'>Update</button>                   
+        <button id="update_button" onclick="goto('../delete.php?id=<?php echo $row['book_id']; ?>')" class='btn btn-red'>Delete</button>
+        </div>
         <?php
         }
         else {
@@ -88,11 +91,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $book_id = $row["book_id"];
                 $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
                 if($query->num_rows > 0){  ?>
-                <a href="../../order/cart.php" class="btn btn-primary">View in cart</a>
+                <a href="../../order/cart.php" class="btn">View in cart</a>
                 <?php 
                 } 
                 else { ?>
-                    <a href='../../order/add_to_cart.php?id=<?php echo $row['book_id'] ?>' class='btn btn-info'>Add to Cart</a>
+                    <a href='../../order/add_to_cart.php?id=<?php echo $row['book_id'] ?>' class='btn'>Add to Cart</a>
                 <?php
                 } 
             }
@@ -102,6 +105,33 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 <?php
             }
         } else {
+          
+              $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
+                $people_waiting = $query->num_rows;
+                  if($people_waiting == 1) {
+                    ?>
+                    1 person in waiting list
+                    <details>
+                      <summary>View details</summary>
+                      <?php 
+                      echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
+                      ?>
+                  </details>
+                      <?php
+                  }
+                  if($people_waiting > 1){ 
+                      echo $people_waiting." people in waiting list<br>";
+                      ?>
+                      <details>
+                        <summary>View details</summary>
+                        <?php 
+                        while($queue_row = mysqli_fetch_array($query)){
+                          echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
+                      }
+                        ?>
+                      </details>
+                      <?php
+                  }
             
                 $currently_renting = false;
                 $book_id = $row["book_id"];
@@ -109,22 +139,23 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 if($query->num_rows > 0){  
                     $status=$query->fetch_assoc()["status"];
                     ?>
-                <button disabled><?php echo $status; ?></button>
+                <button class="btn btn-disable" disabled><?php echo $status; ?></button>
                 <?php 
                 } 
                 else {
                     if($row["is_available"]==1) { ?>
                     <form action="../queue.php" method="get">
                         <input type="hidden" name="id" value="<?php echo $param_id ?>">
-                        <input type="submit" 
+                        <input type="submit" class="btn"
                         value="Rent">
                     </form>
                     <?php
                     }
-                    else { ?>
+                    else { 
+                        ?>
                         <form action="../queue.php" method="get">
                             <input type="hidden" name="id" value="<?php echo $param_id ?>">
-                            <input type="submit" 
+                            <input type="submit" class="btn"
                             value="Join waiting list">
                         </form>
                     <?php
@@ -133,7 +164,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             }
         }
         ?>
-
       <button class="collapsible">ADDITIONAL INFORMATION</button>
       <div class="content">
         <div class="info-cols">
@@ -156,28 +186,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         </div>
         </p>
       </div>
-      <?php 
-      if($row["type"]=="rent" && $row["is_available"]==0) {
-        ?>
-
-        <button class="collapsible">People In Line</button>
-        <div class="content">
-          <p>
-          <?php
-            $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
-                if($query->num_rows > 0){ 
-                    echo $query->num_rows."in line for this book<br>";
-                    while($queue_row = mysqli_fetch_array($query)){
-                        echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
-                    }
-                }
-            ?>
-          </p>
-        </div>
-
-        <?php
-      }
-      ?>
       
     </div>
   </div>
@@ -256,6 +264,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
   function goToDetail(id) {
     window.location.href="../detail.php/?id="+id; 
+  }
+
+  function goto(link) {
+    window.location.href=link; 
   }
 </script>
 </body>
