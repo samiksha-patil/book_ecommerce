@@ -190,7 +190,7 @@ width:90%;
                         </div></div>
                         <div class="login-page-new__main-form-row">
                         <label class="login-page-new__main-form-row-label" >Description:</label>
-                        <textarea class="cu-form__input" type="text" name="info" form="update_form" required><?php echo $row["info"]; ?></textarea>
+                        <textarea class="cu-form__input" name="info" form="update_form" required><?php echo $row["info"]; ?></textarea>
 </div>
                         <div style="padding:0px 0px;" class="row">
                         <div class="column-50 p-r">
