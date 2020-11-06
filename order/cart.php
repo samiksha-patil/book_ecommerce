@@ -26,7 +26,8 @@ $id=$_SESSION["user_id"];
 </head>
 <div class="container-top">
     <img class="img-top" src="../static/images/title-img.jpg" alt="Cinque Terre" width="1000" height="300">
-    <div class="center product-title">Cart</div>
+    <div class="center product-title">Cart<div class="elementor-divider-separator"></div></div>
+    
 </div>
 <div class="card main-raised">
 
