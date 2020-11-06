@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+ include '../components/navbar.php'; 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
     exit;

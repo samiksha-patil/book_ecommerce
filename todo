@@ -1,14 +1,12 @@
 to do:
 LOCKS!!!
-detail
-my orders
-dashboard(user books)
+
+
+twins:
+my_orders
+my_books-update
 delete popup
-add, update
-
-Payment successful sweet alert message?
-payment table address field??
-
+cart
 
 Sakshi:
 detail view:
@@ -16,5 +14,7 @@ detail view:
     addn info
     line
 discounted price
-~textarea order, update~
 add navbar
+no of months multiply with payment rate
+Payment successful sweet alert message?
+payment table address field??

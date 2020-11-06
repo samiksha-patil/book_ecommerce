@@ -30,9 +30,9 @@ $id=$_SESSION["user_id"];
     
 </div>
 <div class="card main-raised">
-
-    <div class="table-responsive">
-    <div class="table-responsive">
+    
+<div class="table-responsive">
+    
         <table class="table table-shopping">
           <thead>
             <tr>
@@ -44,13 +44,17 @@ $id=$_SESSION["user_id"];
             </tr>
           </thead>
           <tbody>
+                 
+
+    
                     <?php
                    
                     $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                     
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){ ?>
-                           
+
+          
                             <?php 
                             $total =0;
                             while($row = mysqli_fetch_array($result)){ ?>
@@ -71,6 +75,7 @@ $id=$_SESSION["user_id"];
 
                   }
                     ?>
+                    
                   
 
 
@@ -105,9 +110,7 @@ $id=$_SESSION["user_id"];
                                     <?php }                             
                             
                                 ?>          
-                                 </tbody>
-        </table>
-       
+                               
       </div>
       
       <div class="checkout-btn">
@@ -129,7 +132,7 @@ $id=$_SESSION["user_id"];
                         }
                         
                         else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
+                            echo "<tr><p style='font-size:20px'; class='align-center'>No records were found.</p></tr>";
                         }
                         
                     } else{
@@ -140,7 +143,9 @@ $id=$_SESSION["user_id"];
                     mysqli_close($link);
                     ?>
 
-
+</tbody>
+        </table>
+       
 
 </body>
 </html>

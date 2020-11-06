@@ -34,7 +34,7 @@
                         exit;
                     }
                     $id=$_SESSION["user_id"];
-                    $sql = "SELECT * FROM book INNER JOIN book_for_rent on book.book_id=book_for_rent.book_id WHERE user_id=$id";
+                    $sql = "SELECT * FROM book_view  WHERE uploaded_by=$id AND type='rent'";
                    
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -53,7 +53,7 @@
                    
                         <th class="pr-0" style="width: 100px"></th>
                         <th style="min-width: 200px">Title</th>
-                        <th style="min-width: 150px">Description</th>
+                        <th style="min-width: 150px">No. of  Times Rented</th>
                         <th style="min-width: 150px">Monthly Rate</th>
                         <th style="min-width: 150px">Category</th>
                         <th style="min-width: 150px">Status</th>
@@ -83,11 +83,11 @@
                                     </td>
                                     <td>
                                         
-                                        <span ><?php echo  $row['info'] ; ?></span>
+                                        <span ></span>
                                     </td>
                                     <td>
                                         
-                                        <span >$<?php echo $row['monthly_rate'] ; ?></span>
+                                        <span >$<?php echo $row['price'] ; ?></span>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column w-100 mr-2">
@@ -101,8 +101,22 @@
                                     <td>
                                         <div class="d-flex flex-column w-100 mr-2">
                                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                                <span class="bt-status-sold-out">rent-Avaliable</span>
-                                               
+                                                <?php if($row['is_available']) {?>
+                                                <span class="bt-status-avaliable">Avaliable</span>
+                                                <?php } 
+                                                else { ?>
+
+                                                <span class="bt-status-sold-out">Rented</span>
+                                             <div style="margin-top:20px;" class="text-muted">   <?php
+                                                $book_id=$row['book_id'];
+            $query1 = $link->query("SELECT * FROM queue_view WHERE book_id = $book_id");
+                if($query1->num_rows > 0){ 
+                    echo $query1->num_rows."in line";
+                  
+                }
+            ?></div>
+
+                                                <?php } ?>
                                             </div>
                                             
                                         </div>
@@ -197,7 +211,7 @@
            
                     <?php
                    
-                    $sql = "SELECT * FROM book_view RIGHT JOIN book_for_sale on book.book_id=book_for_sale.book_id WHERE user_id=$id";
+                    $sql = "SELECT * FROM book_view  WHERE uploaded_by=$id AND type='buy'";
                     
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -258,7 +272,7 @@
                                     <td>
                                         <div class="d-flex flex-column w-100 mr-2">
                                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                                <?php if($row['avaliable']) {?>
+                                                <?php if($row['is_available']) {?>
                                                 <span class="bt-status-avaliable">Avaliable</span>
                                                 <?php } 
                                                 else { ?>
