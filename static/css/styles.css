@@ -291,3 +291,37 @@ body {
 .reg-bg {
   position: relative;
 }
+
+/* Detail.php */
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.info-row .key {
+  /* font-family: Poppins-Regular; */
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666;
+}
+
+.info-row .value {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #888;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.price {
+  line-height: 40px;
+  height: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 50px;
+  margin: auto 0;
+  color: #37465d;
+}

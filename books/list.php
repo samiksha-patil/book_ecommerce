@@ -1,6 +1,6 @@
 <?php
 
-$sql_condition="";
+$sql_condition=" WHERE ((type='buy' AND is_available=1) OR (type='rent')) ";
 $q_query="";
 $q_category="";
 if(isset($_GET["category"]) && !empty(trim($_GET["category"]))) 
@@ -11,27 +11,21 @@ $query="%";
 if(isset($_GET["q"]) && !empty(trim($_GET["q"]))){    
     $q_query = trim($_GET["q"]);
     $query="%".$q_query."%";
-    $sql_condition .= " WHERE (t.title LIKE '$query' OR t.info LIKE '$query' OR t.author LIKE '$query')";
+    $sql_condition .= " AND (title LIKE '$query' OR info LIKE '$query' OR author LIKE '$query')";
 } 
 if(isset($_GET["category"]) && !empty(trim($_GET["category"]))){    
     $q_category = trim($_GET["category"]);
-    if(isset($_GET["q"]) && !empty(trim($_GET["q"]))) {
-        $sql_condition .= " AND " ;
-    }
-    else {
-        $sql_condition .= " WHERE ";
-    }
-    $sql_condition .= "t.category = '$q_category'";
+    $sql_condition .= " AND category = '$q_category'";
 } 
 if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){    
     $q_sort = trim($_GET["sort"]);
     $sql_condition .= " ORDER BY ";
-    if($q_sort=="a-z") $sql_condition .= "t.title";
-    else if($q_sort=="z-a") $sql_condition .= "t.title DESC";
-    else if($q_sort=="newest") $sql_condition .= "t.book.book_id DESC";
-    else if($q_sort=="oldest") $sql_condition .= "t.book.book_id";
-    else if($q_sort == "low-high")   $sql_condition .= "t.price";
-    else if($q_sort == "high-low")   $sql_condition .= "t.price DESC";
+    if($q_sort=="a-z") $sql_condition .= "title";
+    else if($q_sort=="z-a") $sql_condition .= "title DESC";
+    else if($q_sort=="newest") $sql_condition .= "book_id DESC";
+    else if($q_sort=="oldest") $sql_condition .= "book_id";
+    else if($q_sort == "low-high")   $sql_condition .= "price";
+    else if($q_sort == "high-low")   $sql_condition .= "price DESC";
 } 
 ?>
 <!DOCTYPE html>
@@ -174,7 +168,7 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
         </div>
         <div class="parent">
           <?php
-            $sql = "SELECT * FROM ((SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id) UNION (SELECT book.book_id, title, info, author, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id)) as t".$sql_condition;
+            $sql = "SELECT * FROM book_view".$sql_condition;
             // echo $sql;
             if($result = mysqli_query($link, $sql)){ 
                 // echo mysqli_num_rows($result); 

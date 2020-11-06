@@ -65,8 +65,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <img class="img-book" src="../../uploads/<?php echo $row["cover_image"]; ?>" alt="" />
   </div>
   <div class="column-50">
-    <div class="product-title"><?php echo $row["title"]; ?></div>
-    <p style="font-size: 30px; line-height: 40px">$56</p>
+    <div class="title-row">
+      <div class="product-title"><?php echo $row["title"]; ?></div>
+      <div class="price" style="font-size: 30px; line-height: 40px">$56/mo</div>
+    </div>
 
     <p>
       <?php echo $row["info"]; ?>
@@ -131,20 +133,27 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             }
         }
         ?>
-    <div style="text-align: center">
-      <button class="collapsible">DESCRIPTION</button>
-      <div class="content">
-        <p>
-            <?php echo $row["info"]; ?>
-        </p>
-      </div>
+
       <button class="collapsible">ADDITIONAL INFORMATION</button>
       <div class="content">
-        <p>
-          <b>Category:</b> <?php echo $row["category"]; ?>
-          <b>Author:</b> <?php echo $row["author"]; ?>
-          <b>Language:</b> <?php echo $row["lang"]; ?>
-          <b>No. of pages:</b> <?php echo $row["no_of_pages"]; ?>
+        <div class="info-cols">
+          <div class="info-row">
+            <div class="key"><b>Category</b></div>
+            <div class="value"><?php echo $row["category"]; ?></div>
+          </div>
+          <div class="info-row">
+            <div class="key"><b>Author</b></div>
+            <div class="value"><?php echo $row["author"]; ?></div>
+          </div>
+          <div class="info-row">
+            <div class="key"><b>Language</b></div>
+            <div class="value"><?php echo $row["lang"]; ?></div>
+          </div>
+          <div class="info-row">
+            <div class="key"><b>No. of pages</b></div>
+            <div class="value"><?php echo $row["no_of_pages"]; ?></div>
+          </div>
+        </div>
         </p>
       </div>
       <?php 

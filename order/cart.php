@@ -43,8 +43,6 @@ $id=$_SESSION["user_id"];
             </tr>
           </thead>
           <tbody>
-
-        
                     <?php
                    
                     $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";

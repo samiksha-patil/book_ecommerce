@@ -98,7 +98,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
             >Notifications</a
           >
           <?php 
-            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id";
+            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id ORDER BY notif_id DESC";
             if($result = mysqli_query($link, $sql)){
               if(mysqli_num_rows($result) > 0){?>
               <span class="mobile-badge"><?php echo mysqli_num_rows($result) ?></span>
@@ -128,7 +128,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
           <div class="myDIV">
             <ion-icon name="notifications" id="notifIcon"></ion-icon>
             <?php 
-            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id";
+            $sql ="SELECT * from  notification_view  where status='Pending' and user_id=$user_id ORDER BY notif_id DESC";
             if($result = mysqli_query($link, $sql)){
               if(mysqli_num_rows($result) > 0){?>
               <span class="badge"><?php echo mysqli_num_rows($result) ?></span>
