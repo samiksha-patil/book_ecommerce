@@ -31,8 +31,8 @@
   padding-top: 27px;
 }
 
-input[type="radio"] {
-  /*display: none;*/
+.option input[type="radio"] {
+  display: none;
 }
 
 input[type="radio"]:checked ~ label {

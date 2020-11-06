@@ -23,7 +23,7 @@
 }
 
 .reg-bg {
-  background-image: url(reg.jpg);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgb(0 0 0 / 0%) 40%, rgb(0 0 0 / 0.7) 100%), url(reg.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -121,7 +121,7 @@
   width: 18px;
   height: 18px;
 }
-.login-page-new__main-form-row input {
+.login-page-new__main-form-row input, .login-page-new__main-form-row textarea {
   font-weight: 400;
   font-size: 15px;
   line-height: 22px;

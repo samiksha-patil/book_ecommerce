@@ -159,7 +159,7 @@ width:90%;
 </head>
 <body>
 <div class="registration-container" >
-<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data" id="update_form">
 
   <div class="login-row" >
 
@@ -181,11 +181,7 @@ width:90%;
   <div style="padding: 30px 60px 0px 26px ;" >
         <div class="login-page-new__main-form-title">Update the Book</div>
             <div class="login-page-new__main-form-row">
-
-
-
-                                        
-                                        <div class="login-page-new__main-form-row">    
+                <div class="login-page-new__main-form-row">    
                     <input type="hidden" name="id" value="<?php echo $param_id; ?>"/>
                         <div class="form-group <?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
                         <label class="login-page-new__main-form-row-label">Title</label>
@@ -194,7 +190,7 @@ width:90%;
                         </div></div>
                         <div class="login-page-new__main-form-row">
                         <label class="login-page-new__main-form-row-label" >Description:</label>
-                        <input class="cu-form__input" type="text" name="info" required value="<?php echo $row["info"]; ?>">
+                        <textarea class="cu-form__input" name="info" form="update_form" required><?php echo $row["info"]; ?></textarea>
 </div>
                         <div style="padding:0px 0px;" class="row">
                         <div class="column-50 p-r">

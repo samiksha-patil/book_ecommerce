@@ -155,7 +155,7 @@ width:90%;
     
 </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" id="create_form">
 <div class="registration-container" style="max-width:1020px;">
   <div class="login-row" >
       <div style="margin:auto;">
@@ -185,7 +185,7 @@ width:90%;
     <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Description</label>
     
-    <input class="cu-form__input" type="text" name="info"  required>
+    <textarea class="cu-form__input" name="info" form="create_form" required></textarea>
     </div>
     
     <div style="padding:0px 0px;" class="row">

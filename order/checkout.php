@@ -162,10 +162,10 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
 
 
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="checkout_form">
 <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Address:</label>
-    <input  class="cu-form__input bg" type="text" name="address" required>
+    <textarea name="address" form="checkout_form" required></textarea>
 </div>
    <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Postcode / Zip:</label>

@@ -176,7 +176,7 @@ $(document).on('keyup', ".price",function () {
 <div class="row-checkout">
 <div style="padding: 2%;" class="column-50 ">
 
-    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post"> 
+    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" id="payment_form"> 
     <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label price">No of months:</label>
     <input  class="cu-form__input bg" type="number" name="no_months" required>
@@ -184,7 +184,7 @@ $(document).on('keyup', ".price",function () {
     
 <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Address:</label>
-    <input  class="cu-form__input bg" type="text" name="address" required>
+    <textarea name="address" required form="payment_form"></textarea>
 </div>
 <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Postcode / Zip:</label>
