@@ -51,12 +51,12 @@
                 <thead>
                     <tr class="text-left">
                    
-                        <th class="pr-0" style="width: 100px"></th>
-                        <th style="min-width: 200px">Title</th>
-                        <th style="min-width: 150px">No. of  Times Rented</th>
+                        <th class="pr-0" style="width: 150px"></th>
+                        <th style="min-width: 200px">Title</th>                        
                         <th style="min-width: 150px">Monthly Rate</th>
                         <th style="min-width: 150px">Category</th>
                         <th style="min-width: 150px">Status</th>
+                        <th style="min-width: 150px; max-width:150px;">No. of  Times Rented</th>
                         <th class="pr-0 text-right" style="min-width: 150px">action</th>
                     </tr>
                 </thead>
@@ -81,10 +81,7 @@
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg"><?php echo $row['title'];?></span>
                                         <span class="text-muted d-block">by <?php echo $row['author'];?></span>
                                     </td>
-                                    <td>
-                                        
-                                        <span ></span>
-                                    </td>
+                                    
                                     <td>
                                         
                                         <span >$<?php echo $row['price'] ; ?></span>
@@ -107,19 +104,28 @@
                                                 else { ?>
 
                                                 <span class="bt-status-sold-out">Rented</span>
-                                             <div style="margin-top:20px;" class="text-muted">   <?php
-                                                $book_id=$row['book_id'];
-            $query1 = $link->query("SELECT * FROM queue_view WHERE book_id = $book_id");
-                if($query1->num_rows > 0){ 
-                    echo $query1->num_rows."in line";
-                  
-                }
-            ?></div>
+                                          
 
                                                 <?php } ?>
                                             </div>
                                             
                                         </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <span >
+                                        <?php
+                                                $book_id=$row['book_id'];
+                                       $query1 = $link->query("SELECT * from queue where status='Currently renting' or status='Returned' and book_id=$book_id");
+                                           if($query1->num_rows > 0){ 
+                                               echo $query1->num_rows;
+                                            
+                                           }else{
+                                               echo 0;
+                                           }
+            ?>
+
+                                        </span>
                                     </td>
                                     <td class="pr-0 text-right">
                                     <a href='detail.php/?id=<?php echo $row['book_id'];?>' title='View Record' data-toggle='tooltip'>
@@ -227,9 +233,9 @@
                     <tr class="text-left">
                    
                         <th class="pr-0" style="width: 100px"></th>
-                        <th style="min-width: 200px">Title</th>
-                        <th style="min-width: 150px">Description</th>
+                        <th style="min-width: 200px">Title</th>    
                         <th style="min-width: 150px">Price</th>
+                        
                         <th style="min-width: 150px">Category</th>
                         <th style="min-width: 150px">Status</th>
                         <th class="pr-0 text-right" style="min-width: 150px">action</th>
@@ -252,13 +258,28 @@
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg"><?php echo $row['title'];?></span>
                                         <span class="text-muted d-block">by <?php echo $row['author'];?></span>
                                     </td>
+                                    
                                     <td>
                                         
-                                        <span ><?php echo  $row['info'] ; ?></span>
-                                    </td>
-                                    <td>
-                                        
-                                        <span >$<?php echo $row['price'] ; ?></span>
+                                       
+                                        <?php
+                                                $book_id=$row['book_id'];
+                                       $query1 = $link->query("SELECT discount_price from book_for_sale  where book_id=$book_id");
+                                       $row1 = $query1->fetch_assoc();
+                                           if($query1->num_rows >0){ 
+                                               if($row1['discount_price']==null ){
+                                                echo '$'.$row['price'] ;
+                                               }
+                                               else{
+                                                   ?>
+                                                <span style="padding-right:10px;" class="text-muted" ><del>$<?php echo $row['price'] ; ?></del></span>
+                                                <?php
+                                               echo '$'.$row1['discount_price'];
+                                               }
+                                           }
+            ?>
+
+
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column w-100 mr-2">

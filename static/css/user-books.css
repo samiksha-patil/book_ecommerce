@@ -107,7 +107,7 @@ table {
     color: #7E8299;
 }
 .font-size-lg {
-    font-size: 1.08rem;
+    font-size: 1.4rem;
 }
 .text-dark-75 {
     color: #3F4254 !important;
@@ -180,4 +180,8 @@ body{
 }
 .text-muted {
     color: #B5B5C3 !important;
+}
+
+a{
+    text-decoration: none;
 }

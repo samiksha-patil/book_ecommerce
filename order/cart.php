@@ -44,6 +44,7 @@ $id=$_SESSION["user_id"];
             </tr>
           </thead>
           <tbody>
+              
                  
 
     
@@ -132,7 +133,10 @@ $id=$_SESSION["user_id"];
                         }
                         
                         else{
-                            echo "<tr><p style='font-size:20px'; class='align-center'>No records were found.</p></tr>";
+                            ?>
+                         
+
+                           <?php
                         }
                         
                     } else{
