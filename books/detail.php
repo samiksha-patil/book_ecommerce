@@ -41,7 +41,32 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 <head>
 <link rel="stylesheet" href="../../static/css/styles.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
+<style>
+
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #ea524d !important;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled.swal2-cancel {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #8f8d9abd !important;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+</style>
 <body>
 <div class="container-top">
   <img
@@ -80,8 +105,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
         <div class="buttons-row">
         <button id="update_button" onclick="goto('../update.php?id=<?php echo $row['book_id']; ?>')" class='btn'>Update</button>                   
-        <button id="update_button" onclick="goto('../delete.php?id=<?php echo $row['book_id']; ?>')" class='btn btn-red'>Delete</button>
-        </div>
+        <button onclick="deleteBook(<?php echo $row['book_id'];?>)" class='btn btn-red'>Delete</button>
+       
+       </div>
         <?php
         }
         else {
@@ -269,6 +295,28 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   function goto(link) {
     window.location.href=link; 
   }
+
+  function deleteBook(id) {
+       
+       Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+      
+          window.location.href="../del.php?id="+id;
+        
+          
+      
+        }
+      })
+         
+      
+      } 
 </script>
 </body>
 </html>
