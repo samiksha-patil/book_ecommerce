@@ -110,7 +110,13 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
           <a class="nav-link" href="/book_ecommerce/order/cart.php">Cart</a>
         </li>
         <li>
+          <a class="nav-link" href="/book_ecommerce/books/user_books.php">My Books</a>
+        </li>
+        <li>
           <a class="nav-link" href="/book_ecommerce/order/my_orders.php">Orders</a>
+        </li>
+        <li class="mobile-only">
+          <a class="nav-link" href="/book_ecommerce/accounts/logout.php" style="color: #ea524d;">Logout</a>
         </li>
         <?php }  else { ?>
         <li class="mobile-only">
@@ -177,6 +183,11 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <a style="color: #000" href="/book_ecommerce/order/cart.php">
             <ion-icon name="cart"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a style="color: #000" href="/book_ecommerce/accounts/logout.php">
+            <ion-icon name="exit-outline"></ion-icon>
           </a>
         </li>
           <?php } else { ?>

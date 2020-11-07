@@ -1,16 +1,14 @@
 <?php
 
-// Include the database configuration file
+include "../components/navbar.php";
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type="";
 
-session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
     exit;
 }
-include '../connection.php';
 
 
 // Check existence of id parameter before processing further

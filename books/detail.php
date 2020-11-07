@@ -1,8 +1,6 @@
 
 <?php
 include "../components/navbar.php";
-?>
-<?php
 
 //  TODO
 // refresh

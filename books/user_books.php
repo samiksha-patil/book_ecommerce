@@ -1,3 +1,6 @@
+<?php 
+    include "../components/navbar.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +53,6 @@
     </div>                    
                     </div>
                     <?php
-                    include '../connection.php';
-                    session_start();
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         header("location: ../accounts/login.php");
                         exit;
