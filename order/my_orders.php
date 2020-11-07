@@ -42,13 +42,13 @@
                             while($row1 = mysqli_fetch_array($result)){ 
                                $order_id= $row1["order_id"];
                 ?> 
-                 <div class="card card-custom ">
+                 <div style="margin:4% 8%;" class="card card-custom ">
                     
 <div style="padding:40px 0px;" class="row">
 <div class="column-50">
-
+<div class="head-sub" ># Order ID : 1000<?php echo $row1["order_id"]; ?></div>
         
-  <div style="text-align: center;" class="head-sub">Order Summary</div>
+
 <table style="width:100%; max-width: 800px;">
       
 <tbody>
@@ -100,7 +100,7 @@
    <div style="width:fit-content; padding: 0.6rem 1rem; font-size: 25px;" class="bt-status-avaliable"><?php echo $type ?></div>
    <div class="order-pay">  Payment mode: <?php echo $row2["mode_of_payment"]; ?></div>
    <div class="order-pay">  Date: <?php echo $row2["payment_date"] ?></div>
-   <div class="order-pay">  Address: gqiuhsyi fhy8 idH FJG WDGS</div>
+   <div class="order-pay">  Address: <?php echo $row1["street"] ?></div>
    </div>
    </div>                             
                                                  

@@ -246,7 +246,7 @@ width:90%;
                         
                         <input class="login-page-new__main-form-button" type="submit" name="submit" value="Update" id="submit"> 
                         
-                    <a class="login-page-new__main-form-button" href="user_books.php" >Back</a>
+                    <a style="background-color: #7b7c7d; text-decoration:none;" class="login-page-new__main-form-button" href="user_books.php" >Back</a>
                     </div>
                     </div>
                     </form>
