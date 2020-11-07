@@ -8,6 +8,53 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 require_once "../connection.php";
 $id= $_SESSION["user_id"];
+echo $id;
+$payment_success=false;
+
+
+$sql = "SELECT sum(p) as total from (SELECT cart_item.user_id, case when discount_price<>null or discount_price<>0 then discount_price else price end as p, price, discount_price FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0) as s";
+if($res = mysqli_query($link, $sql)){
+  if(mysqli_num_rows($res) > 0){ 
+      $total = mysqli_fetch_array($res)["total"];
+  }
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+$id=$_SESSION["user_id"];;
+$address = $_POST['address'];
+$zip = $_POST['zip'];
+$state =$_POST['state'];
+$mode = $_POST['mode'];
+
+
+
+
+$sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$id','$address','$zip', '$state')";
+
+if(mysqli_query($link, $sql))
+{                                 
+                
+    $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
+    if(mysqli_query($link, $sql1))
+    {
+        
+        $sql3= "UPDATE cart_item SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()  WHERE cart_item.user_id=$id AND cart_item.is_ordered=0 AND cart_item.book_id  IN ( SELECT book_id FROM book_for_sale) AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
+        
+        if(mysqli_query($link, $sql3))
+        {
+        $payment_success=true;
+        }
+    }
+    
+  } 
+else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+  
+// Close connection
+
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +70,25 @@ $id= $_SESSION["user_id"];
 <link rel="stylesheet" href="../static/css/checkout.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-
+<?php 
+if($payment_success) { ?>
+<script>
+    
+Swal.fire({
+  text: "Payment Successful!",
+  icon: 'success',
+  confirmButtonText: 'Okay'
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href="../books/user_books.php";
+  }
+})
+</script>
+<?php } ?>
 <div class="container-top">
   <img
     class="img-top"
@@ -46,7 +109,7 @@ $id= $_SESSION["user_id"];
 
 <div style="padding: 2%;" class="column-50 ">
     
-    <div style="text-align: center;" class="head-sub">Order Summary</div>
+  <div style="text-align: center;" class="head-sub">Order Summary</div>
    <table style="width:100%; max-width: 800px;">
          
    <tbody>
@@ -60,13 +123,12 @@ $id= $_SESSION["user_id"];
 <?php
 
 
-$sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
+$sql5 = "SELECT case when discount_price<>null or discount_price<>0 then discount_price else price end as price, cover_image, title, book.book_id FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                     
                     if($result5 = mysqli_query($link, $sql5)){
                         if(mysqli_num_rows($result5) > 0){ ?>
                             
                             <?php 
-                            $total =0;
                             while($row1 = mysqli_fetch_array($result5)){ ?>
                                                     <tr>
                                           
@@ -83,7 +145,7 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
                                                     <td>  <img style="height: 65px; width: auto;" class="img-book" src="../uploads/<?php echo $row1["cover_image"]; ?>" alt="" /></td>
                                                    <td> <?php echo $row1["title"]; ?> </td>
                                                     <td>$ <?php echo $row1["price"] ?></td></tr>
-                                                     <?php   $total = $total+ $row1["price"];
+                                                     <?php  
                                                         }
 
                                                     }
@@ -100,69 +162,10 @@ $sql5 = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on c
     </table>
 
 </div>
-
-
-
-<?php
-                    if($_SERVER["REQUEST_METHOD"] == "POST"){
-                        $id=$_SESSION["user_id"];;
-                        $address = $_POST['address'];
-                        $zip = $_POST['zip'];
-                        $state =$_POST['state'];
-                        $mode = $_POST['mode'];
-                        
-                        $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$id','$address','$zip', '$state')";
-                        
-                        if(mysqli_query($link, $sql))
-                        {                                 
-                                       
-                            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
-                            if(mysqli_query($link, $sql1))
-                            {
-                                
-                                $sql3= "UPDATE cart_item SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID()  WHERE cart_item.user_id=$id AND cart_item.is_ordered=0 AND cart_item.book_id  IN ( SELECT book_id FROM book_for_sale) AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
-                                
-                                if(mysqli_query($link, $sql3))
-                                {
-                                echo "Payment Successful!..you will soon receive your book.";
-                                }
-                            
-                            
-                            }
-                            } 
-                            
-                         
-                        
-                        else{
-                            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                        }
-                         
-                        // Close connection
-                     
-                        
-                        }
-                        ?>
-                        
-
-
-
-
-
-
-
-
-
-
-
-    <div style="padding: 2%;" class="column-50">
+<div style="padding: 2%;" class="column-50">
       <div  class="head-sub">Shipping Details: </div>
-        
 
-
-
-
-
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="checkout_form">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="checkout_form">
 <div class="login-page-new__main-form-row">
     <label class="login-page-new__main-form-row-label">Address:</label>
     <textarea name="address" form="checkout_form" required></textarea>

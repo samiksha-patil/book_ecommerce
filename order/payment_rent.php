@@ -9,43 +9,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "../connection.php";
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Checkout</title>
-        
-<link rel="stylesheet" href="../static/css/main.css" />
-<link rel="stylesheet" href="../static/css/styles.css" />
-<link rel="stylesheet" href="../static/css/form.css" />
-<link rel="stylesheet" href="../static/css/cart.css" />
-<link rel="stylesheet" href="../static/css/checkout.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-   
-</head>
-<body>
-
-<div class="container-top">
-  <img
-    class="img-top"
-    src="../static/images/title-img.jpg"
-    alt="Cinque Terre"
-    width="1000"
-    height="300"
-  />
-  <div class="center product-title">
-    Checkout
-    <div class="elementor-divider-separator"></div>
-  </div>
-</div>
-
-
 <?php
 
 $book_id = $_GET['id'];
-
+$payment_success=false;
 $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
     if($query->num_rows == 1){
         $row = $query->fetch_assoc();
@@ -74,7 +41,7 @@ $user_id= $_SESSION["user_id"];
         $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
         if($query->num_rows == 1){
             $row = $query->fetch_assoc();
-            $total = $row["monthly_rate"];
+            $total = $no_months * $row["monthly_rate"];
             
         }
    
@@ -126,8 +93,7 @@ $user_id= $_SESSION["user_id"];
                     END;";
                     if(mysqli_query($link, $event_sql))
                 {
-                    header("location: ../books/user_books.php");
-                    echo "Payment Successful!..you will soon receive your book.";
+                    $payment_success=true;
                 } else {
                      echo "ERROR: Could not able to execute $event_sql. " . mysqli_error($link);
                 }
@@ -160,6 +126,59 @@ $user_id= $_SESSION["user_id"];
        
        }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+        
+<link rel="stylesheet" href="../static/css/main.css" />
+<link rel="stylesheet" href="../static/css/styles.css" />
+<link rel="stylesheet" href="../static/css/form.css" />
+<link rel="stylesheet" href="../static/css/cart.css" />
+<link rel="stylesheet" href="../static/css/checkout.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<style>
+  .swal-overlay {
+    background-color: rgba(43, 165, 137, 0.45);
+    }
+</style>
+</head>
+<body>
+<?php 
+if($payment_success) { ?>
+<script>
+    
+Swal.fire({
+  text: "Payment Successful!",
+  icon: 'success',
+  confirmButtonText: 'Okay'
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href="../books/user_books.php";
+  }
+})
+</script>
+<?php } ?>
+<div class="container-top">
+  <img
+    class="img-top"
+    src="../static/images/title-img.jpg"
+    alt="Cinque Terre"
+    width="1000"
+    height="300"
+  />
+  <div class="center product-title">
+    Checkout
+    <div class="elementor-divider-separator"></div>
+  </div>
+</div>
+
+
+
 <script>
 $(document).on('keyup', ".price",function () {
   var total = 0;

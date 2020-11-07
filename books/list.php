@@ -194,9 +194,17 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
               >
                 <?php echo $row["title"]; ?>
               </div>
-              <p style="text-align: center">
-                Rs.
-                <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+              <p style="text-align: center"> <?php 
+              if($row['discount_price']==null || $row['discount_price']==0 ){
+                  echo '$'.$row['price'] ;
+                  }
+                  else{
+                      ?>
+                <span style="text-decoration: line-through; font-size: 20px; line-height: 40px">$<?php echo $row['price'] ; ?></span>
+                  <?php
+                  echo '$'.$row['discount_price'];
+                  }
+              ?><?php if($row["type"] === "rent") echo "/month"; ?>
               </p>
             </div>
           </div>

@@ -1,12 +1,8 @@
+
 <?php
-// Include the database configuration file
-include '../connection.php';
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../../accounts/login.php");
-    exit;
-}
-$id=$_SESSION["user_id"];
+include "../components/navbar.php";
+?>
+<?php
 
 //  TODO
 // refresh
@@ -33,7 +29,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     exit();
 }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +62,17 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   <div class="column-50">
     <div class="title-row">
       <div class="product-title"><?php echo $row["title"]; ?></div>
-      <div class="price" style="font-size: 20px; line-height: 40px">$ <span class="amount"><?php echo $row["price"]; ?></span>/month</div>
+      <div class="price" style="font-size: 20px; line-height: 40px"><span class="amount"><?php 
+       if($row['discount_price']==null || $row['discount_price']==0 ){
+          echo '$'.$row['price'] ;
+          }
+          else{
+              ?>
+         <span style="text-decoration: line-through; font-size: 20px; line-height: 40px" class="price">$<?php echo $row['price'] ; ?></span>
+          <?php
+          echo '$'.$row['discount_price'];
+          }
+      ?></span><?php if($row["type"] === "rent"){ ?>/month<?php } ?></div>
     </div>
 
     <p>
@@ -76,7 +81,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <br />
       
         <?php 
-        if($row["uploaded_by"]==$id) { ?>
+        if($row["uploaded_by"]==$user_id) { ?>
 
         <div class="buttons-row">
         <button id="update_button" onclick="goto('../update.php?id=<?php echo $row['book_id']; ?>')" class='btn'>Update</button>                   
@@ -89,7 +94,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             if($row["is_available"]==1) {
                 $in_cart = false;
                 $book_id = $row["book_id"];
-                $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $id");
+                $query = $link->query("SELECT cart_item_id FROM cart_item WHERE book_id = $book_id AND user_id = $user_id");
                 if($query->num_rows > 0){  ?>
                 <a href="../../order/cart.php" class="btn">View in cart</a>
                 <?php 
@@ -104,38 +109,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 Sold Out
                 <?php
             }
-        } else {
-          
-              $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
-                $people_waiting = $query->num_rows;
-                  if($people_waiting == 1) {
-                    ?>
-                    1 person in waiting list
-                    <details>
-                      <summary>View details</summary>
-                      <?php 
-                      echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
-                      ?>
-                  </details>
-                      <?php
-                  }
-                  if($people_waiting > 1){ 
-                      echo $people_waiting." people in waiting list<br>";
-                      ?>
-                      <details>
-                        <summary>View details</summary>
-                        <?php 
-                        while($queue_row = mysqli_fetch_array($query)){
-                          echo $queue_row["first_name"]." ".$queue_row["last_name"]." ".$queue_row["status"]."<br />";
-                      }
-                        ?>
-                      </details>
-                      <?php
-                  }
-            
+        } else {            
                 $currently_renting = false;
                 $book_id = $row["book_id"];
-                $query = $link->query("SELECT status FROM queue_view WHERE book_id = $book_id AND user_id = $id limit 1");
+                $query = $link->query("SELECT status FROM queue_view WHERE book_id = $book_id AND user_id = $user_id limit 1");
                 if($query->num_rows > 0){  
                     $status=$query->fetch_assoc()["status"];
                     ?>
@@ -187,6 +164,36 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         </p>
       </div>
       
+      <?php
+      $query = $link->query("SELECT * FROM queue_view WHERE book_id = $param_id");
+        if(($row["type"]=="rent") && ($query->num_rows > 0)) { ?>
+      <button class="collapsible">WAITING LIST
+        <span class="list-badge"><?php echo $query->num_rows ?></span>
+      </button>
+      <div class="content">
+        <?php 
+                if($query->num_rows > 0){ 
+                    while($queue_row = mysqli_fetch_array($query)){
+                      ?>
+                      <table style="width:100%; max-width: 800px;">      
+                        <tbody>
+                          <tr>
+                            <th>Rented by</th> <th>Status</th>
+                          </tr>
+                          <tr>
+                            <td><?php echo $queue_row["first_name"]." ".$queue_row["last_name"]; ?></td> <td><?php echo $queue_row["status"] ?></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                        <?php
+                    }
+                }
+        ?>
+      </div>
+      <?php 
+        }
+      ?>
+      
     </div>
   </div>
 </div>
@@ -195,7 +202,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 </div>
 <div class="parent">
     <?php
-        $sql = "SELECT * FROM ((SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id) UNION (SELECT book.book_id, title, info, author, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id)) as t limit 4";
+        $sql = "select * from book_view where book_id<>$book_id limit 4";
         // echo $sql;
         if($result = mysqli_query($link, $sql)){ 
             // echo mysqli_num_rows($result); 
@@ -221,9 +228,17 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         >
             <?php echo $row["title"]; ?>
         </div>
-        <p style="text-align: center">
-            Rs.
-            <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+        <p style="text-align: center"><?php 
+              if($row['discount_price']==null || $row['discount_price']==0 ){
+                  echo '$'.$row['price'] ;
+                  }
+                  else{
+                      ?>
+                <span style="text-decoration: line-through; font-size: 20px; line-height: 40px">$<?php echo $row['price'] ; ?></span>
+                  <?php
+                  echo '$'.$row['discount_price'];
+                  }
+              ?><?php if($row["type"] === "rent") echo "/month"; ?>
         </p>
         </div>
     </div>

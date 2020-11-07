@@ -58,9 +58,10 @@ include '../connection.php';
 <div class="elementor-divider-separator"></div>
 <p style="margin: 15px; max-width: 300px; text-align: center;">At vero eos et accusamus et iusto od lorem ipsum gnissimos ducimus bland.</p>
 </div>
+
 <div class="parent">
     <?php
-        $sql = "SELECT * FROM ((SELECT book.book_id, title, info, author, cover_image, monthly_rate AS price, 'rent' AS type, category FROM book INNER JOIN book_for_rent ON book.book_id=book_for_rent.book_id) UNION (SELECT book.book_id, title, info, author, cover_image, price, 'buy' AS type, category FROM book RIGHT JOIN book_for_sale ON book.book_id=book_for_sale.book_id)) as t limit 4";
+        $sql = "select * from book_view limit 4";
         // echo $sql;
         if($result = mysqli_query($link, $sql)){ 
             // echo mysqli_num_rows($result); 
@@ -87,8 +88,17 @@ include '../connection.php';
             <?php echo $row["title"]; ?>
         </div>
         <p style="text-align: center">
-            Rs.
-            <?php echo $row["price"] ?><?php if($row["type"] === "rent") echo "/month"; ?>
+            <?php 
+              if($row['discount_price']==null || $row['discount_price']==0 ){
+                  echo '$'.$row['price'] ;
+                  }
+                  else{
+                      ?>
+                <span style="text-decoration: line-through; font-size: 20px; line-height: 40px">$<?php echo $row['price'] ; ?></span>
+                  <?php
+                  echo '$'.$row['discount_price'];
+                  }
+              ?><?php if($row["type"] === "rent") echo "/month"; ?>
         </p>
         </div>
     </div>

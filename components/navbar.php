@@ -60,14 +60,14 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/navbar.css" />
+    <link rel="stylesheet" href="/book_ecommerce/static/css/navbar.css" />
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     
-    <link rel="stylesheet" href="../static/css/styles.css" />
-    <link rel="stylesheet" href="../static/css/list.css" />
+    <link rel="stylesheet" href="/book_ecommerce/static/css/styles.css" />
+    <link rel="stylesheet" href="/book_ecommerce/static/css/list.css" />
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -88,13 +88,13 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
       <input type="checkbox" id="show-menu" role="button" />
       <ul id="menu">
         <li>
-          <a class="nav-link" href="../books/list.php">Shop</a>
+          <a class="nav-link" href="/book_ecommerce/books/list.php">Shop</a>
         </li>
         <?php 
           if($logged_in) {
         ?>
         <li class="mobile-only">
-          <a class="nav-link" href="../order/notification.php" style="padding-right: 3px"
+          <a class="nav-link" href="/book_ecommerce/order/notification.php" style="padding-right: 3px"
             >Notifications</a
           >
           <?php 
@@ -107,17 +107,17 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
               ?>
         </li>
         <li class="mobile-only">
-          <a class="nav-link" href="../order/cart.php">Cart</a>
+          <a class="nav-link" href="/book_ecommerce/order/cart.php">Cart</a>
         </li>
         <li>
-          <a class="nav-link" href="../order/my_orders.php">Orders</a>
+          <a class="nav-link" href="/book_ecommerce/order/my_orders.php">Orders</a>
         </li>
         <?php }  else { ?>
         <li class="mobile-only">
-          <a class="nav-link" href="../accounts/login.php">Login</a>
+          <a class="nav-link" href="/book_ecommerce/accounts/login.php">Login</a>
         </li>
         <li class="mobile-only">
-          <a class="nav-link" href="../accounts/register.php">Register</a>
+          <a class="nav-link" href="/book_ecommerce/accounts/register.php">Register</a>
         </li>
           <?php } ?>
       </ul>
@@ -145,7 +145,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                 <div style="margin: auto;">
                   <img
                     height="70"
-                    src="../uploads/<?php echo $row["cover_image"] ?>"
+                    src="/book_ecommerce/uploads/<?php echo $row["cover_image"] ?>"
                   />
                 </div>
                 <div>
@@ -154,7 +154,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
                   <div class="notif-date"><?php echo to_time_ago($row["unix_time"]) ?></div>
                   <div class="notif-buttons">
                       <form name="form" method="post">
-                    <a href="../order/payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 
+                    <a href="/book_ecommerce/order/payment_rent.php?id=<?php echo $row['book_id']  ?>" class="primary">Rent Now</a> 
                     <input type="hidden" name="id" value="<?php echo $row['queue_id'] ?>">
                     <button type="submit" name="reject" class="secondary" />Cancel</button>
                   </div>
@@ -175,16 +175,16 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
           </div>
         </li>
         <li>
-          <a style="color: #000" href="../order/cart.php">
+          <a style="color: #000" href="/book_ecommerce/order/cart.php">
             <ion-icon name="cart"></ion-icon>
           </a>
         </li>
           <?php } else { ?>
         <li>
-          <a class="nav-link" href="../accounts/login.php">Login</a>
+          <a class="nav-link" href="/book_ecommerce/accounts/login.php">Login</a>
         </li>
         <li>
-          <a class="nav-link" href="../accounts/register.php">Register</a>
+          <a class="nav-link" href="/book_ecommerce/accounts/register.php">Register</a>
         </li>
           <?php } ?>
         <li>
@@ -201,7 +201,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         >×</span
       >
       <div class="search-overlay-content">
-        <form action="../books/list.php">
+        <form action="/book_ecommerce/books/list.php">
           <input type="text" placeholder="Search.." name="q" />
           <button>
             <ion-icon name="search"></ion-icon>

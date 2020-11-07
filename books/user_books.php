@@ -257,7 +257,7 @@
                                        $query1 = $link->query("SELECT discount_price from book_for_sale  where book_id=$book_id");
                                        $row1 = $query1->fetch_assoc();
                                            if($query1->num_rows >0){ 
-                                               if($row1['discount_price']==null ){
+                                               if($row1['discount_price']==null || $row1['discount_price']==0 ){
                                                 echo '$'.$row['price'] ;
                                                }
                                                else{
