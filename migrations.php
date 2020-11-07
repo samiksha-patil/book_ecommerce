@@ -99,7 +99,8 @@ $sql = "CREATE TABLE IF NOT EXISTS cart_item (
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (cart_item_id),
-    FOREIGN KEY (book_id) REFERENCES book(book_id),
+    FOREIGN KEY (book_id) REFERENCES book(book_id)
+    ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES customer(user_id)
     ON DELETE CASCADE
 );";

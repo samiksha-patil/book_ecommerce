@@ -8,11 +8,33 @@
     <link rel="stylesheet" href="../static/css/user-books.css">
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<style>
+
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #ea524d !important;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled.swal2-cancel {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #8f8d9abd !important;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+</style>
+
 </head>
 <body>
 <div class="container-top">
@@ -128,9 +150,11 @@
                                         </span>
                                     </td>
                                     <td class="pr-0 text-right">
+                                   
                                     <a style="color: #6993FF;font-size: 24px;" class="svg-icon svg-icon-md svg-icon-primary" href='detail.php/?id=<?php echo $row['book_id'];?>' title='View Record' data-toggle='tooltip'>
                                     <ion-icon name="eye"></ion-icon>
                                         </a>
+
                                         <a href='update.php?id=<?php echo $row['book_id'];?>' title='Update Record' data-toggle='tooltip'>
                                             <span class="svg-icon svg-icon-md svg-icon-primary">
                                                 <!--begin::Svg Icon | path:/metronic/theme/html/demo2/dist/assets/media/svg/icons/Communication/Write.svg-->
@@ -144,7 +168,8 @@
                                                 <!--end::Svg Icon-->
                                             </span>
                                         </a>
-                                        <a href='delete.php?id=<?php echo $row['book_id'];?>' title='Delete Record' data-toggle='tooltip'>
+                                        <span onclick='goTo(<?php echo $row["book_id"] ?>)'>
+                                        
                                             <span class="svg-icon svg-icon-md svg-icon-primary">
                                                 <!--begin::Svg Icon | path:/metronic/theme/html/demo2/dist/assets/media/svg/icons/General/Trash.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -156,13 +181,14 @@
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                        </a>
+                                        </span>
+                                       
                                     </td>
                                 </tr>
 
 
 
-
+                              
 
 
 
@@ -311,7 +337,7 @@
                                                 <!--end::Svg Icon-->
                                             </span>
                                         </a>
-                                        <a href='delete.php?id=<?php echo $row['book_id'];?>' title='Delete Record' data-toggle='tooltip'>
+                                        <span onclick='goTo(<?php echo $row["book_id"] ?>)'>
                                             <span class="svg-icon svg-icon-md svg-icon-primary">
                                                 <!--begin::Svg Icon | path:/metronic/theme/html/demo2/dist/assets/media/svg/icons/General/Trash.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -323,7 +349,7 @@
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                        </a>
+                                                </span>
                                     </td>
                                 </tr>
 
@@ -363,6 +389,35 @@
             </div>        
         </div>
 
+        <script>
 
+
+function goTo(id) {
+       
+ Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+
+    window.location.href="del.php?id="+id;
+    Swal.fire(
+      'Deleted!',
+      'Your book has been deleted.',
+      'success'
+    )
+    
+
+  }
+})
+   
+
+}
+</script>
 </body>
+
 </html>
