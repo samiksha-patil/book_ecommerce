@@ -55,7 +55,7 @@ $user_id= $_SESSION["user_id"];
         $row = $query1->fetch_assoc();
         $date_of_return = $row["date_return"];
         }
-        echo "hello fff";
+       
         // date of request: Timestamp when user enters queue
         // date of grant: When user accepts notif/request
         // date of return: When book is returned
@@ -64,11 +64,11 @@ $user_id= $_SESSION["user_id"];
         $sql2 = "UPDATE queue SET date_granted=NOW(), date_of_return='$date_of_return', status='Currently Renting' WHERE queue_id=$queue_id";   
         
            if(mysqli_query($link, $sql2)) {   
-               echo "tt";   
+            
            $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
            if(mysqli_query($link, $sql1))
            {               
-               $sql2= "UPDATE cart_item INNER JOIN book_for_rent on cart_item.book_id=book_for_rent.book_id SET cart_item.is_ordered=1, cart_item.order_id=LAST_INSERT_ID() WHERE cart_item.user_id=$user_id AND cart_item.is_ordered=0 AND cart_item.book_id NOT IN ( SELECT book_id FROM cart_item WHERE is_ordered=1)";
+               $sql2= "INSERT INTO cart_item(is_ordered,order_id,book_id,user_id) VALUES (1,LAST_INSERT_ID(),'$book_id','$user_id')";
                if(mysqli_query($link, $sql2))
                {
                 $sql3= "UPDATE book_for_rent SET is_available=0 WHERE book_id=$book_id";

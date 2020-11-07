@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <style type="text/css">
-        
-        .page-header h2{
-            margin-top: 0;
-        }
-        table tr td:last-child a{
-            margin-right: 15px;
-        }
-        .books img {
-            height: 200px
-        }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
+        <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/user-books.css">
+    <link rel="stylesheet" href="../static/css/form.css" />
+<link rel="stylesheet" href="../static/css/cart.css" />
+<link rel="stylesheet" href="../static/css/checkout.css" />
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <body>
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Books for rent</h2>
-                    </div>
+<body>
+<div class="container-top">
+    <img class="img-top" src="../static/images/title-img.jpg" alt="Cinque Terre" width="1000" height="300">
+    <div style="font-size:60px;" class="center product-title">My Orders<div class="elementor-divider-separator"></div></div>
+  
+</div>
+       
                     <?php
                     include '../connection.php';
                     session_start();
@@ -40,76 +32,95 @@
                         exit;
                     }
                     $id=$_SESSION["user_id"];
-                    $sql = "SELECT * FROM book NATURAL JOIN book_for_rent INNER JOIN cart_item on cart_item.book_id= book_for_rent.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=1";
-                   
-                    if($result = mysqli_query($link, $sql)){
+            
+                    $sql1= "SELECT * FROM order_item where user_id=$id";
+                    if($result = mysqli_query($link, $sql1)){
                         if(mysqli_num_rows($result) > 0){ ?>
-                        <div class="row books">
-                        <?php while($row = mysqli_fetch_array($result)){ ?>
-                                    <div class="col-sm-3">
-                                    <a href="../books/detail.php/?id=<?php echo $row["book_id"] ?>">
-                                        <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?php echo $row["title"]; ?></h5>
-                                                <p class="card-text">Rs. <?php echo $row["monthly_rate"] ?>/month</p>
-                                               
-                                            </div>
-                                        </div>
-                                        </a>
-                                    </div>
-                                <?php } ?>
-                    </div>
-                    <?php
-                            // Free result set
-                            mysqli_free_result($result);
-                        }
-                        
-                        else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                        
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
-                    ?>
-                </div>
-            </div>        
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-header clearfix">
-                        <h2 class="pull-left">Books for sell</h2>
-                       
-                    </div>
-                    <?php
-                   
-                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=1";
-                    
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){ ?>
-                            <div class="row books">
+                     
                             <?php 
                            
-                            while($row = mysqli_fetch_array($result)){ ?>
-                                        <div class="col-sm-3">
-                                            <div class="card" style="width: 18rem;">
-                                                <img class="card-img-top" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="Card image cap" >
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><?php echo $row["title"]; ?></h5>
-                                                    <p class="card-text">Rs. <?php echo $row["price"] ?></p>
-                                                    
-                                                 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php }                             
-                            
-                                ?>
-                        </div>
+                            while($row1 = mysqli_fetch_array($result)){ 
+                               $order_id= $row1["order_id"];
+                ?> 
+                 <div class="card card-custom ">
                     
-                                    <?php
+<div style="padding:40px 0px;" class="row">
+<div class="column-50">
+
+        
+  <div style="text-align: center;" class="head-sub">Order Summary</div>
+<table style="width:100%; max-width: 800px;">
+      
+<tbody>
+<tr>
+   <th></th>
+   <th>Title</th>
+   <th>Sub Total</th>
+   </tr>
+<?php
+                            $sql= "SELECT * FROM cart_item natural join book_view  where order_id=$order_id";
+                            if($result1 = mysqli_query($link, $sql)){
+                                if(mysqli_num_rows($result1) > 0){ ?>
+                                  
+                                    <?php 
+                           
+                            while($row = mysqli_fetch_array($result1)){
+                                $type = $row["type"];
+                                         ?>
+                                        <tr>
+                                        <td>  <img style="height: 65px; width: auto;" class="img-book" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="" /></td>
+                                          <td><?php echo $row["title"]; ?></td>
+                                          <td>Rs. <?php echo $row["price"] ?></td>
+                                        </tr>  
+                                                
+                                             
+                                    <?php }                             
+                                }
+                            }
+
+
+
+
+                                $sql2= "SELECT * FROM payment where order_id=$order_id";
+                            if($result2 = mysqli_query($link, $sql2)){
+                                if(mysqli_num_rows($result2) > 0){ ?>
+                                  
+                                    <?php 
+                           
+                            while($row2 = mysqli_fetch_array($result2)){ ?>
+                                  
+                                  <tr >
+    <td style=" font-size: 27px;" class="head-sub">Total:</td><td></td> <td style=" font-size: 27px;" class="head-sub">$<?php echo $row2["payment_amount"]; ?></td></div>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+   <div style="margin:auto; padding:30px;" class="column-50">
+   <div >
+   <div style="width:fit-content; padding: 0.6rem 1rem; font-size: 25px;" class="bt-status-avaliable"><?php echo $type ?></div>
+   <div class="order-pay">  Payment mode: <?php echo $row2["mode_of_payment"]; ?></div>
+   <div class="order-pay">  Date: <?php echo $row2["payment_date"] ?></div>
+   <div class="order-pay">  Address: gqiuhsyi fhy8 idH FJG WDGS</div>
+   </div>
+   </div>                             
+                                                 
+                                              
+                                    <?php }                             
+                                }} ?>
+
+
+                                </div>
+
+                                </div>
+                                    
+                                
+
+                                <?php
+                            }
+                               
+              
+                    
+                                   
                                
                            
                                
@@ -129,10 +140,6 @@
                     // Close connection
                     mysqli_close($link);
                     ?>
-                </div>
-            </div>        
-        </div>
-
-
+            
 </body>
 </html>

@@ -9,6 +9,27 @@
     body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
+
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #2778c4;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled.swal2-cancel {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #8f8d9abd !important;
+    color: #fff;
+    font-size: 1.0625em;
+}
+.swal2-styled:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
 </style>
 </head>
 <body>
