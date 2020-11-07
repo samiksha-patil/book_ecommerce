@@ -35,7 +35,7 @@
   display: none;
 }
 
-input[type="radio"]:checked ~ label {
+nav input[type="radio"]:checked ~ label {
   color: #ea524d;
   border-bottom: 1px solid #ea524d;
 }

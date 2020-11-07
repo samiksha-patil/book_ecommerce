@@ -361,18 +361,18 @@ body {
     display: flex;
 }
 
-tr{
+.content tr{
   border:1px solid #ddd;
  
 }
 
-td{
+.content td{
   padding: 10px;
   font-size: 22px;
   font-family:  'Crimson Text',Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-th{
+.content th{
   padding: 12px;
   text-transform: uppercase;
   font-family: "Source Sans Pro";    
@@ -383,7 +383,7 @@ th{
 }
 
 
-.list-badge {
+.content .list-badge {
   padding: 5px 9px;
   border-radius: 50%;
   background: #ea524d;

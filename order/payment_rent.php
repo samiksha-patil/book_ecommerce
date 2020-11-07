@@ -1,25 +1,17 @@
-<?php
+<?php 
+    include "../components/navbar.php";
 
-session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
     exit;
 }
-
-require_once "../connection.php";
-
-?>
-<?php
 
 $book_id = $_GET['id'];
 $payment_success=false;
 $query = $link->query("SELECT * FROM book_for_rent WHERE book_id = $book_id");
     if($query->num_rows == 1){
         $row = $query->fetch_assoc();
-
-       
         $total = $row["monthly_rate"];
-        echo "$total";
     
     }
 
@@ -158,7 +150,7 @@ Swal.fire({
   confirmButtonText: 'Okay'
 }).then((result) => {
   if (result.isConfirmed) {
-    window.location.href="../books/user_books.php";
+    window.location.href="../order/my_orders.php";
   }
 })
 </script>

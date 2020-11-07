@@ -1,14 +1,12 @@
-<?php
+<?php 
+    include "../components/navbar.php";
 
-session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
     exit;
 }
 
-require_once "../connection.php";
 $id= $_SESSION["user_id"];
-echo $id;
 $payment_success=false;
 
 
@@ -84,7 +82,7 @@ Swal.fire({
   confirmButtonText: 'Okay'
 }).then((result) => {
   if (result.isConfirmed) {
-    window.location.href="../books/user_books.php";
+    window.location.href="../order/my_orders.php";
   }
 })
 </script>
