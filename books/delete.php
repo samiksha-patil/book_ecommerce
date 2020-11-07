@@ -49,11 +49,12 @@ Swal.fire({
 }).then((result) => {
   if (result.isConfirmed) {
     window.location.href="del.php?id=<?php echo $_GET['id']; ?>"
-    Swal.fire(
-      'Deleted!',
-      'Your book has been deleted.',
-      'success'
-    )
+    Swal.fire({
+  title: 'Deleted!',
+  text: "Your book has been deleted.",
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})
   }
   else{
     window.location.href="user_books.php"

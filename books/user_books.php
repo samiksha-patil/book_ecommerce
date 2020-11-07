@@ -11,6 +11,7 @@
 
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 
 .swal2-styled.swal2-confirm {
@@ -391,6 +392,17 @@
 
         <script>
 
+// function ajax(url) {
+//   return new Promise(function(resolve, reject) {
+//     var xhr = new XMLHttpRequest();
+//     xhr.onload = function() {
+//       resolve(this.responseText);
+//     };
+//     xhr.onerror = reject;
+//     xhr.open('GET', url);
+//     xhr.send();
+//   });
+// }
 
 function goTo(id) {
        
@@ -404,12 +416,43 @@ function goTo(id) {
 }).then((result) => {
   if (result.isConfirmed) {
 
-    window.location.href="del.php?id="+id;
-    Swal.fire(
-      'Deleted!',
-      'Your book has been deleted.',
-      'success'
-    )
+    // window.location.href="del.php?id="+id;
+    $.ajax(
+        {
+            url: "del.php?id="+id,
+            type: "GET",
+            success: function(result) {
+                console.log(result);
+                Swal.fire(
+                'Deleted!',
+                'Your book has been deleted.',
+                'success'
+                )
+            },
+            error: function (error) {
+                console.log(error);
+                Swal.fire(
+                'There was a problem',
+                'Please try again.',
+                'error'
+                )
+            }
+            
+        })
+    // .then(function(result) {
+    //     // Code depending on result
+    //     console.log(result);
+    //     Swal.fire(
+    //     'Deleted!',
+    //     'Your book has been deleted.',
+    //     'success'
+    //     )
+    // })
+    // .catch(function() {
+    //     // An error occurred
+    //     console.log("hiiiiiiiii")
+    // });
+
     
 
   }
