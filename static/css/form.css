@@ -23,7 +23,13 @@
 }
 
 .reg-bg {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgb(0 0 0 / 0%) 40%, rgb(0 0 0 / 0.7) 100%), url(reg.jpg);
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgb(0 0 0 / 0%) 50%,
+      rgb(34 18 5 / 70%) 100%
+    ),
+    url(reg.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -121,13 +127,14 @@
   width: 18px;
   height: 18px;
 }
-.login-page-new__main-form-row input, .login-page-new__main-form-row textarea {
+.login-page-new__main-form-row input,
+.login-page-new__main-form-row textarea {
   font-weight: 400;
   font-size: 15px;
   line-height: 22px;
   font-family: "Source Sans Pro", sans-serif;
   width: 100%;
-  border: 1px solid #f7f7f7; 
+  border: 1px solid #f7f7f7;
   box-sizing: border-box;
   border-radius: 4px;
   padding: 8px 20px 8px 20px;
@@ -149,7 +156,7 @@
 }
 .cu-form__input:active,
 .cu-form__input:focus {
-  border-color: #ffaea0fc;
+  border-color: #ff7962fc;
 }
 
 .login-page-new__main-form-button {
@@ -164,7 +171,7 @@
 .login-page-new__main-form-button {
   transition: background-color 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
   height: 50px;
-  background: #ffaea0fc;
+  background: #ff7962fc;
   display: flex;
   align-items: center;
   justify-content: center;

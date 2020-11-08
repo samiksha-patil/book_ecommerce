@@ -79,7 +79,8 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
       <div class="nav-title">
         <img
           class="logo"
-          src="https://bridge315.qodeinteractive.com/wp-content/uploads/2020/01/logo-img-01.png"
+          src="/book_ecommerce/static/images/logo.png"
+          height=40px
         />
         <label for="show-menu" class="show-menu" id="menu-icon"
           ><ion-icon name="menu-outline"></ion-icon
@@ -116,7 +117,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
           <a class="nav-link" href="/book_ecommerce/order/my_orders.php">Orders</a>
         </li>
         <li class="mobile-only">
-          <a class="nav-link" href="/book_ecommerce/accounts/logout.php" style="color: #ea524d;">Logout</a>
+          <a class="nav-link" href="/book_ecommerce/accounts/logout.php" style="color: #ff7962fc;">Logout</a>
         </li>
         <?php }  else { ?>
         <li class="mobile-only">

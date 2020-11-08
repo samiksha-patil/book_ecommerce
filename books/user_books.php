@@ -21,7 +21,7 @@
     border: 0;
     border-radius: .25em;
     background: initial;
-    background-color: #ea524d !important;
+    background-color: #ff7962fc !important;
     color: #fff;
     font-size: 1.0625em;
 }

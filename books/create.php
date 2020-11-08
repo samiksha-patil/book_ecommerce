@@ -138,7 +138,7 @@ width:90%;
 .abc{
   padding:15px 15px;
   background:#F7F7F7;
-  border:1px solid #ffaea0fc;
+  border:1px solid #ff7962fc;
   position:relative;
  
   border-radius:2px;

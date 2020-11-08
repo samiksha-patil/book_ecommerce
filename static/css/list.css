@@ -35,9 +35,9 @@
   display: none;
 }
 
-nav input[type="radio"]:checked ~ label {
-  color: #ea524d;
-  border-bottom: 1px solid #ea524d;
+.option input[type="radio"]:checked ~ label {
+  color: #ff7962fc;
+  border-bottom: 1px solid #ff7962fc;
 }
 
 .option {
@@ -148,7 +148,7 @@ nav input[type="radio"]:checked ~ label {
 }
 
 #apply {
-  background-color: #ea524d;
+  background-color: #ff7962fc;
   color: #fff;
   text-transform: uppercase;
   margin-top: 15px;

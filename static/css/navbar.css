@@ -3,7 +3,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif;
 }
 
 .nav-link {
@@ -25,7 +25,7 @@
   /* text-decoration: underline;
   text-decoration-style: initial;
   text-decoration-color: initial; */
-  color: #ea524d;
+  color: #ff7962fc;
 }
 
 .badge {
@@ -34,7 +34,7 @@
   right: 20px;
   padding: 5px 9px;
   border-radius: 50%;
-  background: #ea524d;
+  background: #ff7962fc;
   color: white;
   font-size: 13px;
 }
@@ -42,7 +42,7 @@
 .mobile-badge {
   padding: 5px 9px;
   border-radius: 50%;
-  background: #ea524d;
+  background: #ff7962fc;
   color: white;
   font-size: 13px;
 }
@@ -93,7 +93,7 @@ body {
 
 #notif:hover + .notif {
   display: block;
-  color: #ea524d;
+  color: #ff7962fc;
 }
 
 /* Notifications */

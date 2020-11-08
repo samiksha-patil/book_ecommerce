@@ -4,7 +4,7 @@
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ../welcome.php");
+    header("location: /book_ecommerce/books/");
     exit;
 }
  
@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["email"] = $email;                            
                             
                             // Redirect user to welcome page
-                            header("location: ../welcome.php");
+                            header("location: /book_ecommerce/books/");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";

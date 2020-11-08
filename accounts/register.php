@@ -164,7 +164,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <div class="signup-col-1">
       <div class="reg-bg">
           <div class="image-content">
-              <div class="">Already have an Account? Login</div>
+              <div class="" style="padding: 25px; font-size: 30px; ">Already have an account?<div class="" style="margin-top: 10px">
+                  <a href="login.php" 
+                    class="login-page-new__main-form-button"
+                    
+                  style="
+                    text-decoration: none;
+                    margin-left: 0">Login</a>
+              </div></div>
           </div>
       </div>
  
