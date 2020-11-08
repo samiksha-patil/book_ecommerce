@@ -25,12 +25,19 @@ $state =$_POST['state'];
 $mode = $_POST['mode'];
 
 
-
-
+// $sql2 ="LOCK tables book read";
+// if(mysqli_query($link, $sql2))
+// {
 $sql = "INSERT INTO order_item (user_id,street,zipcode,state) VALUES ('$id','$address','$zip', '$state')";
 
+
 if(mysqli_query($link, $sql))
-{                                 
+{   
+  
+  // $sql4= "UNLOCK TABLES";
+        
+  // if(mysqli_query($link, $sql4))
+  // {
                 
     $sql1 = "INSERT INTO payment(order_id,payment_date,payment_amount,mode_of_payment) VALUES (LAST_INSERT_ID(),NOW(),'$total','$mode')";
     if(mysqli_query($link, $sql1))
@@ -40,11 +47,26 @@ if(mysqli_query($link, $sql))
         
         if(mysqli_query($link, $sql3))
         {
-        $payment_success=true;
+         
+  
+            
+          $payment_success=true;
+          }
         }
     }
     
-  } 
+  //} 
+  // else{
+  //   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+  //   $sql4= "UNLOCK TABLES";
+        
+  // if(mysqli_query($link, $sql4))
+  // {
+  //   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+  // }
+//}
+
+//}
 else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
