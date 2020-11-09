@@ -180,11 +180,23 @@ if(isset($_GET["sort"]) && !empty(trim($_GET["sort"]))){
               alt="" />
               <div class="overlay"></div>
               <div class="button">
-              <?php if($row['type']==="buy") {?>
+              <?php if($row['type']==="buy") {
+                if($row['uploaded_by']==$user_id) {
+                ?>
+              <a class="btn-disable" href="#">Add to Cart</a>
+              <?php 
+                } else {
+                  ?>
               <a href="../order/add_to_cart.php?id=<?php echo $row['book_id']; ?>">Add to Cart</a>
-              <?php } else { ?> 
+              <?php } 
+              }else { 
+                if($row['uploaded_by']==$user_id) {
+                ?> 
+              <a class="btn-disable" href="#">Rent</a>
+              <?php } else { ?>
               <a href="../books/queue.php?id=<?php echo $row['book_id']; ?>">Rent</a>
-              <?php } ?>
+              <?php }
+              } ?>
               </div>
             </div>
             <div onclick='goToDetail(<?php echo $row["book_id"] ?>)'>

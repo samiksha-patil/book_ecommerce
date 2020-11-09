@@ -89,7 +89,7 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
       <input type="checkbox" id="show-menu" role="button" />
       <ul id="menu">
         <li>
-          <a class="nav-link" href="/book_ecommerce/books/list.php">Shop</a>
+          <a class="nav-link" href="/book_ecommerce/books/list.php?q=&sort=newest&category=All">Shop</a>
         </li>
         <?php 
           if($logged_in) {
@@ -198,7 +198,8 @@ $sql ="UPDATE queue set status='Cancelled' WHERE queue_id=$queue_id";
         <li>
           <a class="nav-link" href="/book_ecommerce/accounts/register.php">Register</a>
         </li>
-          <?php } ?>
+          <?php } 
+          ?>
         <li>
           <ion-icon
             name="search"

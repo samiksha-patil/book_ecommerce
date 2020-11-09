@@ -26,7 +26,7 @@ include '../connection.php';
             <div class="title-main">This Month</div><br>
             <div class="elementor-divider-separator-left"></div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipis labore et dolore magna aliqua dolor.</p>
-                <div class="explore-btn"><a href="#">EXPLORE </a></div>
+                <div class="explore-btn"><a href="list.php?q=&sort=newest&category=All">EXPLORE </a></div>
             
             </div>
     </div>
@@ -38,16 +38,16 @@ include '../connection.php';
     <div style="padding: 2%;" class="main-column-50">
         
     <div  class="img-first"><div style="align-items: center;">
-        <div class="head-sub"> Order E Books Online</div>
-        <div style="text-align: center;" class="explore-btn"><a href="#">EXPLORE </a></div>
+        <div class="head-sub"> Buy E Books Online</div>
+        <div style="text-align: center;" class="explore-btn"><a href="list.php">EXPLORE </a></div>
     </div></div>
 
     </div>
     <div style="padding: 2%;" class="main-column-50">
     
     <div class="img-second"><div style="align-items: center;">
-        <div style="font-size:40px;" class="head-sub"> Order E Books Online</div>
-        <div style="text-align: center;" class="explore-btn"><a href="#">EXPLORE </a></div>
+        <div style="font-size:40px;" class="head-sub"> Rent E Books Online</div>
+        <div style="text-align: center;" class="explore-btn"><a href="list.php">EXPLORE </a></div>
     </div>
     </div>
 </div>

@@ -11,6 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){    
     $param_id = trim($_GET["id"]);
+    $book_id = trim($_GET["id"]);
     $type="";
     $available=true;
     $query = $link->query("SELECT * FROM book_view WHERE book_id = $param_id");
@@ -197,20 +198,23 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
       <div class="content">
         <?php 
                 if($query->num_rows > 0){ 
-                    while($queue_row = mysqli_fetch_array($query)){
                       ?>
                       <table style="width:100%; max-width: 800px;">      
                         <tbody>
                           <tr>
                             <th>Rented by</th> <th>Status</th>
                           </tr>
+                    <?php while($queue_row = mysqli_fetch_array($query)){ ?>
                           <tr>
                             <td><?php echo $queue_row["first_name"]." ".$queue_row["last_name"]; ?></td> <td><?php echo $queue_row["status"] ?></td>
                           </tr>
-                        </tbody>
-                      </table>
                         <?php
                     }
+                    ?>
+                    
+                        </tbody>
+                      </table>
+                      <?php
                 }
         ?>
       </div>
@@ -239,9 +243,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         <div class="overlay"></div>
         <div class="button">
         <?php if($row['type']==="buy") {?>
-        <a href="../order/add_to_cart.php?id=<?php echo $row['book_id']; ?>">Add to Cart</a>
+        <a href="../../order/add_to_cart.php?id=<?php echo $row['book_id']; ?>">Add to Cart</a>
         <?php } else { ?> 
-        <a href="../books/queue.php?id=<?php echo $row['book_id']; ?>">Rent</a>
+        <a href="../queue.php?id=<?php echo $row['book_id']; ?>">Rent</a>
         <?php } ?>
         </div>
         </div>

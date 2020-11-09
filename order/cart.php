@@ -39,7 +39,7 @@ $id=$_SESSION["user_id"];
     
                     <?php
                    
-                    $sql = "SELECT * FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
+                    $sql = "SELECT case when discount_price<>null or discount_price<>0 then discount_price else price end as price, cover_image, title, book.book_id, category FROM book NATURAL JOIN book_for_sale INNER JOIN cart_item on cart_item.book_id= book_for_sale.book_id WHERE cart_item.user_id=$id AND cart_item.is_ordered=0";
                     
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){ ?>
@@ -103,7 +103,7 @@ $id=$_SESSION["user_id"];
                                 <td <?php if($sold){?>
                      style='opacity: 0.4;'
                  <?php   } ?>>
-                                Rs. <?php echo $row["price"] ?>
+                                $ <?php echo $row["price"] ?>
                                 </td>
                                 
                                 <td>

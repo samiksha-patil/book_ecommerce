@@ -34,7 +34,7 @@
                     }
                     $id=$_SESSION["user_id"];
             
-                    $sql1= "SELECT * FROM order_item where user_id=$id";
+                    $sql1= "SELECT * FROM order_item where user_id=$id ORDER BY order_id DESC";
                     if($result = mysqli_query($link, $sql1)){
                         if(mysqli_num_rows($result) > 0){ ?>
                      
@@ -47,7 +47,7 @@
                     
 <div style="padding:40px 0px;" class="row">
 <div class="column-50">
-<div class="head-sub" ># Order ID : 1000<?php echo $row1["order_id"]; ?></div>
+<div class="head-sub" >Order #000<?php echo $row1["order_id"]; ?></div>
         
 
 <table style="width:100%; max-width: 800px;">
@@ -71,7 +71,7 @@
                                         <tr>
                                         <td>  <img style="height: 65px; width: auto;" class="img-book" src="../uploads/<?php echo $row["cover_image"]; ?>" alt="" /></td>
                                           <td><?php echo $row["title"]; ?></td>
-                                          <td>Rs. <?php echo $row["price"] ?></td>
+                                          <td>$ <?php echo $row["price"] ?></td>
                                         </tr>  
                                                 
                                              
@@ -100,7 +100,7 @@
    <div >
    <div style="width:fit-content; padding: 0.6rem 1rem; font-size: 25px;" class="bt-status-avaliable"><?php echo $type ?></div>
    <div class="order-pay">  Payment mode: <?php echo $row2["mode_of_payment"]; ?></div>
-   <div class="order-pay">  Date: <?php echo $row2["payment_date"] ?></div>
+   <div class="order-pay">  Timestamp: <?php echo $row2["payment_date"] ?></div>
    <div class="order-pay">  Address: <?php echo $row1["street"] ?></div>
    </div>
    </div>                             

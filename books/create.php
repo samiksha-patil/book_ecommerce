@@ -6,11 +6,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-require_once "../connection.php";
-
 $title_err = $type_err=$price_err=$rate_err="";
 $type =$title="";
-
+$uploaded=false;
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 
@@ -67,7 +65,7 @@ $author = $_POST['author'];
 $language =$_POST['language'];
 $pages = $_POST['pages'];
 $rate = $_POST['rate'];
-$discount_price = $_POST['discount_price'];
+// $discount_price = $_POST['discount_price'];
 $price =$_POST['price'];
 
 
@@ -84,8 +82,9 @@ if(mysqli_query($link, $sql))
     $sql1 = "INSERT INTO book_for_sale (book_id, price) VALUES (LAST_INSERT_ID(),'$price')";
     if(mysqli_query($link, $sql1))
     {
-    echo "Book added successfully.";
-    header("location: user_books.php");
+    // echo "Book added successfully.";
+    // header("location: user_books.php");
+        $uploaded=true;
     }
     } 
     if($type=="rent")
@@ -93,8 +92,9 @@ if(mysqli_query($link, $sql))
     $sql1 = "INSERT INTO book_for_rent (book_id,monthly_rate) VALUES (LAST_INSERT_ID(),'$rate')";
     if(mysqli_query($link, $sql1))
     {
-    echo "Book added successfully.";
-    header("location: user_books.php");
+    // echo "Book added successfully.";
+    // header("location: user_books.php");
+        $uploaded=true;
     } 
 }}
 else{
@@ -140,11 +140,11 @@ width:90%;
   background:#F7F7F7;
   border:1px solid #ff7962fc;
   position:relative;
- 
   border-radius:2px;
   text-align:center;
-  float:left;
-  cursor:pointer
+  cursor:pointer;
+  width: fit-content;
+  margin: auto;
 }
 </style>
 </head>
@@ -281,6 +281,13 @@ document.getElementById('for_rent').style.display = 'none';
         }
 </script>
 <script>
+    <?php 
+    if($uploaded==true) {
+        ?>
+            window.location.href="user_books.php";
+        <?php
+    }
+    ?>
 $(document).ready(function() {
         $("#fileUpload").on('change', function() {
           //Get count of selected files

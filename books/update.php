@@ -4,6 +4,7 @@ include "../components/navbar.php";
 
 $title_err = $type_err=$price_err=$rate_err="";
 $type="";
+$updated=false;
 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../accounts/login.php");
@@ -86,24 +87,23 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"])) && ($_SERVER["REQUEST_METHO
             $query = $link->query($sql);
         }
         if($type=="sale") {
-            echo $sql;
             $discount_price = $_POST['discount_price'];
             $price =$_POST['price'];
             $sql1 = "UPDATE book_for_sale SET price=$price, discount_price=$discount_price WHERE book_id=$param_id";
             if(mysqli_query($link, $sql1))
-                echo "Records added successfully.";
+                $updated=true;
         } 
         if($type=="rent") {
             $rate = $_POST['rate'];
             $sql1 = "UPDATE book_for_rent SET monthly_rate=$rate WHERE book_id=$param_id";
             if(mysqli_query($link, $sql1))
-                echo "Book added successfully.";
+                $updated=true;
         }
         else {
-            header("location: ../error.php");
+            // header("location: ../error.php");
         }
-        header("location: user_books.php");
-        $query -> free_result();
+        // header("location: user_books.php");
+        // $query -> free_result();
     }
     else {
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
@@ -147,11 +147,11 @@ width:90%;
   background:#F7F7F7;
   border:1px solid #ff7962fc;
   position:relative;
- 
   border-radius:2px;
   text-align:center;
-  float:left;
-  cursor:pointer
+  cursor:pointer;
+  width: fit-content;
+  margin: auto;
 }
 </style>
 </head>
@@ -258,6 +258,13 @@ width:90%;
 </body>
 </html>
 <script>
+    <?php 
+    if($updated==true) {
+        ?>
+            window.location.href="user_books.php";
+        <?php
+    }
+    ?>
 $(document).ready(function() {
         $("#fileUpload").on('change', function() {
           //Get count of selected files

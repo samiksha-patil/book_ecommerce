@@ -43,7 +43,7 @@
 <body>
 <div class="container-top">
     <img class="img-top" src="../static/images/title-img.jpg" alt="Cinque Terre" width="1000" height="300">
-    <div style="font-size:60px;" class="center product-title">Dashboard<div class="elementor-divider-separator"></div></div>
+    <div style="font-size:60px;" class="center product-title">My Books<div class="elementor-divider-separator"></div></div>
   
 </div>
 <div style="float:right; margin:30px 30px 0px 0px;" class="explore-btn"><a href="create.php">ADD A BOOK</a></div> 
@@ -81,7 +81,7 @@
                         <th style="min-width: 150px">Category</th>
                         <th style="min-width: 150px">Status</th>
                         <th style="min-width: 150px; max-width:150px;">No. of  Times Rented</th>
-                        <th class="pr-0 text-right" style="min-width: 150px">action</th>
+                        <th class="pr-0 text-right" style="min-width: 150px">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -256,7 +256,7 @@
                         
                         <th style="min-width: 150px">Category</th>
                         <th style="min-width: 150px">Status</th>
-                        <th class="pr-0 text-right" style="min-width: 150px">action</th>
+                        <th class="pr-0 text-right" style="min-width: 150px">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
