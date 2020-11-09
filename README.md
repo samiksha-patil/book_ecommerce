@@ -25,7 +25,7 @@
 
 ## About the Project
 <p align="center">
-<img style="margin:1em" src="https://github.com/samiksha-patil/book_ecommerce/blob/master/static/images/readme-gif.gif" height="100%"/>
+<img style="margin:1em" src="https://github.com/samiksha-patil/book_ecommerce/blob/master/static/images/readme-gif.gif" max-width="90vw" height="100%"/>
 </p>
 <!--
 ### Pages
@@ -58,3 +58,4 @@ Tells users how much time is left for an auction to start or end.
 ### Built On
 * [Visual Studio Code](https://code.visualstudio.com/) - Code Editor
 * [Redis](https://redis.io/) - Server to run Channels-->
+;
