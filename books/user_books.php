@@ -92,7 +92,7 @@
 
 
 
-                                    <tr>
+                                    <tr id="book_<?php echo $row['book_id'] ?>">
                         
                                     <td class="pr-0">
                                         <div class="symbol symbol-50 symbol-light mt-1">
@@ -263,7 +263,7 @@
                     <?php
                                 while($row = mysqli_fetch_array($result)){
                     ?>
-                                    <tr>
+                                    <tr id="book_<?php echo $row['book_id'] ?>">
                         
                                     <td class="pr-0">
                                         <div class="symbol symbol-50 symbol-light mt-1">
@@ -423,6 +423,7 @@ function goTo(id) {
             url: "del.php?id="+id,
             type: "GET",
             success: function(result) {
+                $("#book_"+id).css("display", "none");
                 console.log(result);
                 Swal.fire(
                 'Deleted!',
