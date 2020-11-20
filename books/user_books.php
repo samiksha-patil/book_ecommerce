@@ -95,7 +95,7 @@
                                     <tr>
                         
                                     <td class="pr-0">
-                                        <div class="symbol symbol-50 symbol-light mt-1">
+                                        <div style="overflow: hidden;" class="symbol symbol-50 symbol-light mt-1">
                                             <span class="symbol-label">
                                                 <img src="../uploads/<?php echo $row["cover_image"]; ?>" class="h-75 align-self-end" alt="">
                                             </span>
@@ -266,7 +266,7 @@
                                     <tr>
                         
                                     <td class="pr-0">
-                                        <div class="symbol symbol-50 symbol-light mt-1">
+                                        <div style="overflow: hidden;" class="symbol symbol-50 symbol-light mt-1">
                                             <span class="symbol-label">
                                                 <img src="../uploads/<?php echo $row["cover_image"]; ?>" class="h-75 align-self-end" alt="">
                                             </span>
