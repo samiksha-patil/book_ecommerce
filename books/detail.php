@@ -83,7 +83,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   <div style="text-align: center" class="column-50">
     <img class="img-book" src="../../uploads/<?php echo $row["cover_image"]; ?>" alt="" />
   </div>
-  <div class="column-50">
+  <div style="padding-left: 30px;" class="column-50">
     <div class="title-row">
       <div class="product-title"><?php echo $row["title"]; ?></div>
       <div class="price" style="font-size: 20px; line-height: 40px"><span class="amount"><?php 
