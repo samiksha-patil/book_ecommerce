@@ -9,7 +9,6 @@ include '../connection.php';
 ?>
 <link rel="stylesheet" href="../static/css/main.css">
 <link rel="stylesheet" href="../static/css/styles.css">
-<link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
@@ -122,8 +121,5 @@ include '../connection.php';
   </div>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
-   AOS.init({
-  duration: 900,
-})
 </script>
 </body>

@@ -393,18 +393,6 @@
 
         <script>
 
-// function ajax(url) {
-//   return new Promise(function(resolve, reject) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.onload = function() {
-//       resolve(this.responseText);
-//     };
-//     xhr.onerror = reject;
-//     xhr.open('GET', url);
-//     xhr.send();
-//   });
-// }
-
 function goTo(id) {
        
  Swal.fire({
@@ -441,26 +429,31 @@ function goTo(id) {
             }
             
         })
-    // .then(function(result) {
-    //     // Code depending on result
-    //     console.log(result);
-    //     Swal.fire(
-    //     'Deleted!',
-    //     'Your book has been deleted.',
-    //     'success'
-    //     )
-    // })
-    // .catch(function() {
-    //     // An error occurred
-    //     console.log("hiiiiiiiii")
-    // });
-
-    
 
   }
 })
    
 
+}
+
+var modal = document.getElementById("myModal");
+
+var btn = document.getElementById("myBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 </script>
 </body>
