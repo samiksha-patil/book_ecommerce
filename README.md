@@ -16,6 +16,7 @@
   </p>
 </p>
 
+## About the Project
 <p align="center">
 <img style="margin:1em" src="https://github.com/samiksha-patil/book_ecommerce/blob/master/demo.gif" width="500px" height="100%" />
 </p>
