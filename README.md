@@ -16,13 +16,21 @@
   </p>
 </p>
 
-## About the Project
 <p align="center">
 <img style="margin:1em" src="https://github.com/samiksha-patil/book_ecommerce/blob/master/demo.gif" width="500px" height="100%" />
 </p>
 <p>
-We built this project as a mini-project for Web Technology and DBMS Lab, Sem 5. We wanted to build a well managed, centralised web application for buying, selling and renting the books. 
+We built this website as a mini-project for Web Technology and DBMS Lab, Sem 5. We wanted to build a well managed, centralised web application for buying, selling and renting the books. 
 </p>
+
+## Features
+
+- **Buy & sell books**
+  Users can order books and sell their books. They can also keep track of their inventory, order history and cart.
+  
+- **Rent books**
+  Users can also rent books. The renting system also includes automated waiting list queuing sytem and notification alerts.
+
 
 ## Technology Stack
 
@@ -36,15 +44,6 @@ We built this project as a mini-project for Web Technology and DBMS Lab, Sem 5. 
 - AJAX
 - jQuery
 - Javascript
-
-### Features
-
-- **Buy & sell books**
-  Users can order books and sell their books. They can also keep track of their inventory, order history and cart.
-  
-- **Rent books**
-  Users can also rent books. The renting system also includes automated waiting list queuing sytem and notification alerts.
-
 
 ## Build Instructions
 
