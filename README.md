@@ -24,7 +24,7 @@
 We built this website as a mini-project for Web Technology and DBMS Lab, Sem 5. We wanted to build a well managed, centralised web application for buying, selling and renting the books. 
 </p>
 
-## Features
+### Features
 
 - **Buy & sell books**
   Users can order books and sell their books. They can also keep track of their inventory, order history and cart.
